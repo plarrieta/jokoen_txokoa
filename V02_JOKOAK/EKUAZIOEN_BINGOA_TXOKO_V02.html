@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ekuazioen Bingoa · Retro V03</title>
+  <style>
+    *{box-sizing:border-box}
+    :root{
+      --cyan:#35d7ff;
+      --cyan2:#9eeeff;
+      --pink:#ff3d86;
+      --yellow:#ffd23c;
+      --green:#22d37a;
+      --red:#ff4e64;
+      --panel:rgba(4,12,36,.84);
+      --panel2:rgba(7,18,49,.92);
+      --bg1:#08122c;
+      --bg2:#030814;
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      color:white;
+      background:radial-gradient(circle at 50% 18%, #20336f 0%, #07142f 45%, #02040c 100%);
+      overflow:auto;
+    }
+    body:before{
+      content:"";
+      position:fixed; inset:0;
+      background-image:
+        radial-gradient(circle,rgba(255,255,255,.78) 1px,transparent 1px),
+        radial-gradient(circle,rgba(90,194,255,.55) 1px,transparent 1px);
+      background-size:90px 90px,145px 145px;
+      opacity:.28;
+      pointer-events:none;
+    }
+    .app{
+      position:relative;
+      min-height:100vh;
+      padding:14px;
+      display:grid;
+      grid-template-columns:260px 1fr;
+      grid-template-rows:78px auto auto auto auto;
+      gap:12px;
+    }
+    .header{
+      grid-column:1 / 3;
+      border:2px solid var(--cyan);
+      border-radius:26px;
+      background:rgba(4,12,36,.84);
+      box-shadow:0 0 24px rgba(53,215,255,.32), inset 0 0 20px rgba(53,215,255,.08);
+      display:flex; align-items:center; justify-content:center;
+      position:relative;
+      padding:10px 20px;
+    }
+    .titleBlock{text-align:center}
+    h1{margin:0;font-size:34px;letter-spacing:1px;font-weight:900;text-shadow:0 0 14px var(--cyan)}
+    .subtitle{margin-top:3px;color:var(--cyan2);font-size:15px;font-weight:700}
+    .topButtons{position:absolute;right:16px;display:flex;gap:8px}
+    .shellBtn, button, .fileLabel{
+      border:none;
+      border-radius:12px;
+      color:white;
+      font-weight:900;
+      cursor:pointer;
+      padding:11px 14px;
+      font-size:15px;
+      background:linear-gradient(135deg,#0fb7ff,#7c3cff);
+      box-shadow:0 0 14px rgba(53,215,255,.28);
+      text-decoration:none;
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:6px;
+    }
+    button:hover,.fileLabel:hover,.shellBtn:hover{transform:scale(1.02)}
+    .small{font-size:13px;padding:8px 11px;border-radius:10px}
+    .green{background:linear-gradient(135deg,#1cbf72,#0a8f53)}
+    .red{background:linear-gradient(135deg,#ff4b65,#9e1d33)}
+    .yellow{background:linear-gradient(135deg,#ffc83d,#ff8a00);color:#1b1200}
+    .secondary{background:linear-gradient(135deg,#333a5f,#17235a)}
+    .leftPanel, .equationPanel, .boardPanel, .historyPanel{
+      border:2px solid rgba(53,215,255,.65);
+      border-radius:22px;
+      background:var(--panel);
+      box-shadow:inset 0 0 16px rgba(53,215,255,.08), 0 0 12px rgba(53,215,255,.12);
+    }
+    .leftPanel{
+      grid-row:2 / 5;
+      padding:12px;
+      display:flex; flex-direction:column; gap:10px;
+      min-height:0;
+    }
+    .leftSection{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.18);
+      border-radius:16px;
+      padding:12px;
+    }
+    .leftSection h3{
+      margin:0 0 10px 0;
+      color:var(--cyan2);
+      text-align:center;
+      font-size:18px;
+      font-weight:900;
+    }
+    .hint{font-size:12px;line-height:1.25;color:var(--cyan2)}
+    .fileLabel{width:100%;background:linear-gradient(135deg,#2f83ff,#7c3cff);font-size:14px;padding:10px 12px}
+    input[type=file]{display:none}
+    .status{font-size:12px;color:#b8f5c6;line-height:1.3;margin-top:8px;min-height:30px}
+    .controlButtons{display:flex;flex-direction:column;gap:8px}
+    .controlButtons button{width:100%;min-height:48px;font-size:16px}
+    .equationPanel{
+      grid-column:2;
+      padding:14px;
+      display:grid;
+      grid-template-columns:1fr 240px;
+      gap:12px;
+      align-items:stretch;
+    }
+    .equationBox,.solutionBox{
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:16px;
+      background:rgba(0,0,0,.22);
+      min-height:110px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:18px;
+      position:relative;
+    }
+    .boxLabel{
+      position:absolute;
+      top:10px; left:16px;
+      font-size:13px;
+      color:var(--cyan2);
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+    }
+    #equation{font-size:48px;font-weight:900;line-height:1.12;text-shadow:0 0 12px rgba(53,215,255,.22)}
+    #solution{font-size:42px;font-weight:900;color:var(--yellow);text-shadow:0 0 12px rgba(255,210,60,.25)}
+    .counterWrap{
+      grid-column:2;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+      color:var(--cyan2);
+      font-weight:800;
+      margin-top:-2px;
+      padding:2px 6px 0 6px;
+      min-height:30px;
+    }
+    .boardPanel{grid-column:2;padding:14px}
+    .boardTitle,.historyTitle{margin:0 0 10px 0;text-align:center;color:var(--cyan2);font-size:22px;font-weight:900}
+    .solutionsGrid{
+      display:grid;
+      grid-template-columns:repeat(10,minmax(58px,1fr));
+      gap:8px;
+    }
+    .solutionCell{
+      border:2px solid rgba(255,255,255,.26);
+      border-radius:12px;
+      min-height:42px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:900;
+      background:rgba(255,255,255,.08);
+      box-shadow:inset 0 0 8px rgba(255,255,255,.05);
+    }
+    .solutionCell.used{
+      background:linear-gradient(135deg,#24d97b,#0c8e52);
+      color:white;
+      border-color:rgba(255,255,255,.65);
+      text-decoration:line-through;
+      box-shadow:0 0 14px rgba(34,211,122,.4);
+    }
+    .historyPanel{grid-column:2;padding:14px 14px 16px 14px;margin-top:0}
+    #history{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+    .historyItem{
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:10px;
+      padding:8px 10px;
+      font-size:14px;
+      line-height:1.25;
+    }
+    .historyItem strong{color:var(--cyan2)}
+    .teacherNote{
+      margin-top:auto;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px;
+      color:var(--cyan2);
+      font-size:12px;
+      line-height:1.25;
+    }
+    .resultsLegend{font-size:12px;color:var(--cyan2);text-align:center;margin-top:8px}
+    @media (max-width:1200px){
+      #equation{font-size:40px}
+      #solution{font-size:34px}
+      .solutionsGrid{grid-template-columns:repeat(10,minmax(48px,1fr))}
+    }
+    @media (max-width:980px){
+      .app{grid-template-columns:1fr;grid-template-rows:auto auto auto auto auto}
+      .header,.leftPanel,.equationPanel,.counterWrap,.boardPanel,.historyPanel{grid-column:1;grid-row:auto}
+      .leftPanel{grid-row:auto}
+      .equationPanel{grid-template-columns:1fr}
+      .topButtons{position:static;margin-left:12px}
+      .header{gap:12px;flex-wrap:wrap}
+      .solutionsGrid{grid-template-columns:repeat(5,minmax(56px,1fr))}
+    }
+
+/* V03.3 — Vista de aula sin scroll al 100 % */
+@media (min-width: 981px) {
+ html,body {height:100%;overflow:hidden}
+ .app{
+   height:100vh;height:100dvh; min-height:0; overflow:hidden;
+   padding:8px; gap:8px;
+   grid-template-columns:238px minmax(0,1fr);
+   grid-template-rows:62px 128px 26px minmax(0,1fr) 88px;
+ }
+ .header{grid-column:1 / 3;grid-row:1;padding:3px 12px;border-radius:17px}
+ h1{font-size:27px;line-height:1.05}
+ .subtitle{font-size:12px;margin-top:2px}
+ .topButtons{right:10px;gap:5px}
+ .topButtons button{font-size:11px;padding:7px 8px}
+ .leftPanel{grid-column:1;grid-row:2 / 6;min-height:0;overflow:hidden;padding:7px;gap:6px;border-radius:16px;align-self:stretch}
+ .leftSection{padding:8px;border-radius:12px}
+ .leftSection h3{font-size:15px;margin-bottom:7px}
+ .fileLabel{padding:7px 8px;font-size:11px}
+ .hint,.status{font-size:10px;line-height:1.15}
+ .status{min-height:0;margin-top:5px;overflow-wrap:anywhere}
+ .controlButtons{gap:6px}
+ .controlButtons button{min-height:39px;font-size:13px;padding:6px 7px;border-radius:10px}
+ .teacherNote{font-size:10px;line-height:1.16;padding:8px;margin-top:auto}
+ .equationPanel{grid-column:2;grid-row:2;min-height:0;padding:8px;gap:8px;grid-template-columns:minmax(0,1fr) 205px;border-radius:16px}
+ .equationBox,.solutionBox{min-height:0;padding:24px 10px 8px;border-radius:12px}
+ .boxLabel{top:7px;left:11px;font-size:11px}
+ #equation{font-size:clamp(25px,3.1vw,45px);overflow-wrap:anywhere}
+ #solution{font-size:clamp(25px,2.7vw,39px)}
+ .counterWrap{grid-column:2;grid-row:3;min-height:0;padding:0 4px;font-size:13px;margin:0}
+ .boardPanel{grid-column:2;grid-row:4;min-height:0;overflow:hidden;padding:8px;border-radius:16px;display:flex;flex-direction:column;justify-content:center}
+ .boardTitle{font-size:18px;margin:0 0 8px}
+ .solutionsGrid{grid-template-columns:repeat(10,minmax(0,1fr));gap:5px;grid-template-rows:repeat(5,minmax(0,1fr));flex:1;min-height:0}
+ .solutionCell{min-height:0;font-size:clamp(13px,1.4vw,19px);border-radius:8px}
+ .resultsLegend{font-size:10px;margin-top:5px}
+ .historyPanel{grid-column:2;grid-row:5;min-height:0;overflow:hidden;padding:7px 10px;border-radius:14px}
+ .historyTitle{font-size:14px;margin:0 0 5px}
+ #history{display:flex;gap:6px;overflow:auto;max-height:49px;align-items:flex-start;flex-wrap:wrap}
+ .historyItem{font-size:11px;padding:5px 7px;min-width:130px}
+}
+@media (min-width:981px) and (max-height:680px) {
+ .app{grid-template-rows:52px 108px 24px minmax(0,1fr) 64px;gap:6px;padding:6px}
+ h1{font-size:23px}
+ .subtitle{font-size:10px}
+ .leftSection{padding:6px}
+ .controlButtons{gap:4px}
+ .controlButtons button{min-height:34px;font-size:12px;padding:4px}
+ .leftPanel{gap:4px}
+ .teacherNote{display:none}
+ .boardTitle{margin-bottom:5px;font-size:16px}
+ .historyTitle{font-size:12px;margin-bottom:3px}
+ #history{max-height:34px}
+}
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="titleBlock">
+        <h1>EKUAZIOEN BINGOA</h1>
+        <div class="subtitle">Ebatzi ekuazioa eta markatu emaitza zure bingo-kartoian.</div>
+      </div>
+      <div class="topButtons">
+        <button class="small secondary" onclick="openInNewWindow()">↗ Leiho berrian ireki</button>
+        <button class="small secondary" onclick="resetDrawOnly()">↺ Berrabiarazi</button>
+      </div>
+    </header>
+
+    <aside class="leftPanel">
+      <section class="leftSection">
+        <h3>BILDUMAK</h3>
+        <label class="fileLabel" for="csvFile">📁 CSV EKUAZIOAK KARGATU</label>
+        <input id="csvFile" type="file" accept=".csv,text/csv" />
+        <div class="hint">Kargatu bi zutabeko CSV bat: <b>EKUAZIOA</b> eta <b>EMAITZA</b>.</div>
+        <div id="csvStatus" class="status">Barneko bilduma erabiltzen ari zara.</div>
+      </section>
+
+      <section class="leftSection">
+        <h3>KONTROLAK</h3>
+        <div class="controlButtons">
+          <button onclick="draw()">🎲 Atera ekuazioa</button>
+          <button class="secondary" onclick="showSolution()">👁 Erakutsi soluzioa</button>
+          <button class="red" onclick="resetDrawOnly()">↺ Berrabiarazi zozketa</button>
+          <button class="yellow" onclick="newCollection()">✨ Bilduma berria</button>
+          <button class="green" onclick="downloadCardsInfo()">🖨 Kartoien oharra</button>
+        </div>
+      </section>
+
+      <section class="leftSection">
+        <h3>LABURPENA</h3>
+        <div class="hint">
+          <b>Bilduma:</b> <span id="collectionType">Barnekoa</span><br>
+          <b>Guztira:</b> <span id="totalCount">50</span> ekuazio<br>
+          <b>Erabilita:</b> <span id="usedCount">0</span><br>
+          <b>Geratzen dira:</b> <span id="remainingCount">50</span>
+        </div>
+      </section>
+
+      <div class="teacherNote">
+        <b>IRAKASLEAREN OHARRA</b><br>
+        Kargatutako CSVko emaitzek bingo-kartoiekin bateragarriak izan behar dute. Oraingoz, gomendagarria da emaitzak -25 eta 25 artean izatea, 0 kenduta.
+      </div>
+    </aside>
+
+    <section class="equationPanel">
+      <div class="equationBox">
+        <div class="boxLabel">EKUAZIOA</div>
+        <div id="equation">Prest!</div>
+      </div>
+      <div class="solutionBox">
+        <div class="boxLabel">SOLUZIOA</div>
+        <div id="solution">?</div>
+      </div>
+    </section>
+
+    <div class="counterWrap">
+      <div id="counter">0 / 50 ekuazio erabilita</div>
+      <div id="currentInfo">Prest jokatzeko</div>
+    </div>
+
+    <section class="boardPanel">
+      <h2 class="boardTitle">ATERA DIREN EMAITZAK</h2>
+      <div id="solutionsGrid" class="solutionsGrid"></div>
+      <div class="resultsLegend">Berdez agertzen diren emaitzak dagoeneko atera dira.</div>
+    </section>
+
+    <section class="historyPanel">
+      <h2 class="historyTitle">HISTORIALA</h2>
+      <div id="history"></div>
+    </section>
+  </div>
+
+  <script>
+    const defaultEquations=[
+      ["3x+40=x-10",-25],["2(x+6)=x-12",-24],["5x-4=2x-73",-23],["4(x+3)=2x-32",-22],["7x+10=3x-74",-21],
+      ["2(x-5)=x-30",-20],["6x+7=4x-31",-19],["5(x+2)=3x-26",-18],["4x-9=2x-43",-17],["3(x+8)=x-8",-16],
+      ["6x+5=2x-55",-15],["5(x-2)=3x-38",-14],["4x+11=x-28",-13],["7x-6=5x-30",-12],["2(x+9)=x+7",-11],
+      ["5x+20=2x-10",-10],["3(x-4)=x-30",-9],["6x+2=4x-14",-8],["5(x+1)=3x-9",-7],["4x-7=2x-19",-6],
+      ["3(x+2)=x-4",-5],["7x+12=3x-4",-4],["5(x-1)=2x-14",-3],["4x+6=2x+2",-2],["3(x+5)=2x+14",-1],
+      ["4x-7=2x-5",1],["5(x-1)=3x-1",2],["6x+4=4x+10",3],["3(x+2)=x+14",4],["7x-9=5x+1",5],
+      ["4(x-3)=2x",6],["5x+8=3x+22",7],["6(x+1)=4x+22",8],["3x-5=x+13",9],["7x+2=5x+22",10],
+      ["4(x-2)=2x+14",11],["5x-6=3x+18",12],["6(x+2)=4x+38",13],["3x+7=x+35",14],["8x-4=6x+26",15],
+      ["5(x-3)=3x+17",16],["4x+9=2x+43",17],["7(x-1)=5x+29",18],["6x-8=4x+30",19],["3(x+4)=x+52",20],
+      ["5x+11=3x+53",21],["4(x-5)=2x+24",22],["6x+3=4x+49",23],["7(x+2)=5x+62",24],["5x-10=3x+40",25]
+    ];
+
+    let baseEquations=[...defaultEquations];
+    let remaining=[...baseEquations];
+    let used=[];
+    let current=null;
+    let usedSolutions=new Set();
+    let usingCustomCSV=false;
+
+    function draw(){
+      if(remaining.length===0){
+        document.getElementById('equation').innerText='Ekuazio guztiak atera dira';
+        document.getElementById('solution').innerText='—';
+        document.getElementById('currentInfo').innerText='Bilduma amaituta';
+        return;
+      }
+      const i=Math.floor(Math.random()*remaining.length);
+      current=remaining.splice(i,1)[0];
+      used.push(current);
+      document.getElementById('equation').innerText=current[0];
+      document.getElementById('solution').innerText='?';
+      document.getElementById('currentInfo').innerText='Ekuazio berria prest';
+      updateCounter();
+      updateHistory();
+      updateSummary();
+    }
+
+    function showSolution(){
+      if(!current) return;
+      document.getElementById('solution').innerText='x = '+current[1];
+      usedSolutions.add(Number(current[1]));
+      document.getElementById('currentInfo').innerText='Soluzioa erakutsita';
+      updateSolutionsGrid();
+      updateHistory();
+    }
+
+    function makeEquationForSolution(s){
+      let a,c,b,d;
+      do{a=Math.floor(Math.random()*7)+2;c=Math.floor(Math.random()*7)+1}while(a===c);
+      b=Math.floor(Math.random()*21)-10;
+      d=a*(s+b)-c*s;
+      const left=b>=0?`${a}(x+${b})`:`${a}(x-${Math.abs(b)})`;
+      const right=d>=0?`${c}x+${d}`:`${c}x-${Math.abs(d)}`;
+      return [left+'='+right,s];
+    }
+
+    function newCollection(){
+      baseEquations=[];
+      for(let n=-25;n<=25;n++) if(n!==0) baseEquations.push(makeEquationForSolution(n));
+      usingCustomCSV=false;
+      document.getElementById('csvStatus').innerHTML='Bilduma berri automatikoa sortu da.';
+      document.getElementById('collectionType').textContent='Automatikoa';
+      resetDrawOnly();
+    }
+
+    function resetDrawOnly(){
+      remaining=[...baseEquations];
+      used=[];
+      current=null;
+      usedSolutions.clear();
+      document.getElementById('equation').innerText='Prest!';
+      document.getElementById('solution').innerText='?';
+      document.getElementById('currentInfo').innerText='Prest jokatzeko';
+      updateCounter();
+      updateHistory();
+      updateSolutionsGrid();
+      updateSummary();
+    }
+
+    function updateCounter(){
+      document.getElementById('counter').innerText=used.length+' / '+baseEquations.length+' ekuazio erabilita';
+    }
+
+    function updateSummary(){
+      document.getElementById('totalCount').textContent=baseEquations.length;
+      document.getElementById('usedCount').textContent=used.length;
+      document.getElementById('remainingCount').textContent=remaining.length;
+    }
+
+    function updateHistory(){
+      const h=document.getElementById('history');
+      h.innerHTML='';
+      used.forEach((item,index)=>{
+        const d=document.createElement('div');
+        d.className='historyItem';
+        const shown = usedSolutions.has(Number(item[1])) ? ` <strong>→ x = ${item[1]}</strong>` : '';
+        d.innerHTML=`${index+1}. ${item[0]}${shown}`;
+        h.appendChild(d);
+      });
+    }
+
+    function createSolutionsGrid(){
+      const g=document.getElementById('solutionsGrid');
+      g.innerHTML='';
+      for(let n=-25;n<=25;n++){
+        if(n===0) continue;
+        const c=document.createElement('div');
+        c.className='solutionCell';
+        c.id='sol_'+String(n).replace('-','neg');
+        c.innerText=n;
+        g.appendChild(c);
+      }
+    }
+
+    function updateSolutionsGrid(){
+      for(let n=-25;n<=25;n++){
+        if(n===0) continue;
+        const c=document.getElementById('sol_'+String(n).replace('-','neg'));
+        if(!c) continue;
+        if(usedSolutions.has(n)) c.classList.add('used');
+        else c.classList.remove('used');
+      }
+    }
+
+    function openInNewWindow(){
+      const html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+      const w=window.open('','_blank');
+      if(!w){ alert('Nabigatzaileak leiho berria blokeatu du.'); return; }
+      w.document.open(); w.document.write(html); w.document.close();
+    }
+
+    function downloadCardsInfo(){
+      alert('Kartoien jatorrizko sortzailea aparteko fitxategi batean mantentzen da.\n\nOraingoz, emaitzak -25 eta 25 artean erabiltzea gomendatzen da, 0 kenduta.');
+    }
+
+    function parseCSV(text){
+      const lines=text.trim().split(/\r?\n/).filter(Boolean);
+      if(lines.length===0) return [];
+      let rows=lines.map(line=>{
+        // simple CSV parser with quotes
+        const out=[]; let cur=''; let q=false;
+        for(let i=0;i<line.length;i++){
+          const ch=line[i];
+          if(ch==='"'){
+            if(q && line[i+1]==='"'){cur+='"'; i++;}
+            else q=!q;
+          } else if(ch===',' && !q){
+            out.push(cur.trim()); cur='';
+          } else {
+            cur+=ch;
+          }
+        }
+        out.push(cur.trim());
+        return out;
+      });
+
+      const header=rows[0].map(v=>v.toUpperCase());
+      let eqIdx=header.findIndex(v=>['EKUAZIOA','EQUATION','GALDERA'].includes(v));
+      let solIdx=header.findIndex(v=>['EMAITZA','SOLUZIOA','RESULT','SOLUTION'].includes(v));
+      let start=0;
+      if(eqIdx!==-1 && solIdx!==-1){ start=1; }
+      else { eqIdx=0; solIdx=1; }
+
+      const parsed=[];
+      for(let i=start;i<rows.length;i++){
+        const row=rows[i];
+        if(!row[eqIdx] || row[solIdx]==='') continue;
+        const eq=row[eqIdx].trim();
+        const sol=Number(String(row[solIdx]).replace(',', '.'));
+        if(!eq || Number.isNaN(sol)) continue;
+        parsed.push([eq,sol]);
+      }
+      return parsed;
+    }
+
+    document.getElementById('csvFile').addEventListener('change', async (e)=>{
+      const file=e.target.files[0];
+      if(!file) return;
+      const text=await file.text();
+      const parsed=parseCSV(text);
+      if(parsed.length===0){
+        document.getElementById('csvStatus').innerHTML='❌ Ezin izan da CSV interpretatu.';
+        return;
+      }
+      baseEquations=parsed;
+      usingCustomCSV=true;
+      document.getElementById('csvStatus').innerHTML=`✓ ${parsed.length} ekuazio kargatuta<br>${file.name}`;
+      document.getElementById('collectionType').textContent='CSV fitxategia';
+      resetDrawOnly();
+    });
+
+    createSolutionsGrid();
+    resetDrawOnly();
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bingo-kartoien sortzailea</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f4f4;margin:0;text-align:center}header{background:#1f2937;color:white;padding:16px}.controls{margin:18px auto;background:white;max-width:900px;padding:16px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.15)}button,input{font-size:16px;padding:10px 14px;margin:5px;border-radius:8px;border:1px solid #999}button{background:#2563eb;color:white;border:none;cursor:pointer;font-weight:bold}button.jpg{background:#16a34a}.sheet{width:210mm;height:297mm;margin:12px auto;background:white;box-sizing:border-box;padding:8mm;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr);gap:5mm}.card{border:2px solid #111;box-sizing:border-box;padding:3mm;display:flex;flex-direction:column}.title{font-weight:bold;font-size:12px;margin-bottom:2mm;text-align:center}.grid{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(3,1fr);flex:1;border:1px solid #111}.cell{border:1px solid #111;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:bold;min-height:14mm}.small{color:#555;font-size:14px}
+</style>
+</head>
+<body>
+<header><h1>Bingo-kartoien sortzailea</h1><p>A4 orri bakoitzean 12 kartoi desberdin sortzeko.</p></header>
+<section class="controls"><label>Kartoi kopurua:</label><input id="numCards" type="number" min="12" max="240" value="24"><button onclick="generateCards()">Sortu kartoiak</button><button class="jpg" onclick="downloadJPGSheets()">Deskargatu A4 JPG</button><p class="small">Kartoi bakoitzak 15 zenbaki ditu. Zenbakiak -25etik -1era eta 1etik 25era dira. 0 ez da erabiltzen.</p></section>
+<div id="pages"></div>
+<script>
+let generatedCards=[];
+function allNumbers(){const nums=[];for(let i=-25;i<=25;i++)if(i!==0)nums.push(i);return nums}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function cardKey(card){return [...card].sort((a,b)=>a-b).join(",")}
+function generateCards(){const total=parseInt(document.getElementById("numCards").value,10);const pages=document.getElementById("pages");pages.innerHTML="";generatedCards=[];const nums=allNumbers();const created=new Set();for(let pageStart=0;pageStart<total;pageStart+=12){const sheet=document.createElement("div");sheet.className="sheet";for(let i=0;i<12&&pageStart+i<total;i++){let card,key,attempts=0;do{card=shuffle([...nums]).slice(0,15);key=cardKey(card);attempts++}while(created.has(key)&&attempts<1000);created.add(key);card.sort((a,b)=>a-b);generatedCards.push(card);const cardDiv=document.createElement("div");cardDiv.className="card";const title=document.createElement("div");title.className="title";title.innerText="Kartoia "+(pageStart+i+1);cardDiv.appendChild(title);const grid=document.createElement("div");grid.className="grid";card.forEach(n=>{const cell=document.createElement("div");cell.className="cell";cell.innerText=n;grid.appendChild(cell)});cardDiv.appendChild(grid);sheet.appendChild(cardDiv)}pages.appendChild(sheet)}}
+function downloadJPGSheets(){if(generatedCards.length===0)generateCards();const perPage=12;const pageCount=Math.ceil(generatedCards.length/perPage);for(let p=0;p<pageCount;p++){const canvas=document.createElement("canvas");canvas.width=2480;canvas.height=3508;const ctx=canvas.getContext("2d");ctx.fillStyle="white";ctx.fillRect(0,0,canvas.width,canvas.height);drawSheet(ctx,p);const link=document.createElement("a");link.download="bingo-kartoiak-orria-"+(p+1)+".jpg";link.href=canvas.toDataURL("image/jpeg",0.95);document.body.appendChild(link);link.click();document.body.removeChild(link)}}
+function drawSheet(ctx,pageIndex){const margin=95,gap=55;const cols=3,rows=4;const cardW=(2480-2*margin-(cols-1)*gap)/cols;const cardH=(3508-2*margin-(rows-1)*gap)/rows;ctx.strokeStyle="#111";ctx.fillStyle="#111";ctx.textAlign="center";ctx.textBaseline="middle";for(let i=0;i<12;i++){const card=generatedCards[pageIndex*12+i];if(!card)continue;const col=i%3,row=Math.floor(i/3);const x=margin+col*(cardW+gap);const y=margin+row*(cardH+gap);ctx.lineWidth=5;ctx.strokeRect(x,y,cardW,cardH);ctx.font="bold 36px Arial";ctx.fillText("Kartoia "+(pageIndex*12+i+1),x+cardW/2,y+42);const gx=x+25,gy=y+80,gw=cardW-50,gh=cardH-105;const cellW=gw/5,cellH=gh/3;ctx.lineWidth=3;ctx.strokeRect(gx,gy,gw,gh);ctx.font="bold 54px Arial";for(let r=0;r<3;r++){for(let c=0;c<5;c++){const idx=r*5+c;const cx=gx+c*cellW,cy=gy+r*cellH;ctx.strokeRect(cx,cy,cellW,cellH);ctx.fillText(card[idx],cx+cellW/2,cy+cellH/2)}}}}
+generateCards();
+</script>
+</body>
+</html>

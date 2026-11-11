@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Letren Eraztuna v0.6</title>
+<style>
+*{box-sizing:border-box}
+:root{
+  --cyan:#35d7ff;
+  --cyan2:#9eeeff;
+  --dark:#06142f;
+  --panel:rgba(4,12,36,.86);
+  --redTeam:#ff365c;
+  --yellowTeam:#ffd23c;
+  --green:#1dd47a;
+  --wrong:#ff3d58;
+  --pass:#ffd23c;
+  --empty:#6f7c92;
+}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:radial-gradient(circle at 50% 28%,#20336f 0%,#07142f 50%,#02040c 100%);
+  color:white;
+  overflow:hidden;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.9) 1px,transparent 1px),radial-gradient(circle,rgba(90,194,255,.7) 1px,transparent 1px);
+  background-size:90px 90px,145px 145px;
+  opacity:.32;
+  pointer-events:none;
+}
+.app{
+  position:relative;
+  height:100vh;
+  padding:12px 16px;
+  display:grid;
+  grid-template-columns:220px 1fr;
+  grid-template-rows:76px 1fr 300px;
+  gap:10px;
+}
+.header{
+  grid-column:1 / 3;
+  border:2px solid var(--cyan);
+  border-radius:24px;
+  background:rgba(4,12,36,.82);
+  box-shadow:0 0 24px rgba(53,215,255,.32),inset 0 0 20px rgba(53,215,255,.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.titleBlock{text-align:center}
+h1{margin:0;font-size:36px;letter-spacing:2px;font-weight:900;text-shadow:0 0 14px var(--cyan)}
+.subtitle{color:var(--cyan2);font-weight:bold;font-size:16px;margin-top:2px}
+.topButtons{position:absolute;right:16px;display:flex;gap:8px}
+button{
+  border:none;
+  border-radius:13px;
+  color:white;
+  font-weight:900;
+  cursor:pointer;
+  padding:11px 15px;
+  font-size:15px;
+  background:linear-gradient(135deg,#0fb7ff,#7c3cff);
+  box-shadow:0 0 14px rgba(53,215,255,.34);
+}
+button:hover{transform:scale(1.03)}
+button.small{font-size:13px;padding:8px 11px;border-radius:10px}
+button.green{background:linear-gradient(135deg,#1cbf72,#0a8f53)}
+button.red{background:linear-gradient(135deg,#ff4b65,#9e1d33)}
+button.yellow{background:linear-gradient(135deg,#ffc83d,#ff8a00);color:#1b1200}
+button.secondary{background:linear-gradient(135deg,#333a5f,#17235a)}
+.roscos{
+  grid-column:2;
+  grid-row:2;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  min-height:0;
+}
+.teamPanel{
+  border:2px solid rgba(53,215,255,.65);
+  border-radius:24px;
+  background:rgba(4,12,36,.76);
+  box-shadow:inset 0 0 18px rgba(53,215,255,.08);
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:0;
+  overflow:hidden;
+}
+.teamPanel.activeTeam{outline:4px solid white;box-shadow:0 0 24px rgba(255,255,255,.55),inset 0 0 18px rgba(53,215,255,.08)}
+.teamName{
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+  border-radius:999px;
+  padding:8px 22px;
+  font-weight:900;
+  font-size:21px;
+  letter-spacing:1px;
+  white-space:nowrap;
+  box-shadow:0 0 14px rgba(255,255,255,.28);
+}
+.team1 .teamName{background:var(--redTeam)}
+.team2 .teamName{background:var(--yellowTeam);color:#17110a}
+.scoreBox{
+  position:absolute;
+  bottom:12px;
+  display:flex;
+  gap:12px;
+  font-weight:900;
+  font-size:20px;
+  border:1px solid rgba(255,255,255,.22);
+  background:rgba(0,0,0,.22);
+  border-radius:999px;
+  padding:8px 18px;
+}
+.rosco{
+  position:relative;
+  width:min(38vw,430px);
+  aspect-ratio:1/1;
+  margin-top:18px;
+}
+.letter{
+  position:absolute;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:900;
+  color:white;
+  background:linear-gradient(135deg,#7d889c,#3d4659);
+  border:3px solid rgba(255,255,255,.85);
+  box-shadow:0 0 12px rgba(255,255,255,.22),inset 0 0 8px rgba(0,0,0,.35);
+  transform:translate(-50%,-50%);
+  user-select:none;
+}
+.letter.current{background:linear-gradient(135deg,#37e3ff,#0877ff);box-shadow:0 0 22px #35d7ff,0 0 40px rgba(53,215,255,.45);animation:pulse 1s ease-in-out infinite}
+.letter.correct{background:linear-gradient(135deg,#22e384,#087a49);box-shadow:0 0 18px rgba(29,212,122,.75)}
+.letter.wrong{background:linear-gradient(135deg,#ff526b,#971327);box-shadow:0 0 18px rgba(255,61,88,.75)}
+.letter.pass{background:linear-gradient(135deg,#ffe26b,#ff9a00);color:#17110a;box-shadow:0 0 18px rgba(255,210,60,.75)}
+@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.12)}}
+.centerStats{
+  position:absolute;
+  left:50%;top:50%;transform:translate(-50%,-50%);
+  text-align:center;
+  border:1px solid rgba(53,215,255,.65);
+  border-radius:18px;
+  background:rgba(4,12,36,.84);
+  padding:14px 18px;
+  min-width:150px;
+  box-shadow:inset 0 0 13px rgba(53,215,255,.08);
+}
+.bigNumber{font-size:38px;font-weight:900;color:var(--cyan2)}
+.smallLabel{font-size:13px;color:var(--cyan2);font-weight:bold}
+.questionPanel{
+  grid-column:2;
+  grid-row:3;
+  border:2px solid rgba(53,215,255,.65);
+  border-radius:22px;
+  background:rgba(4,12,36,.86);
+  box-shadow:inset 0 0 16px rgba(53,215,255,.08);
+  display:grid;
+  grid-template-columns:260px 1fr 250px;
+  gap:12px;
+  padding:14px;
+  min-height:0;
+}
+.turnBox,.answerBox,.questionBox{
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:16px;
+  background:rgba(0,0,0,.22);
+  padding:14px;
+}
+.turnBox{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.turnTitle{font-size:20px;font-weight:900;color:var(--cyan2)}
+.turnTeam{font-size:30px;font-weight:900;margin-top:7px}
+.turnLetter{font-size:54px;font-weight:900;color:white;text-shadow:0 0 16px var(--cyan);line-height:1}
+.questionBox{display:flex;flex-direction:column;justify-content:center}
+.promptType{color:var(--cyan2);font-size:22px;font-weight:900;margin-bottom:10px;text-transform:uppercase}
+.promptText{font-size:30px;font-weight:800;line-height:1.18}
+.answerBox{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.answerLabel{color:var(--cyan2);font-weight:900;margin-bottom:6px}
+.answerText{font-size:27px;font-weight:900;min-height:34px;color:#ffd23c;text-shadow:0 0 10px rgba(255,210,60,.35)}
+
+.setupPanel{
+  grid-column:1;
+  grid-row:2 / 4;
+  border:2px solid rgba(53,215,255,.65);
+  border-radius:22px;
+  background:rgba(4,12,36,.82);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding:10px;
+  min-height:0;
+  overflow:hidden;
+}
+.setupTitle{
+  color:var(--cyan2);
+  font-size:18px;
+  font-weight:900;
+  text-align:center;
+  margin-bottom:2px;
+}
+.selectBlock label{
+  display:block;
+  color:var(--cyan2);
+  font-weight:900;
+  font-size:13px;
+  margin-bottom:6px;
+}
+.selectBlock select{
+  width:100%;
+  padding:10px 8px;
+  border-radius:11px;
+  border:1px solid var(--cyan);
+  background:#061533;
+  color:white;
+  font-weight:800;
+  font-size:14px;
+}
+.collectionInfo{
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:12px;
+  background:rgba(0,0,0,.22);
+  padding:7px;
+  font-size:10.5px;
+  line-height:1.15;
+  color:var(--cyan2);
+  margin-bottom:4px;
+}
+.setupPanel button{
+  width:100%;
+  min-height:42px;
+  font-size:15px;
+  padding:8px 8px;
+}
+
+.controls{
+  border:0;
+  border-radius:0;
+  background:transparent;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  justify-content:flex-start;
+  gap:8px;
+  padding:0;
+  margin-top:4px;
+}
+.controls:before{
+  content:"KONTROLAK";
+  color:var(--cyan2);
+  font-size:18px;
+  font-weight:900;
+  text-align:center;
+  margin:2px 0 2px;
+}
+.controls button{
+  width:100%;
+  min-height:50px;
+  font-size:17px;
+  line-height:1.05;
+  padding:9px 8px;
+}
+.overlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(2,4,12,.72);
+  backdrop-filter:blur(3px);
+  z-index:1000;
+}
+.winCard{
+  width:min(780px,88vw);
+  padding:38px 30px;
+  border:3px solid #ffd23c;
+  border-radius:30px;
+  background:radial-gradient(circle at center,rgba(255,210,60,.18),rgba(4,12,36,.96) 62%);
+  text-align:center;
+  box-shadow:0 0 40px rgba(255,210,60,.82),inset 0 0 32px rgba(255,210,60,.15);
+}
+.trophy{font-size:86px;filter:drop-shadow(0 0 18px #ffd23c)}
+.winTitle{font-size:50px;font-weight:900;color:#ffd23c;text-shadow:0 0 18px #ffd23c,0 0 35px #ff7b00;margin-top:6px}
+.winSubtitle{font-size:28px;font-weight:900;margin-top:12px}
+.confetti{position:fixed;top:-20px;width:10px;height:16px;border-radius:3px;z-index:999;animation:fall linear forwards}
+@keyframes fall{0%{transform:translateY(-20px) rotate(0deg)}100%{transform:translateY(110vh) rotate(720deg)}}
+.arai-logo{position:fixed;right:20px;left:auto;top:18px;width:56px;color:#35d7ff;filter:drop-shadow(0 0 8px #35d7ff);opacity:.85;z-index:8;pointer-events:none}
+.arai-logo svg{display:block;width:100%;height:auto}
+
+.setupTitle{
+  color:var(--cyan2);
+  font-size:17px;
+  font-weight:900;
+  text-align:center;
+  margin:2px 0 4px;
+}
+.teamSetupLabel{
+  font-size:13px;
+  font-weight:900;
+  color:var(--cyan2);
+  margin-top:2px;
+}
+.teamSetupLabel .dot{
+  display:inline-block;
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  margin-right:6px;
+  vertical-align:middle;
+}
+.dot.red{background:var(--redTeam)}
+.dot.yellow{background:var(--yellowTeam)}
+.setupPanel select{
+  width:100%;
+  min-height:36px;
+  border-radius:10px;
+  border:1px solid var(--cyan);
+  background:#07142f;
+  color:white;
+  font-weight:900;
+  padding:6px 8px;
+  font-size:13px;
+}
+
+@media(max-width:1050px){body{overflow:auto}.app{height:auto;min-height:100vh;grid-template-columns:1fr;grid-template-rows:auto auto auto auto}.header,.setupPanel,.roscos,.questionPanel,.controls{grid-column:1;grid-row:auto}.roscos{grid-template-columns:1fr}.rosco{width:min(82vw,430px)}.questionPanel{grid-template-columns:1fr}.controls{flex-direction:row;flex-wrap:wrap;margin-top:0}.controls:before{width:100%;}.controls button{width:auto;min-height:auto}.topButtons{position:static;margin-left:10px}.header{gap:10px;flex-wrap:wrap;padding:12px}.arai-logo{display:none}}
+
+/* JOKOEN TXOKOA V0.2.2 — ajuste de pantalla grande; reglas intactas */
+@media (min-width:1051px){
+ .app{padding:8px 12px;gap:8px;grid-template-columns:220px minmax(0,1fr);grid-template-rows:68px minmax(0,1fr) clamp(195px,34vh,265px)}
+ .header{border-radius:19px}
+ .header h1{font-size:clamp(23px,2.6vw,34px)}
+ .header .subtitle{font-size:13px}
+ .topButtons button{font-size:11px;padding:7px 9px}
+ .setupPanel{padding:8px;gap:4px;overflow:hidden}
+ .setupTitle{margin:0;font-size:15px}
+ .selectBlock label{font-size:12px;margin:2px 0}
+ .setupPanel select{min-height:32px;padding:4px 7px;font-size:12px}
+ .setupPanel button{min-height:36px;font-size:13px;padding:6px}
+ .collectionInfo{font-size:10px;padding:5px;line-height:1.1;margin:1px 0}
+ .controls{gap:5px;margin-top:1px}
+ .controls:before{font-size:15px;margin:0}
+ .controls button{min-height:40px;font-size:14px;padding:6px}
+ .teamPanel{border-radius:17px}
+ .teamName{top:8px;max-width:calc(100% - 20px);overflow:hidden;text-overflow:ellipsis;font-size:clamp(11px,1.35vw,17px);padding:6px 12px}
+ .rosco{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;flex:none;max-width:none}
+ .scoreBox{bottom:7px;font-size:14px;padding:4px 12px;gap:9px}
+ .letter{width:var(--letter-size,34px);height:var(--letter-size,34px);font-size:calc(var(--letter-size,34px) * .47);border-width:2px}
+ .centerStats{padding:7px 8px;min-width:105px;border-radius:12px}
+ .bigNumber{font-size:28px}
+ .smallLabel{font-size:10px}
+ .questionPanel{grid-template-columns:minmax(145px,22%) minmax(0,1fr) minmax(125px,18%);gap:8px;padding:10px;border-radius:17px}
+ .turnBox,.answerBox,.questionBox{padding:10px;border-radius:12px}
+ .turnTitle{font-size:16px}.turnTeam{font-size:clamp(18px,2vw,26px)}.turnLetter{font-size:44px}
+ .promptType{font-size:clamp(14px,1.6vw,20px);margin-bottom:6px}
+ .promptText{font-size:clamp(17px,2.2vw,29px);overflow-wrap:anywhere}
+ .answerText{font-size:clamp(16px,2vw,25px);overflow-wrap:anywhere}
+}
+@media (min-width:1051px) and (max-height:690px){
+ .app{grid-template-rows:55px minmax(0,1fr) 190px}
+ .setupPanel{overflow-y:auto}
+ .controls button{min-height:34px;font-size:12px}
+ .setupPanel button{min-height:31px}
+ .collectionInfo{font-size:9px}
+}
+</style>
+</head>
+<body>
+<div class="arai-logo"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.115563 333.053484" preserveAspectRatio="xMidYMid meet"><g transform="translate(-1.728288,333.881893) scale(0.100000,-0.100000)" fill="currentColor" stroke="none"><path d="M4589 3317 c-34 -17 -50 -35 -71 -77 -35 -67 -35 -92 -1 -159 22 -46 34 -57 80 -78 43 -20 63 -24 98 -19 59 9 106 43 133 96 79 157 -83 318 -239 237z"/><path d="M1830 3235 c-69 -8 -154 -19 -189 -25 -446 -77 -893 -317 -1190 -637 -200 -215 -350 -491 -405 -743 -94 -436 43 -870 384 -1210 169 -170 309 -268 541 -379 468 -225 1047 -291 1593 -180 509 102 970 375 1228 726 24 32 46 61 51 63 4 3 29 -49 56 -115 73 -181 160 -349 269 -520 79 -124 119 -155 197 -155 74 0 122 31 152 97 24 52 25 61 14 101 -6 24 -35 80 -64 125 -91 140 -126 203 -183 322 -175 368 -248 742 -215 1095 36 372 171 675 423 947 79 85 97 157 59 231 -23 45 -46 66 -90 81 -105 35 -171 -7 -332 -209 -102 -128 -248 -387 -280 -495 -7 -25 -16 -45 -19 -44 -3 0 -32 39 -65 86 -33 48 -106 135 -162 193 -173 181 -349 308 -588 425 -274 134 -502 196 -825 225 -141 12 -200 11 -360 -5z m468 -350 c419 -64 775 -241 1049 -523 208 -213 332 -456 363 -709 43 -340 -134 -685 -483 -945 -43 -32 -83 -58 -87 -58 -5 0 -2 16 6 35 7 19 14 45 14 57 -1 42 -38 106 -79 136 -34 25 -52 30 -128 35 -151 11 -286 55 -383 125 -41 30 -130 114 -130 122 0 4 44 6 98 6 109 0 179 14 269 54 156 71 258 170 338 329 75 149 96 350 55 513 -58 232 -220 416 -434 494 -176 64 -329 52 -543 -43 -7 -3 -13 1 -13 8 0 37 -49 117 -84 137 -80 48 -191 19 -236 -59 -22 -40 -25 -57 -28 -192 l-4 -148 -57 55 c-174 165 -427 267 -671 270 -118 1 -155 -12 -191 -71 -75 -120 11 -263 157 -263 107 0 267 -45 362 -102 48 -30 172 -136 172 -148 0 -3 -46 -5 -102 -5 -157 0 -283 -42 -408 -135 -178 -131 -291 -383 -277 -615 7 -118 27 -189 84 -305 67 -135 170 -237 303 -303 116 -56 196 -72 334 -64 102 6 170 23 256 67 48 25 46 26 82 -40 19 -34 86 -69 131 -70 15 0 44 7 64 15 88 37 112 89 113 238 l0 108 68 -57 c178 -151 366 -232 592 -254 52 -5 102 -10 110 -10 26 0 -4 -18 -100 -58 -161 -66 -332 -113 -520 -143 -115 -19 -549 -19 -645 -1 -241 46 -316 66 -455 119 -447 170 -775 485 -872 838 -32 119 -32 344 0 470 106 406 484 792 961 980 106 42 285 89 411 109 119 19 417 20 538 1z"/></g></svg></div>
+<div class="app">
+  <header class="header">
+    <div class="titleBlock"><h1>LETREN ERAZTUNA</h1><div class="subtitle">Ezagutza da giltza!</div></div>
+    <div class="topButtons"><button class="small secondary" onclick="openInNewWindow()">↗ Leiho berrian ireki</button><button class="small secondary" onclick="resetGame()">↺ Berrabiarazi</button></div>
+  </header>
+
+  <main class="roscos">
+    <section id="panel0" class="teamPanel team1 activeTeam"><div class="teamName">🔴 1. TALDEA</div><div id="rosco0" class="rosco"></div><div id="score0" class="scoreBox"></div></section>
+    <section id="panel1" class="teamPanel team2"><div class="teamName">🟡 2. TALDEA</div><div id="rosco1" class="rosco"></div><div id="score1" class="scoreBox"></div></section>
+  </main>
+
+  <section class="questionPanel">
+    <div class="turnBox"><div class="turnTitle">TXANDA</div><div id="turnTeam" class="turnTeam">1. TALDEA</div><div id="turnLetter" class="turnLetter">A</div></div>
+    <div class="questionBox"><div id="promptType" class="promptType">A LETRAREKIN HASTEN DA</div><div id="promptText" class="promptText">Arnasteko erabiltzen dugun gasa.</div></div>
+    <div class="answerBox"><div class="answerLabel">ERANTZUNA</div><div id="answerText" class="answerText">•••••</div></div>
+  </section>
+
+
+  <section class="setupPanel">
+    <div class="setupTitle">BILDUMAK</div><label for="txokoRoscoFile" style="font-size:12px;color:#9eeeff">📂 CSV BILDUMAK KARGATU</label><input type="file" id="txokoRoscoFile" accept=".csv,text/csv" style="max-width:100%;font-size:12px"><div id="txokoRoscoStatus" style="font-size:11px;line-height:1.35;color:#9eeeff">Aukerakoa: erabili barruko bildumak edo kargatu zureak.</div>
+    <div class="selectBlock">
+      <label for="collection0">🔴 1. TALDEA</label>
+      <select id="collection0"></select>
+    </div>
+    <div class="selectBlock">
+      <label for="collection1">🟡 2. TALDEA</label>
+      <select id="collection1"></select>
+    </div>
+    <button class="green" onclick="startSelectedGame()">▶ HASI JOKOA</button>
+    <div id="collectionInfo" class="collectionInfo">Aukeratu talde bakoitzaren bilduma eta sakatu HASI JOKOA.</div>
+  
+    <section class="controls">
+    <button onclick="showAnswer()">👁 ERANTZUNA</button>
+    <button class="green" onclick="markAnswer('correct')">✓ ZUZENA</button>
+    <button class="red" onclick="markAnswer('wrong')">✗ OKERRA</button>
+    <button class="yellow" onclick="markAnswer('pass')">⏭ PASA</button>
+    <button class="secondary" onclick="switchTeam()">➡ TALDEA ALDATU</button>
+  </section>
+  </section>
+</div>
+
+<div id="winOverlay" class="overlay"><div class="winCard"><div class="trophy">🏆</div><div class="winTitle">ZORIONAK!</div><div id="winSubtitle" class="winSubtitle">1. TALDEA IRABAZLEA</div><button class="yellow" onclick="closeWin()">JARRAITU</button></div></div>
+
+<script>
+const LETTERS=['A','B','D','E','G','H','I','K','L','M','N','O','P','R','S','T','U','Z'];
+let COLLECTIONS={
+  OSASUNA_1:{
+    A:{type:'HASTEN',q:'Neurona asko hiltzean sortzen den gaixotasun endekapenezkoa.',a:'ALZHEIMERRA'},
+    B:{type:'HASTEN',q:'Odola gorputz osora ponpatzen duen organoa.',a:'BIHOTZA'},
+    D:{type:'HASTEN',q:'Elikagaiak mantenugai bihurtzeko prozesua.',a:'DIGESTIOA'},
+    E:{type:'HASTEN',q:'Onddo batek eragin dezakeen gaixotasun infekziosoa.',a:'EZKABIA'},
+    G:{type:'HASTEN',q:'Osasun-arazo bat dagoenean sortzen den egoera.',a:'GAIXOTASUNA'},
+    H:{type:'HASTEN',q:'Birus batek eragindako gaixotasun infekzioso ezaguna.',a:'HIESA'},
+    I:{type:'HASTEN',q:'Agente patogenoek eragindako gaixotasun mota.',a:'INFEKZIOSOA'},
+    K:{type:'HASTEN',q:'Motorrean ibiltzean burua babesteko erabiltzen den elementua.',a:'KASKOA'},
+    L:{type:'HASTEN',q:'Gure gorputza kanpotik estaltzen duen ehuna.',a:'LARRUAZALA'},
+    M:{type:'HASTEN',q:'Protozoo batek eragindako gaixotasun tropikala.',a:'MALARIA'},
+    N:{type:'HASTEN',q:'Alzheimerra bezalako gaixotasunetan kaltetzen den nerbio-sistemako zelula.',a:'NEURONA'},
+    O:{type:'HASTEN',q:'MOEren arabera osasunaren oinarria den egoera.',a:'ONGIZATEA'},
+    P:{type:'HASTEN',q:'Beste organismo baten bizkar bizi den izakia.',a:'PARASITOA'},
+    R:{type:'DAUKA',q:'Immunitate-sistemak sortzen duen defentsa espezifikoa.',a:'ANTIGORPUTZA'},
+    S:{type:'HASTEN',q:'Gaixotasunak sendatzeko edo kontrolatzeko erabiltzen den produktua.',a:'SENDAGAIA'},
+    T:{type:'HASTEN',q:'Bakterio batek eragindako gaixotasuna; txerto bidez prebeni daiteke.',a:'TETANOSA'},
+    U:{type:'HASTEN',q:'Gaixotasun batzuk kutsatzeko bide nagusietako bat: pertsonen arteko zuzeneko...',a:'UKIPENA'},
+    Z:{type:'HASTEN',q:'Gorputzaren oinarrizko unitatea.',a:'ZELULA'}
+  },
+  OSASUNA_2:{
+    A:{type:'HASTEN',q:'Immunitate-sistemak sortzen duen defentsa espezifikoa.',a:'ANTIGORPUTZA'},
+    B:{type:'HASTEN',q:'Gaixotasun asko eragin ditzakeen mikroorganismo mota.',a:'BAKTERIOA'},
+    D:{type:'HASTEN',q:'Zauriak garbitzeko erabiltzen den substantzia mota.',a:'DESINFEKTAGARRIA'},
+    E:{type:'HASTEN',q:'Zelula asko hiltzean sortzen den gaixotasun mota.',a:'ENDEKAPENEZKOA'},
+    G:{type:'HASTEN',q:'Gaixotasunak sortzen dituzten organismoen beste izena.',a:'GERMENA'},
+    H:{type:'HASTEN',q:'Gibelean eragina duen gaixotasun birikoa.',a:'HEPATITISA'},
+    I:{type:'HASTEN',q:'Eguzkiaren eragin handiegia jasotzean gerta daitekeen osasun-arazoa.',a:'INTSOLAZIOA'},
+    K:{type:'HASTEN',q:'Gure gorputzaren barnera heldu eta lesioak edo gaixotasunak tratatzeko erabiltzen den prozedura medikoa.',a:'KIRURGIA'},
+    L:{type:'HASTEN',q:'Antigorputzak sortzen dituen globulu zuria.',a:'LINFOZITOA'},
+    M:{type:'HASTEN',q:'Osasunaren hiru dimentsioetako bat.',a:'MENTALA'},
+    N:{type:'DAUKA',q:'Gure gorputzak gaixotasunen aurrean duen babes-sistema.',a:'IMMUNITATE-SISTEMA'},
+    O:{type:'HASTEN',q:'Giza ehunez elikatzen diren organismo patogenoen multzoa.',a:'ONDDOAK'},
+    P:{type:'HASTEN',q:'Malaria eragin dezakeen organismo mota.',a:'PROTOZOOA'},
+    R:{type:'DAUKA',q:'Larrialdi batean ur hotzez busti behar den lesio mota.',a:'ERREDURA'},
+    S:{type:'HASTEN',q:'Osasunaren hiru dimentsioetako bat.',a:'SOZIALA'},
+    T:{type:'HASTEN',q:'Ehun edo organo bat ordezkatzeko erabiltzen den prozedura medikoa.',a:'TRANSPLANTEA'},
+    U:{type:'HASTEN',q:'Erredura baten aurrean erabiltzen den lehen neurrietako bat.',a:'URA'},
+    Z:{type:'HASTEN',q:'Patogenoek infektatzen duten gorputzaren oinarrizko unitatea.',a:'ZELULA'}
+  },
+  OSASUNA_3:{
+    A:{type:'HASTEN',q:'Birus batek eragin dezakeen gaixotasun hilgarri klasikoa.',a:'AMORRUA'},
+    B:{type:'HASTEN',q:'Gaixotasunak sor ditzakeen mikroorganismo mota.',a:'BAKTERIOA'},
+    D:{type:'HASTEN',q:'Gaixotasunik ez kutsatzeko erabiltzen den garbiketa-neurria.',a:'DESINFEKZIOA'},
+    E:{type:'HASTEN',q:'Larruazala kaltetzen duen beroaren ondoriozko lesioa.',a:'ERREDURA'},
+    G:{type:'HASTEN',q:'Gaixotasunak sor ditzakeen mikroorganismo baten beste izena.',a:'GERMENA'},
+    H:{type:'HASTEN',q:'Hezur batean kolpe baten ondorioz gerta daitekeen lesioa.',a:'HAUSTURA'},
+    I:{type:'HASTEN',q:'Germenak gorputzean sartzean eta ugaltzean sortzen den egoera.',a:'INFEKZIOA'},
+    K:{type:'HASTEN',q:'Istripuetan burua babesteko erabiltzen den elementua.',a:'KASKOA'},
+    L:{type:'HASTEN',q:'Antigorputzak sortzen dituen globulu zuri mota.',a:'LINFOZITOA'},
+    M:{type:'HASTEN',q:'Barruko organoen paretak estaltzen dituen ehuna.',a:'MUKI-MINTZA'},
+    N:{type:'HASTEN',q:'Alzheimerrean hiltzen diren zelula mota.',a:'NEURONA'},
+    O:{type:'HASTEN',q:'Osasunaren definizioan agertzen den egoera orokorra.',a:'ONGIZATEA'},
+    P:{type:'HASTEN',q:'Gaixotasunak sortzen dituen organismo mota orokorra.',a:'PATOGENOA'},
+    R:{type:'DAUKA',q:'Infekzio baten aurrean ager daitekeen gorputzaren erantzuna.',a:'HANTURA'},
+    S:{type:'HASTEN',q:'Gaixotasunak tratatzeko medikuak errezeta dezakeen produktua.',a:'SENDAGAIA'},
+    T:{type:'HASTEN',q:'Bakterio batek sortutako eta txerto bidez prebeni daitekeen gaixotasuna.',a:'TETANOSA'},
+    U:{type:'DAUKA',q:'Germen inbaditzaileak irensten dituen defentsa-zelula.',a:'FAGOZITOA'},
+    Z:{type:'HASTEN',q:'Izaki bizidunen oinarrizko unitatea.',a:'ZELULA'}
+  },
+  EKOSISTEMAK_1:{
+    A:{type:'HASTEN',q:'Ekosistema bateko bizidun ez diren osagaien multzoari dagokion hitza.',a:'ABIOTIKOA'},
+    B:{type:'HASTEN',q:'Ekosistema bateko izaki bizidunen multzoa.',a:'BIOZENOSIA'},
+    D:{type:'HASTEN',q:'Espezie askotarikoak dituen ekosistema baten ezaugarria.',a:'DIBERTSITATEA'},
+    E:{type:'HASTEN',q:'Izaki bizidunen eta ingurunearen arteko harremanak aztertzen dituen zientzia.',a:'EKOLOGIA'},
+    G:{type:'DAUKA',q:'Ur gezako ekosistema geldia, sakonera txikikoa.',a:'ZINGIRA'},
+    H:{type:'HASTEN',q:'Ekosistema batean espezie batek bizi ohi duen lekua.',a:'HABITATA'},
+    I:{type:'HASTEN',q:'Lehorreko ekosistema hotzetan urte osoan izoztuta dagoen lur-geruza.',a:'IZOTZA'},
+    K:{type:'DAUKA',q:'Elikadura-harremanen segida, ekosistemako organismoen artean.',a:'KATEA'},
+    L:{type:'HASTEN',q:'Lurrazala estaltzen duen azaleko geruza.',a:'LURZORUA'},
+    M:{type:'HASTEN',q:'Materia organikoa deskonposatzen duten izaki txikien adibide orokorra.',a:'MIKROORGANISMOA'},
+    N:{type:'HASTEN',q:'Uretan aktiboki igeri egiten duten animalien multzoa.',a:'NEKTONA'},
+    O:{type:'HASTEN',q:'Prezipitazio ugari eta tenperatura altuak dituen ekosistema beroa.',a:'OIHANA'},
+    P:{type:'HASTEN',q:'Uretan pasiboki flotatzen bizi diren organismo txikien multzoa.',a:'PLANKTONA'},
+    R:{type:'DAUKA',q:'Ekosistema batean bizi diren espezie guztien materia biziaren kantitatea.',a:'BIOMASA'},
+    S:{type:'HASTEN',q:'Tenperatura altuak eta belardi zabalak dituen ekosistema beroa.',a:'SABANA'},
+    T:{type:'HASTEN',q:'Oso klima hotza eta lurzoru izoztua dituen ekosistema.',a:'TUNDRA'},
+    U:{type:'HASTEN',q:'Lehorreko ekosistemetan ezinbesteko faktore abiotikoa.',a:'URA'},
+    Z:{type:'HASTEN',q:'Itsasoko sakonera handieneko eremua.',a:'ZONA ABISALA'}
+  },
+  EKOSISTEMAK_2:{
+    A:{type:'HASTEN',q:'Ekosistema bateko bizidun ez diren osagaien ezaugarria.',a:'ABIOTIKOA'},
+    B:{type:'HASTEN',q:'Ekosistema batean bizi diren izaki bizidunen multzoa.',a:'BIOZENOSIA'},
+    D:{type:'HASTEN',q:'Materia organikoa substantzia sinpleago bihurtzen duen organismo mota.',a:'DESKONPOSATZAILEA'},
+    E:{type:'HASTEN',q:'Bizidunek eta inguruneak osatzen duten sistema naturala.',a:'EKOSISTEMA'},
+    G:{type:'HASTEN',q:'Ekosistema bateko faktore abiotiko garrantzitsua; uraren gatz kantitatearekin lotuta dago.',a:'GAZITASUNA'},
+    H:{type:'HASTEN',q:'Espezie batek bizi ohi duen lekua.',a:'HABITATA'},
+    I:{type:'HASTEN',q:'Ekosistema batean organismoen arteko harreman mota.',a:'INTERAKZIOA'},
+    K:{type:'DAUKA',q:'Elikadura-kate bateko lehen mailako organismo mota.',a:'EKOIZLEA'},
+    L:{type:'HASTEN',q:'Lurrazalaren goiko geruza, ekosistema askoren oinarria.',a:'LURZORUA'},
+    M:{type:'DAUKA',q:'Ekosistema bateko izaki bizidun guztien masa osoa.',a:'BIOMASA'},
+    N:{type:'DAUKA',q:'Uretan aktiboki igeri egiten duten organismoen multzoa.',a:'NEKTONA'},
+    O:{type:'HASTEN',q:'Euri ugari eta biodibertsitate handia dituen ekosistema beroa.',a:'OIHANA'},
+    P:{type:'HASTEN',q:'Uretan flotatzen bizi diren organismo txikien multzoa.',a:'PLANKTONA'},
+    R:{type:'DAUKA',q:'Ekosistema batean espezie batek betetzen duen funtzioa.',a:'EGINKIZUNA'},
+    S:{type:'HASTEN',q:'Elikadura-kate eta kate trofiko ugari elkartzen dituen egitura.',a:'SAREA'},
+    T:{type:'HASTEN',q:'Klima oso hotza eta lurzoru izoztua dituen ekosistema.',a:'TUNDRA'},
+    U:{type:'HASTEN',q:'Ekosistema guztietan ezinbestekoa den baliabide naturala.',a:'URA'},
+    Z:{type:'HASTEN',q:'Espezie batek ekosisteman okupatzen duen espazio eta funtzio multzoa.',a:'ZOKOA'}
+  }
+};
+let teamCollections=['OSASUNA_1','OSASUNA_2'];
+let QUESTIONS=[COLLECTIONS[teamCollections[0]],COLLECTIONS[teamCollections[1]]];
+let teams=[];
+let activeTeam=0;
+let answerVisible=false;
+
+function newTeam(){return{index:0,status:Object.fromEntries(LETTERS.map(l=>[l,'empty']))}}
+function init(){teams=[newTeam(),newTeam()];activeTeam=0;answerVisible=false;renderAll();updateCollectionInfo()}
+function currentLetter(){const t=teams[activeTeam];return LETTERS[t.index]||null}
+function getCounts(team){let c=0,w=0,p=0;LETTERS.forEach(l=>{if(team.status[l]==='correct')c++;if(team.status[l]==='wrong')w++;if(team.status[l]==='pass')p++});return{c,w,p}}
+function renderAll(){renderRosco(0);renderRosco(1);renderQuestion();renderScores();document.getElementById('panel0').classList.toggle('activeTeam',activeTeam===0);document.getElementById('panel1').classList.toggle('activeTeam',activeTeam===1);document.querySelector('#panel0 .teamName').textContent='🔴 1. TALDEA · '+currentCollectionName(0);document.querySelector('#panel1 .teamName').textContent='🟡 2. TALDEA · '+currentCollectionName(1)}
+function renderRosco(teamIndex){
+  const box=document.getElementById('rosco'+teamIndex);box.innerHTML='';
+  const panel=box.closest('.teamPanel');
+  const desktop=window.matchMedia('(min-width:1051px)').matches;
+  const maxSide=desktop?Math.min(panel.clientWidth-24,panel.clientHeight-115,430):Math.min(window.innerWidth*.82,430);
+  const size=Math.max(120,Math.floor(maxSide));
+  if(desktop){box.style.width=size+'px';box.style.height=size+'px';}
+  else{box.style.width='';box.style.height='';}
+  const side=desktop?size:(box.clientWidth||430);
+  const letterSize=Math.max(21,Math.min(44,Math.round(side*.105)));
+  box.style.setProperty('--letter-size',letterSize+'px');
+  const r=side/2-letterSize/2-3;const cx=side/2;const cy=side/2;
+  LETTERS.forEach((l,i)=>{
+    const angle=-90+i*(360/LETTERS.length);const rad=angle*Math.PI/180;
+    const d=document.createElement('div');
+    let cls='letter '+teams[teamIndex].status[l];
+    if(teamIndex===activeTeam && i===teams[teamIndex].index && teams[teamIndex].status[l]!=='correct' && teams[teamIndex].status[l]!=='wrong')cls+=' current';
+    d.className=cls;d.textContent=l;d.style.left=(cx+r*Math.cos(rad))+'px';d.style.top=(cy+r*Math.sin(rad))+'px';
+    box.appendChild(d);
+  });
+  const stats=document.createElement('div');stats.className='centerStats';
+  const counts=getCounts(teams[teamIndex]);
+  stats.innerHTML='<div class="bigNumber">'+counts.c+'</div><div class="smallLabel">ZUZENAK</div><div class="smallLabel">'+(counts.c+counts.w)+' / '+LETTERS.length+' amaituta</div>';
+  box.appendChild(stats);
+}
+function renderScores(){
+  [0,1].forEach(i=>{const n=getCounts(teams[i]);document.getElementById('score'+i).innerHTML='<span>✓ '+n.c+'</span><span>✗ '+n.w+'</span><span>⏭ '+n.p+'</span>'})
+}
+function renderQuestion(){
+  const l=currentLetter();
+  document.getElementById('turnTeam').textContent=(activeTeam+1)+'. TALDEA';
+  document.getElementById('turnTeam').style.color=activeTeam===0?'var(--redTeam)':'var(--yellowTeam)';
+  if(!l){document.getElementById('turnLetter').textContent='—';document.getElementById('promptType').textContent='ROSCOA AMAITUTA';document.getElementById('promptText').textContent='Talde honen galdera guztiak amaitu dira.';document.getElementById('answerText').textContent='';return}
+  const item=QUESTIONS[activeTeam][l];
+  document.getElementById('turnLetter').textContent=l;
+  document.getElementById('promptType').textContent=item.type==='HASTEN'?l+' LETRAREKIN HASTEN DA':l+' LETRA DAUKA';
+  document.getElementById('promptText').textContent=item.q;
+  document.getElementById('answerText').textContent=answerVisible?item.a:'•••••';
+}
+function showAnswer(){answerVisible=!answerVisible;renderQuestion()}
+function markAnswer(result){
+  const l=currentLetter(); if(!l)return;
+  const teamThatAnswered=activeTeam;
+  teams[teamThatAnswered].status[l]=result;
+  answerVisible=false;
+  advanceIndex(teamThatAnswered);
+
+  if(isFinished()){showWinner();renderAll();return}
+
+  // Jokoaren dinamika:
+  // - ZUZENA: talde berak jarraitzen du hurrengo letrarekin.
+  // - OKERRA edo PASA: txanda beste taldeari pasatzen zaio.
+  if(result==='correct'){
+    if(teams[teamThatAnswered].index>=LETTERS.length){
+      const other=1-teamThatAnswered;
+      if(teams[other].index<LETTERS.length)activeTeam=other;
+    }
+  }else{
+    activeTeam=1-teamThatAnswered;
+    if(teams[activeTeam].index>=LETTERS.length && teams[teamThatAnswered].index<LETTERS.length){
+      activeTeam=teamThatAnswered;
+    }
+  }
+  renderAll();
+}
+function advanceIndex(teamIndex){
+  const t=teams[teamIndex];
+  let next=t.index+1;
+  while(next<LETTERS.length && (t.status[LETTERS[next]]==='correct'||t.status[LETTERS[next]]==='wrong'))next++;
+  if(next>=LETTERS.length){
+    next=LETTERS.findIndex(l=>t.status[l]==='pass');
+    if(next<0)next=LETTERS.length;
+  }
+  t.index=next;
+}
+function switchTeam(){
+  activeTeam=1-activeTeam;
+  if(currentLetter()===null && teams[1-activeTeam].index<LETTERS.length)activeTeam=1-activeTeam;
+  answerVisible=false;
+  renderAll();
+}
+function isFinished(){return teams.every(t=>LETTERS.every(l=>t.status[l]==='correct'||t.status[l]==='wrong'))}
+function showWinner(){
+  const c0=getCounts(teams[0]).c,c1=getCounts(teams[1]).c;
+  let text='BERDINKETA!';
+  if(c0>c1)text='🔴 1. TALDEA IRABAZLEA · '+c0+' ZUZEN';
+  if(c1>c0)text='🟡 2. TALDEA IRABAZLEA · '+c1+' ZUZEN';
+  document.getElementById('winSubtitle').textContent=text;
+  document.getElementById('winOverlay').style.display='flex';
+  launchConfetti();
+}
+function closeWin(){document.getElementById('winOverlay').style.display='none';clearConfetti()}
+function resetGame(){closeWin();init()}
+function launchConfetti(){clearConfetti();const colors=['#ffd23c','#ff365c','#24c922','#35d7ff','#a83cff','#ffffff'];for(let i=0;i<140;i++){const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.background=colors[Math.floor(Math.random()*colors.length)];c.style.animationDuration=(2.2+Math.random()*2.4)+'s';c.style.animationDelay=(Math.random()*0.7)+'s';document.body.appendChild(c);setTimeout(()=>c.remove(),5600)}}
+function clearConfetti(){document.querySelectorAll('.confetti').forEach(c=>c.remove())}
+function openInNewWindow(){const html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;const w=window.open('','_blank');if(!w){alert('Nabigatzaileak leiho berria blokeatu du.');return}w.document.open();w.document.write(html);w.document.close()}
+
+function fillCollectionSelectors(){
+  const keys=Object.keys(COLLECTIONS);
+  [0,1].forEach(i=>{
+    const sel=document.getElementById('collection'+i);
+    sel.innerHTML='';
+    keys.forEach(key=>{
+      const opt=document.createElement('option');
+      opt.value=key;
+      opt.textContent=key;
+      sel.appendChild(opt);
+    });
+  });
+  document.getElementById('collection0').value=teamCollections[0];
+  document.getElementById('collection1').value=teamCollections[1];
+}
+function validateCollection(key){
+  const collection=COLLECTIONS[key];
+  if(!collection)return false;
+  return LETTERS.every(l=>collection[l]&&collection[l].type&&collection[l].q&&collection[l].a);
+}
+function startSelectedGame(){
+  const c0=document.getElementById('collection0').value;
+  const c1=document.getElementById('collection1').value;
+  if(!validateCollection(c0)||!validateCollection(c1)){
+    alert('Bilduma batek ez ditu 18 letra guztiak behar bezala beteta.');
+    return;
+  }
+  teamCollections=[c0,c1];
+  QUESTIONS=[COLLECTIONS[c0],COLLECTIONS[c1]];
+  resetGame();
+  updateCollectionInfo();
+}
+function updateCollectionInfo(){
+  const box=document.getElementById('collectionInfo');
+  if(box)box.innerHTML='🔴 '+teamCollections[0]+'<br>🟡 '+teamCollections[1]+'<br><br>Partida martxan dagoen bitartean, aldaketak aplikatzeko sakatu HASI JOKOA.';
+}
+function currentCollectionName(teamIndex){return teamCollections[teamIndex]||''}
+
+window.addEventListener('resize',()=>renderAll());
+if(window.ResizeObserver){const ro=new ResizeObserver(()=>{renderAll()});document.querySelectorAll('.teamPanel').forEach(el=>ro.observe(el));}
+fillCollectionSelectors();
+init();
+
+function irakurriCSV(txt){txt=txt.replace(/^\uFEFF/,'');let rows=[],row=[],field='',quoted=false;for(let i=0;i<txt.length;i++){let c=txt[i];if(c==='"'){if(quoted&&txt[i+1]==='"'){field+='"';i++}else quoted=!quoted}else if(c===','&&!quoted){row.push(field);field=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&txt[i+1]==='\n')i++;row.push(field);if(row.some(x=>x.trim()))rows.push(row);row=[];field=''}else field+=c;}row.push(field);if(row.some(x=>x.trim()))rows.push(row);return rows}
+function irakurriTaula(txt){const rows=irakurriCSV(txt);if(rows.length<2)throw Error('CSV hutsa');const heads=rows.shift().map(x=>x.trim().toUpperCase());return rows.map(row=>Object.fromEntries(heads.map((h,i)=>[h,(row[i]||'').trim()])))}
+
+document.getElementById('txokoRoscoFile').addEventListener('change',async function(){let status=document.getElementById('txokoRoscoStatus');try{if(!this.files.length)return;const rows=irakurriTaula(await this.files[0].text());let next={};for(const r of rows){let k=r.BILDUMA,l=r.LETRA,m=r.MOTA;if(!k||!LETTERS.includes(l)||!['HASTEN','DAUKA'].includes(m)||!r.GALDERA||!r.ERANTZUNA)throw Error('BILDUMA, LETRA, MOTA, GALDERA, ERANTZUNA bete behar dira');if(!next[k])next[k]={};if(next[k][l])throw Error('Letra errepikatua: '+k+' / '+l);next[k][l]={type:m,q:r.GALDERA,a:r.ERANTZUNA}}let names=Object.keys(next);if(!names.length)throw Error('Ez dago bildumarik');for(const name of names){if(!LETTERS.every(l=>next[name][l]))throw Error(name+': 18 letrak behar dira')}COLLECTIONS={...COLLECTIONS,...next};fillCollectionSelectors();document.getElementById('collection0').value=names[0];document.getElementById('collection1').value=names[1]||names[0];status.textContent='✓ '+names.length+' bilduma kargatuta · Sakatu HASI JOKOA';status.style.color='#8ed47f'}catch(e){status.textContent='⚠ '+e.message;status.style.color='#ffb3b3'}});
+
+</script>
+</body>
+</html>
