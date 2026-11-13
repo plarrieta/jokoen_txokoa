@@ -414,14 +414,21 @@ function fitClueText(){
   const clue=document.getElementById('clue');
   const box=document.querySelector('.clueBox');
   const top=document.querySelector('.top');
-  const area=document.getElementById('area');
   if(!clue||!box||!top)return;
-  const base=Math.min(45,Math.max(16,window.innerWidth*.035));
-  clue.style.fontSize=base+'px';
+  // Berreskuratu tamaina handia panel bakoitzean: ez heredatu aurrekoaren txikiketa.
+  const preferred=Math.min(58,Math.max(30,window.innerWidth*.047));
+  clue.style.fontSize=preferred+'px';
   requestAnimationFrame(()=>{
-    const maxH=Math.max(42,top.clientHeight-parseFloat(getComputedStyle(top).paddingTop)-22);
-    let size=base;
-    while(size>15 && (box.scrollHeight>maxH || clue.scrollWidth>clue.clientWidth+2)){
+    const imageButton=document.getElementById('imageClueBtn');
+    const area=document.getElementById('area');
+    const imageHeight=imageButton&&!imageButton.hidden?imageButton.offsetHeight:0;
+    // Irudiaren altuerak ez du pista laburraren letra txikitzera behartu behar.
+    const padding=parseFloat(getComputedStyle(box).paddingTop)+parseFloat(getComputedStyle(box).paddingBottom);
+    const border=parseFloat(getComputedStyle(box).borderTopWidth)+parseFloat(getComputedStyle(box).borderBottomWidth);
+    const minimum=imageHeight+(area?area.offsetHeight:0)+padding+border+4;
+    const allowed=Math.max(top.clientHeight-2,minimum);
+    let size=preferred;
+    while(size>18 && (box.scrollHeight>allowed+2 || clue.scrollWidth>clue.clientWidth+2)){
       size-=1;
       clue.style.fontSize=size+'px';
     }
