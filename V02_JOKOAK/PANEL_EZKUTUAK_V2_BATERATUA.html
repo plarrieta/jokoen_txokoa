@@ -170,6 +170,17 @@ button:focus-visible,.key:focus-visible{outline:3px solid #ffe59d;outline-offset
 .clueContent{display:flex;align-items:center;justify-content:center;gap:15px}.clueContent .clue{flex:1;min-width:0}.imageClueBtn{position:static;transform:none;width:110px;height:80px;flex:none;padding:3px;border:3px solid #b7dcff;overflow:hidden}.imageClueBtn img{width:100%;height:100%;object-fit:contain}.clueBox:has(.imageClueBtn:not([hidden])){padding:1.2vh 2vw}
 [hidden]{display:none!important}
 @media(max-width:900px){.clueContent{gap:8px}.imageClueBtn{width:74px;height:60px}.setupLists{grid-template-columns:1fr}.modePicker{flex-direction:column}.modePicker .miniBtn{width:100%}}
+
+/* V2.1 — Pista luzeak egokitzea eta irudiaren miniaturaren erroreak bistaratzea */
+.top{padding-top:clamp(18px,2.8vh,30px);min-height:0}
+.clueBox{max-height:100%;min-height:0;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(5px,.8vh,10px);padding-bottom:clamp(5px,.8vh,10px)}
+.clueLabel{top:-18px;font-size:clamp(13px,1.4vw,19px);padding:2px 25px}
+.clueContent{min-height:0;flex:0 1 auto}
+.clueContent .clue{font-size:clamp(16px,3vw,45px);line-height:1.04;letter-spacing:1px;overflow-wrap:break-word;hyphens:auto}
+.clueBox .small{font-size:clamp(11px,1.05vw,15px);margin-top:3px}
+.imageClueBtn{position:relative}
+.imageClueBtn.imageError::after{content:'IRUDIA EZIN DA KARGATU';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#17365a;color:#fff3ce;font-size:11px;padding:5px;text-align:center;font-weight:800}
+@media(max-width:900px){.top{padding-top:22px}.clueContent .clue{font-size:clamp(15px,3.2vw,32px)}}
 </style>
 </head>
 
@@ -386,12 +397,37 @@ function loadPuzzle(i){
   closeImageClue();
   const url=driveImageUrl(p.irudia);
   const imageBtn=document.getElementById('imageClueBtn');
+  const smallImage=document.getElementById('smallClueImage');
   imageBtn.hidden=!url;
   imageBtn.dataset.url=url;
+  imageBtn.classList.remove('imageError');
+  smallImage.removeAttribute('src');
+  smallImage.onerror=()=>{ imageBtn.classList.add('imageError'); };
+  smallImage.onload=()=>{ imageBtn.classList.remove('imageError'); };
+  if(url)smallImage.src=url;
+  fitClueText();
   grid=makeGrid(normalize(p.panela));
   renderKeys();renderBoard();
   status(`${sessionPosition+1}/${session.length}. panela. Aukeratu letra bat.`);
 }
+function fitClueText(){
+  const clue=document.getElementById('clue');
+  const box=document.querySelector('.clueBox');
+  const top=document.querySelector('.top');
+  const area=document.getElementById('area');
+  if(!clue||!box||!top)return;
+  const base=Math.min(45,Math.max(16,window.innerWidth*.035));
+  clue.style.fontSize=base+'px';
+  requestAnimationFrame(()=>{
+    const maxH=Math.max(42,top.clientHeight-parseFloat(getComputedStyle(top).paddingTop)-22);
+    let size=base;
+    while(size>15 && (box.scrollHeight>maxH || clue.scrollWidth>clue.clientWidth+2)){
+      size-=1;
+      clue.style.fontSize=size+'px';
+    }
+  });
+}
+window.addEventListener('resize',fitClueText);
 function openImageClue(){
   const url=document.getElementById('imageClueBtn').dataset.url;
   if(!url)return;
