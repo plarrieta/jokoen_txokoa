@@ -1,0 +1,13 @@
+﻿id,izena,formula,triangelua_da,lau_alde_ditu,angelu_zuzena_du,alde_guztiak_berdinak_dira,bi_alde_soilik_berdinak_dira,bi_pare_alde_paralelo_ditu,pare_bakarra_alde_paralelo_ditu,poligono_erregularra_da,bost_alde_ditu,sei_alde_ditu,ertz_kurbatua_du,zirkulua_da
+G01,Triangelu aldeberdina,△,1,0,0,1,0,0,0,1,0,0,0,0
+G02,Triangelu isoszele ez-aldeberdina,△,1,0,0,0,1,0,0,0,0,0,0,0
+G03,Triangelu eskaleno angeluzuzena,◺,1,0,1,0,0,0,0,0,0,0,0,0
+G04,Karratua,□,0,1,1,1,0,1,0,1,0,0,0,0
+G05,Laukizuzen ez-karratua,▭,0,1,1,0,0,1,0,0,0,0,0,0
+G06,Erronbo ez-karratua,◇,0,1,0,1,0,1,0,0,0,0,0,0
+G07,Erronboide zeiharra,▱,0,1,0,0,0,1,0,0,0,0,0,0
+G08,Trapezio ez-isoszelea,⏢,0,1,0,0,0,0,1,0,0,0,0,0
+G09,Pentagono erregularra,⬠,0,0,0,1,0,0,0,1,1,0,0,0
+G10,Hexagono erregularra,⬡,0,0,0,1,0,0,0,1,0,1,0,0
+G11,Zirkulua,◯,0,0,0,0,0,0,0,0,0,0,1,1
+G12,Elipse ez-zirkularra,⬭,0,0,0,0,0,0,0,0,0,0,1,0

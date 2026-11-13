@@ -1,0 +1,13 @@
+﻿id,izena,formula,gas,elementua,oxigenoa,metala,hidrogenoa,magnesioa,burdina,karbonoa,nitrogenoa,kloroa,zinka
+K01,Oxigenoa,O₂,1,1,1,0,0,0,0,0,0,0,0
+K02,Hidrogenoa,H₂,1,1,0,0,1,0,0,0,0,0,0
+K03,Karbono dioxidoa,CO₂,1,0,1,0,0,0,0,1,0,0,0
+K04,Ura,H₂O,0,0,1,0,1,0,0,0,0,0,0
+K05,Magnesioa,Mg,0,1,0,1,0,1,0,0,0,0,0
+K06,Magnesio oxidoa,MgO,0,0,1,0,0,1,0,0,0,0,0
+K07,Burdina,Fe,0,1,0,1,0,0,1,0,0,0,0
+K08,Burdina(III) oxidoa,Fe₂O₃,0,0,1,0,0,0,1,0,0,0,0
+K09,Zinka,Zn,0,1,0,1,0,0,0,0,0,0,1
+K10,Hidrogeno kloruroa,HCl,1,0,0,0,1,0,0,0,0,1,0
+K11,Nitrogenoa,N₂,1,1,0,0,0,0,0,0,1,0,0
+K12,Amoniakoa,NH₃,1,0,0,0,1,0,0,0,1,0,0
