@@ -1,0 +1,69 @@
+<!doctype html><html lang="eu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARGI · Ikasleentzako estekak</title>
+<style>
+:root{--bg:#081429;--panel:#142b4c;--edge:#5ac2ff;--yellow:#ffe67a;--txt:#f2f8ff}*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#233f67,#081429 70%);font:16px system-ui,Arial,sans-serif;color:var(--txt);padding:26px 16px}
+main{max-width:790px;margin:auto}.head{text-align:center;margin-bottom:22px}h1{color:var(--yellow);font-size:clamp(23px,3.5vw,34px)}p{line-height:1.6}.panel{background:var(--panel);border:1.5px solid #5286aa;border-radius:15px;padding:24px;margin:15px 0}.small{font-size:13px;color:#c1d7f2}
+label{display:block;margin:15px 0 5px;font-weight:800;color:#fff}select,input{width:100%;background:#081b31;border:1.5px solid #87b5db;border-radius:9px;color:white;padding:13px 10px;font:inherit}select{cursor:pointer}
+.group{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}button,a.btn{border:1px solid #061629;border-radius:9px;background:linear-gradient(90deg,#5ac2ff,#c58bff);color:#071426;text-decoration:none;font-weight:900;cursor:pointer;padding:12px 17px;font-size:14px}button.secondary{background:#ffe67a}button:disabled{opacity:.5;cursor:default}.detail{color:#ffe67a;font-weight:800;min-height:30px}.ok{color:#8ed47f}.tip{background:#10213a;border-left:3px solid #ffe67a;padding:10px 12px;border-radius:5px}
+</style></head><body><main><div class="head"><h1>🎮 ARGI · IKASLEENTZAKO ESTEKA</h1><p>50 unitate integratuetako bat aukeratu eta esteka zuzena sortu. Ikasleak izena edo ezizena soilik idatziko du.</p></div>
+<div class="panel"><h2>1. Aukeratu unitatea</h2><label for="unit">Unitate integratua</label><select id="unit"><option value="MA01">MA01 · Zenbaki arruntak, osoak eta hamartarrak</option>
+<option value="MA02">MA02 · Zatikiak</option>
+<option value="MA03">MA03 · Berreketak eta erroak</option>
+<option value="MA04">MA04 · Proportzionaltasun-problemak eta ehunekoenak</option>
+<option value="MA05">MA05 · Zenbaki-segidak</option>
+<option value="MA06">MA06 · Hizkuntza aljebraikoa</option>
+<option value="MA07">MA07 · Lehen eta bigarren mailako ekuazioak</option>
+<option value="MA08">MA08 · Ekuazio-sistemak</option>
+<option value="MA09">MA09 · Funtzioak eta grafikoak</option>
+<option value="MA10">MA10 · Funtzio linealak eta koadratikoak</option>
+<option value="MA11">MA11 · Geometria lauaren elementuak</option>
+<option value="MA12">MA12 · Irudiak espazioan</option>
+<option value="MA13">MA13 · Mugimenduak planoan. Frisoak eta mosaikoak</option>
+<option value="MA14">MA14 · Taula eta grafiko estatistikoak</option>
+<option value="MA15">MA15 · Parametro estatistikoak</option>
+<option value="FK01">FK01 · Materiaren propietateak</option>
+<option value="FK02">FK02 · Materia: egoera fisikoak</option>
+<option value="FK03">FK03 · Materia: nola ageri den</option>
+<option value="FK04">FK04 · Materia: propietate elektrikoak eta atomoa</option>
+<option value="FK05">FK05 · Elementu eta konposatu kimikoak</option>
+<option value="FK06">FK06 · Aldaketa kimikoak</option>
+<option value="FK07">FK07 · Kimika jardunean</option>
+<option value="FK08">FK08 · Elektrizitatea</option>
+<option value="FK09">FK09 · Energia</option>
+<option value="FK10">FK10 · Indarrak eta haien eraginak</option>
+<option value="BG01">BG01 · Giza gorputzaren antolakuntza</option>
+<option value="BG02">BG02 · Giza elikadura</option>
+<option value="BG03">BG03 · Nutrizioa I: digestio-aparatua eta arnas aparatua</option>
+<option value="BG04">BG04 · Nutrizioa II: zirkulazio- eta iraitz-aparatuak</option>
+<option value="BG05">BG05 · Harremana I: nerbio-sistema eta sistema endokrinoa</option>
+<option value="BG06">BG06 · Harremana II: zentzumenak eta lokomozio-aparatua</option>
+<option value="BG07">BG07 · Giza ugalketa</option>
+<option value="BG08">BG08 · Osasuna eta gaixotasuna</option>
+<option value="BG09">BG09 · Paisaia eta erliebea. Kanpo-geologia</option>
+<option value="BG10">BG10 · Lurraren barruko dinamika</option>
+<option value="BG11">BG11 · Ingurumenaren gaineko eraginak</option>
+<option value="BG12">BG12 · Natura-baliabideak</option>
+<option value="BG13">BG13 · Ekosistemen egitura</option>
+<option value="BG14">BG14 · Lurreko ekosistemak</option>
+<option value="TE01">TE01 · Arduino</option>
+<option value="TE02">TE02 · Egiturak</option>
+<option value="TE03">TE03 · Elektrizitatea 1</option>
+<option value="TE04">TE04 · Elektrizitatea 2</option>
+<option value="TE05">TE05 · Prozesu teknologikoa</option>
+<option value="TE06">TE06 · Marrazketa teknikoa</option>
+<option value="TE07">TE07 · Scratch-aren bidezko programazioa</option>
+<option value="TE08">TE08 · Komunikazio teknologiak</option>
+<option value="TE09">TE09 · Teknologia eta gizartea</option>
+<option value="TE10">TE10 · Mekanika 1</option>
+<option value="TE11">TE11 · Mekanika 2</option></select><p class="detail" id="info"></p>
+<h2>2. Ikasleei eman esteka</h2><label for="url">Ikasleentzako esteka zuzena</label><input id="url" readonly spellcheck="false" aria-label="Sortutako esteka"><div class="group"><button id="copy" type="button">📋 KOPIATU ESTEKA</button><button id="open" class="secondary" type="button">▶ IKASLEAREN PANTAILA PROBATU</button></div><p class="small" id="status" aria-live="polite"></p></div>
+<div class="panel"><h2>3. Google Sites-en erabili</h2><p class="tip">Google Sites-en <strong>EZAGUTZAREN DORREA</strong> botoi bat jarri eta haren estekatzat goiko helbidea erabili. Beste unitate bat jarri nahi duzunean, hemen aukeratu berria eta Sites-eko botoiaren esteka eguneratu; jokoa ez da berriz igo behar.</p><p class="small">Sarbidea ez da blokeatuta egongo: esteka zaharra gordeta daukanak unitate zaharra ireki ahal izango du. JSON fitxategi propioek aparteko argitalpen publikoa beharko dute ikasleek automatikoki erabiltzeko.</p></div>
+</main><script>
+(()=>{const select=document.getElementById('unit'),out=document.getElementById('url'),info=document.getElementById('info'),status=document.getElementById('status');
+const root='https://plarrieta.github.io/jokoen_txokoa/ARGI_BATERATUA_ESTEKA_PROBA.html';
+function update(){const c=select.value;out.value=root+'?unit='+encodeURIComponent(c)+'&ikasle=1';info.textContent='Aukeratuta: '+select.selectedOptions[0].textContent;status.textContent='';}
+select.addEventListener('change',update);document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(out.value);status.textContent='✓ Esteka kopiatu da.';status.className='small ok'}catch(e){out.focus();out.select();status.textContent='Sakatu Ctrl+C esteka kopiatzeko.'}});
+document.getElementById('open').addEventListener('click',()=>window.open(out.value,'_blank','noopener'));
+update();
+})();
+</script></body></html>
