@@ -1,0 +1,693 @@
+<!doctype html><html lang="eu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DEFINIZIOAK V26 · Pixel liburutegia</title><style>
+:root{font-family:system-ui,'Trebuchet MS',sans-serif;color:#152447}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#492c66;overflow:hidden}.scene{height:100dvh;min-height:560px;position:relative;isolation:isolate;display:flex;flex-direction:column;background:linear-gradient(90deg,#54346a 0 16%,#6b3b70 30%,#744b79 50%,#6b3b70 70%,#54346a 84%);border:5px solid #352048}.scene:before{content:"";position:absolute;inset:0;z-index:-2;background:repeating-linear-gradient(0deg,transparent 0 108px,#c87c3f 108px 120px,#4d2c44 120px 129px,transparent 129px 230px),repeating-linear-gradient(90deg,#c94b65 0 10px,#f3b64a 10px 19px,#2766b4 19px 29px,#74c985 29px 39px,#7d57c9 39px 49px,#ed8446 49px 60px);background-size:100% 100%,70px 100%;opacity:.54}.scene:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#34244d77,transparent 28% 72%,#34244d77),linear-gradient(0deg,#ad713a 0 5%,transparent 5%)}.top{height:116px;flex:none;position:relative;text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column;filter:drop-shadow(0 7px 0 #281b42)}.top h1{font-size:clamp(26px,3.2vw,52px);line-height:1.1;margin:0;padding:5px 28px;background:#092c76;color:#ffe044;border:5px solid white;border-radius:13px;box-shadow:0 0 0 7px #09204d,7px 9px 0 #251944;text-shadow:3px 3px #7c3a38;letter-spacing:1px;font-weight:1000}.top p{background:#10295b;color:white;padding:4px 22px;border:3px solid #a8d9ff;margin:8px 0 0;font-weight:900;font-size:clamp(10px,1.1vw,15px)}.lamp{position:absolute;top:-8px;font-size:46px;filter:drop-shadow(0 0 15px #ffdc65)}.lamp.left{left:22%}.lamp.right{right:22%}.stage{flex:1;min-height:0;display:grid;grid-template-columns:minmax(190px,20%) minmax(0,1fr) minmax(190px,20%);gap:12px;padding:12px 14px 18px}.side{background:linear-gradient(#0e397d,#0a2457);border:5px solid #b9e8ff;box-shadow:0 0 0 5px #07235a,7px 9px 0 #321d3e;min-height:0;border-radius:15px;padding:13px 11px;overflow:auto;color:white}.side h2{font-size:clamp(15px,1.6vw,23px);text-align:center;color:white;margin:0 0 14px;padding-bottom:9px;border-bottom:3px solid #8bbcf4;text-shadow:2px 2px #182345}.phase{width:100%;text-align:left;display:flex;align-items:center;gap:8px;background:linear-gradient(#194f9e,#0c326f);border:3px solid #8ac4ed;border-radius:9px;color:#fff;padding:12px 8px;margin:8px 0;font-size:clamp(12px,1.15vw,16px);font-weight:900;cursor:pointer;box-shadow:0 4px #041d47}.phase span{font-size:20px}.phase.active{color:#112450;background:linear-gradient(#ffe65b,#ffba20);border-color:#fff4aa;box-shadow:0 4px #a5681e}.sub{margin:2px 0 8px 18px;display:none}.sub.show{display:block}.sub button{display:block;width:100%;margin:5px 0;padding:7px 5px;border:2px solid #88b8ec;border-radius:8px;background:#174a90;color:white;text-align:left;font-size:clamp(11px,.9vw,13px);font-weight:800;cursor:pointer}.sub button.active{background:#ffd739;color:#152750;border-color:#fff}.book{position:relative;min-width:0;min-height:0;display:grid;grid-template-columns:1fr 1fr;padding:24px 28px 27px;border:10px solid #a33d62;border-radius:30px 30px 42px 42px;background:#fff2c9;box-shadow:0 0 0 7px #592c51,0 14px #3b2146,inset 0 0 0 6px #f6b16e;overflow:hidden}.book:before{content:"";position:absolute;top:0;bottom:0;left:50%;width:23px;transform:translateX(-50%);background:linear-gradient(90deg,#b57d52aa,#fff6df 43%,#fff6df 56%,#b57d52aa);z-index:1;pointer-events:none}.page{min-width:0;min-height:0;padding:6px 16px;display:flex;flex-direction:column}.page:first-child{background:linear-gradient(90deg,#fff9e9,#fff1cf)}.page:last-child{background:linear-gradient(90deg,#f8e3b8,#fff9e8)}.page h2{margin:2px 0 10px;font-size:clamp(17px,1.7vw,26px);color:#103d79;text-align:center;text-transform:uppercase;border-bottom:3px solid #e4a45c;padding-bottom:8px}.ribbon{background:#073d9b;border:4px solid #d5f3ff;color:white;text-align:center;font-weight:1000;border-radius:10px;box-shadow:0 4px #2a3b71;padding:8px;margin-bottom:10px;font-size:clamp(14px,1.45vw,23px)}.yellow{background:#ffdf46;border:3px solid #d38c19;border-radius:9px;text-align:center;padding:8px;color:#1d2843;font-weight:900;margin-bottom:10px}.stats{display:flex;justify-content:space-between;gap:8px;font-weight:800;font-size:clamp(11px,1vw,15px);margin-bottom:10px}.scroll{flex:1;min-height:0;overflow:auto;padding-right:6px;scrollbar-color:#5c83b9 #e6d5b8}.def{display:flex;align-items:center;gap:8px;background:#fff;border:2px solid #93b0d5;border-radius:10px;padding:9px;margin:7px 0;font-size:clamp(12px,1vw,15px);line-height:1.3}.def b{background:#5d7598;color:white;padding:7px 11px;border-radius:5px;font-size:17px}.def:first-child{background:#e9ffdf;border-color:#67c566}.rank{display:flex;align-items:center;gap:8px;background:#fff6d9;border-bottom:2px solid #ddb76b;padding:12px 4px;font-size:clamp(12px,1vw,16px);font-weight:800}.rank b{background:#2db343;color:white;border-radius:5px;padding:5px}.bar{height:12px;background:#e6e9ed;border:1px solid #9caac0;border-radius:9px;margin-top:5px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(#54e326,#159c26)}.info{background:#e9f3ff;border:2px solid #72a4df;border-radius:9px;padding:11px;margin-top:10px;font-size:clamp(11px,1vw,15px)}.red{background:linear-gradient(#ff4155,#bc082b);color:white;border:4px solid #fff0b4;border-radius:10px;font-weight:1000;padding:12px 8px;width:100%;box-shadow:0 5px #66122d;cursor:pointer;margin-top:12px}.rightbox{border:3px solid #9acaff;border-radius:11px;background:#f4f8ff;color:#15294e;margin:9px 0 14px;overflow:hidden}.rightbox h3{background:#073f9b;color:white;margin:0;padding:8px;text-align:center;font-size:clamp(13px,1.1vw,17px)}.rightbox p{margin:0;padding:7px 10px;border-bottom:1px solid #b4c9e4;font-size:clamp(12px,1vw,15px);font-weight:700}.rightbox strong{float:right}.pin{color:#ffdd3c;font-size:clamp(27px,3vw,43px);font-weight:1000;text-align:center;letter-spacing:3px}.flow{display:flex;justify-content:center;align-items:center;gap:3px;padding:10px 2px}.flow span{background:#e5efff;color:#142d65;padding:8px 5px;border-radius:7px;font-size:clamp(10px,.9vw,13px);font-weight:900}.flow span.on{background:#ffd438}.flow em{font-style:normal;color:#fbe47b}.note{font-size:11px;color:#d9eaff;text-align:center}.action{background:#d9ecff;border:2px solid #fff;border-radius:8px;color:#123870;padding:9px;width:100%;font-weight:900;margin:4px 0;cursor:pointer}.action:active,.phase:active{transform:translateY(2px)}.hint{font-size:12px;color:#42628c}.bigtext{font-size:clamp(15px,1.3vw,20px);line-height:1.5}.fakeinput{border:2px solid #8fb1d7;background:#fff;border-radius:9px;padding:13px;min-height:110px;color:#7e8fa5}.badge{display:inline-block;background:#ffdc46;padding:5px 9px;border-radius:7px;font-weight:900}.footer{position:absolute;bottom:1px;left:0;right:0;text-align:center;font-size:10px;color:#fff8d9;pointer-events:none}@media(max-width:900px){.stage{grid-template-columns:175px minmax(0,1fr) 175px;gap:7px;padding:7px}.side{padding:9px 6px}.book{padding:15px 10px 20px}.page{padding:5px 9px}.top{height:92px}.lamp{display:none}.rank{padding:8px 2px}.def{padding:6px}.rightbox p{padding:6px}}@media(max-width:650px){body{overflow:auto}.scene{min-height:900px;height:auto}.stage{grid-template-columns:1fr 1fr}.book{grid-column:1/-1;grid-row:2;min-height:530px}.side{min-height:270px}.side:first-child{grid-column:1}.side:last-child{grid-column:2}.top h1{font-size:22px}}
+
+.viewbar{position:absolute;top:10px;right:16px;z-index:5;display:flex;gap:6px}.viewbar button{border:2px solid #ffe487;background:#123b81;color:white;border-radius:7px;padding:6px 9px;font-weight:900;cursor:pointer}.viewbar button.active{background:#ffe25a;color:#172b58}.private{border:2px dashed #e6bd56;background:#fff4d0;border-radius:8px;padding:8px;margin-top:8px;color:#50371d;font-size:12px}.mini{border:2px solid #9fc0e8;border-radius:8px;background:#f7fbff;padding:8px;margin:7px 0}.controlhead{display:flex;align-items:center;gap:6px}.controlhead button{margin-left:auto;cursor:pointer;background:#ffd94b;border:2px solid #a36b1a;border-radius:6px;font-weight:900}.hidden{display:none!important}.switch{display:flex;align-items:center;gap:7px;margin:8px 0;font-size:13px;font-weight:800}.switch input{width:18px;height:18px}.book button{cursor:pointer}.voteoption{display:flex;align-items:center;gap:8px;border:2px solid #aac4e2;border-radius:9px;background:white;padding:9px;margin:7px 0;font-size:13px}.voteoption button{background:#1551a1;color:white;border:0;border-radius:6px;padding:7px;font-weight:900;cursor:pointer}.voteoption button:disabled{background:#98a7b8}.textentry{width:100%;min-height:125px;resize:vertical;border:2px solid #8ab0d8;border-radius:8px;padding:10px;font:inherit;background:white}.field{width:100%;border:2px solid #8ab0d8;border-radius:8px;padding:9px;font:inherit;margin:5px 0}.smallbutton{background:#1551a1;color:white;border:2px solid #c9eaff;border-radius:8px;padding:9px;font-weight:900;cursor:pointer}.notice{padding:10px;border-radius:8px;background:#e4f2ff;border:2px solid #8ab6df;margin-top:8px;font-size:13px}.controlbody{max-height:36vh;overflow:auto}.tag{font-size:11px;font-weight:900;background:#f7da73;padding:4px 6px;border-radius:5px}.center{text-align:center}.statusline{color:#eafff9;text-align:center;font-size:11px;margin-top:5px}.book .page{overflow:hidden}.book .page>div.scroll{overflow-y:auto}.side .rightbox{margin-bottom:9px}.side nav{}.side .teacher-only{margin-top:12px}.side .teacher-only h3{font-size:13px}.side .teacher-only .action{font-size:12px;padding:8px 5px;margin:4px 0}.side .teacher-only .switch{font-size:12px;margin:5px 0}.side .teacher-only .controlbody{max-height:34vh;overflow:auto}.top h1{padding-right:30px;padding-left:30px}.phase{padding:10px 8px}.compact{font-size:12px!important}.locked{opacity:.75}.student-mode .teacher-only{display:none!important}.student-mode .stage{grid-template-columns:minmax(160px,19%) minmax(0,1fr) minmax(170px,19%)}@media(max-width:1150px){.viewbar{top:6px;right:6px}.viewbar button{font-size:10px;padding:4px 6px}.top h1{font-size:clamp(20px,2.6vw,35px)}}
+
+/* V24: retro pixel-art library, decorative scenery independent of functional UI */
+:root{--ink:#182448;--wood:#7a3b39;--wood-light:#d18b4b;--gold:#ffdf54;--pixel:#20335e}
+.scene{background:linear-gradient(180deg,#32234d 0%,#51315f 52%,#7b425a 80%,#8c503d 100%);border:6px solid #241a3a}
+.scene:before{opacity:1;background:repeating-linear-gradient(90deg,#422947 0 14px,#543251 14px 24px,#6a3853 24px 33px,#432943 33px 44px),repeating-linear-gradient(0deg,transparent 0 70px,#d79652 70px 81px,#512b40 81px 91px);background-blend-mode:multiply}
+.scene:after{background:linear-gradient(90deg,#201a3680,transparent 22% 78%,#201a3680),linear-gradient(0deg,#6b3934 0 5%,#d18b4b 5% 6%,transparent 6%)}
+.library-decor{position:absolute;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
+.pixel-shelf{position:absolute;top:7px;width:22%;height:114px;border:9px solid #4c293b;border-top:0;border-bottom:13px solid #c98b52;background:repeating-linear-gradient(90deg,#eb7956 0 12px,#8b3459 12px 17px,#f5c258 17px 30px,#244f8c 30px 39px,#a6d27b 39px 49px,#4c345e 49px 55px,#8c62a4 55px 66px,#dd9954 66px 75px);box-shadow:inset 0 9px #281f42,0 8px 0 #482940,0 13px 0 #f0ae66;image-rendering:pixelated;opacity:.98}
+.pixel-shelf.left{left:0}.pixel-shelf.right{right:0}
+.pixel-window{position:absolute;top:5px;width:100px;height:112px;background:linear-gradient(145deg,#ffe9a5,#a8d7dd 55%,#5587ba);border:10px solid #9a5b42;box-shadow:0 0 0 5px #4e2b42,inset 0 0 0 4px #f4c17a,7px 7px 0 #35233e}
+.pixel-window:before{content:'';position:absolute;left:40%;top:0;bottom:0;width:8px;background:#a76a4b;box-shadow:2px 0 #f8c879}
+.pixel-window:after{content:'';position:absolute;left:0;right:0;top:45%;height:8px;background:#a76a4b;box-shadow:0 2px #f8c879}
+.pixel-window.left{left:23%}.pixel-window.right{right:23%}
+.pixel-plant{position:absolute;top:72px;width:64px;height:72px;filter:drop-shadow(5px 5px 0 #251c39)}
+.pixel-plant:before{content:'';position:absolute;left:24px;top:0;width:16px;height:45px;background:#54b968;box-shadow:-16px 9px #78d47b,16px 10px #319d6a,-23px 20px #379c69,23px 24px #76ce76,0 -9px #a4e47a}
+.pixel-plant:after{content:'';position:absolute;left:15px;bottom:0;width:37px;height:28px;background:linear-gradient(90deg,#ad564b 0 8px,#e99b63 8px 28px,#914449 28px);border-top:6px solid #f7bc78;clip-path:polygon(0 0,100% 0,85% 100%,15% 100%)}
+.pixel-plant.left{left:7%}.pixel-plant.right{right:7%}
+.top{z-index:2;filter:drop-shadow(0 6px 0 #241b38)}
+.top h1{border-radius:2px;border:5px solid #f6e8bb;box-shadow:0 0 0 5px #152958,7px 7px 0 #211b3a;background:linear-gradient(#123c84,#09285e);text-shadow:3px 3px #6c3a55;letter-spacing:1.5px}
+.top p{border-radius:0;box-shadow:4px 4px 0 #2a203b}
+.lamp{font-size:37px;top:2px;filter:drop-shadow(0 0 9px #ffcf59) drop-shadow(3px 3px 0 #39263c)}
+.lamp.left{left:32%}.lamp.right{right:32%}
+.stage{position:relative;z-index:2}
+.side{border-radius:3px;border:5px solid #f4cb7b;background:linear-gradient(135deg,#164a88,#0b2859 70%);box-shadow:0 0 0 6px #58344c,7px 9px 0 #251b37,inset 0 0 0 3px #4c79a5}
+.side h2{border-bottom:4px solid #e5ad65;text-shadow:2px 3px #1b2750}
+.phase,.sub button,.action,.smallbutton,.viewbar button{border-radius:2px;box-shadow:4px 5px 0 #091d3c,inset 0 3px #ffffff35;transition:filter .1s,transform .1s}
+.phase{border:3px solid #8ed1e7;background:linear-gradient(#245fa2,#12356f);padding:10px 8px}
+.phase:hover,.sub button:hover,.action:hover,.smallbutton:hover{filter:brightness(1.13)}
+.phase.active,.sub button.active{background:linear-gradient(#ffec7a,#f7b935);border-color:#fff2c2;box-shadow:4px 5px 0 #95502f}
+.sub button{border:2px solid #93c4e5}
+.book{border-radius:10px 10px 22px 22px;border:12px solid #8c3d56;background:#f5d79a;box-shadow:0 0 0 6px #3c2948,0 13px 0 #4b2a45,inset 0 0 0 7px #d89557;padding:25px 27px 27px}
+.book:after{content:'';position:absolute;left:12px;right:12px;bottom:8px;height:9px;background:repeating-linear-gradient(90deg,#eecb83 0 12px,#d39a61 12px 17px);border:2px solid #ad674b;pointer-events:none}
+.book:before{width:27px;background:linear-gradient(90deg,#8c5547,#dca66d 28%,#fff2c9 49%,#fff8e2 54%,#dca66d 75%,#8c5547);box-shadow:0 0 8px #8b563d55}
+.page:first-child{background:linear-gradient(90deg,#fff4d5,#fff8e6 88%,#edcf99)}
+.page:last-child{background:linear-gradient(90deg,#eac68f,#fff7dc 12%,#fff2d2)}
+.page h2{font-family:Georgia,serif;letter-spacing:.4px;border-bottom:4px double #b86b4b;color:#65364b}
+.ribbon{border-radius:2px;background:#1d508d;border:4px solid #f2c16d;box-shadow:4px 4px 0 #68425c}
+.yellow{border-radius:2px;border:3px solid #ac6b3e;background:#ffdf65;box-shadow:3px 3px 0 #d4a06a}
+.def,.voteoption,.mini,.info,.rightbox,.fakeinput,.textentry,.field{border-radius:2px}
+.def{border:2px solid #bc996f;background:#fff9e8;box-shadow:3px 3px 0 #d8c097}
+.def:first-child{background:#eaf5d5;border-color:#78a65d}
+.def b,.rank b{border-radius:0}
+.rightbox{border:3px solid #e2b878;background:#fff4da;box-shadow:3px 4px 0 #092653}
+.rightbox h3{background:#174e8a}
+.rightbox p{border-bottom:1px dashed #c3a17e}
+.bar{border-radius:0}
+.bar i{background:repeating-linear-gradient(90deg,#39ad54 0 9px,#5edb6d 9px 15px)}
+.pin{text-shadow:4px 4px #68394d}
+.controlhead button{border-radius:0}
+@media(max-width:1050px){.pixel-window{width:70px}.pixel-plant{display:none}.pixel-window.left{left:21%}.pixel-window.right{right:21%}.book{padding:17px 14px 22px}}
+@media(max-width:900px){.pixel-window{display:none}.pixel-shelf{width:25%}.top h1{font-size:clamp(23px,3vw,38px)}}
+
+/* V25: illustrated pixel-library scene; all functional controls remain live HTML. */
+:root{--outline:#261c37;--oak:#ad653f;--amber:#f6c46d}
+.scene{background:linear-gradient(180deg,#292042 0 16%,#563257 16% 77%,#985a49 77% 93%,#553043 93%);border:7px solid #241a36}
+.scene:before{background:repeating-linear-gradient(90deg,#392443 0 36px,#4b2d4d 36px 40px,#5e3657 40px 76px,#4b2d4d 76px 80px),repeating-linear-gradient(0deg,transparent 0 78px,#b57547 78px 89px,#462b43 89px 100px);background-blend-mode:normal;opacity:.6}
+.scene:after{background:linear-gradient(90deg,#251c3b8c 0,transparent 22% 78%,#251c3b8c),linear-gradient(0deg,#512e40 0 2%,#b67a4b 2% 4%,transparent 4%)}
+.library-decor{z-index:0}
+.pixel-shelf{top:123px;width:19%;height:calc(100% - 174px);border:10px solid #4a293c;border-bottom:16px solid #bd7848;border-top:13px solid #da9555;box-shadow:0 0 0 6px #261d39,inset 0 0 0 6px #7b433f,9px 9px 0 #2b203c;background:repeating-linear-gradient(0deg,transparent 0 84px,#e6a35e 84px 97px,#5b303f 97px 106px),repeating-linear-gradient(90deg,#a84859 0 13px,#f1b758 13px 24px,#3e7ca0 24px 36px,#6eb87d 36px 47px,#6c509a 47px 60px,#e18b4e 60px 70px,#ba536e 70px 83px,#e7d07d 83px 92px);background-blend-mode:normal;opacity:1}
+.pixel-shelf.left{left:-8px}.pixel-shelf.right{right:-8px}
+.pixel-shelf:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 23px,#2b203a 23px 26px,transparent 26px 65px),repeating-linear-gradient(0deg,transparent 0 105px,#41283d 105px 113px);opacity:.48}
+.pixel-window{top:8px;width:122px;height:127px;border:10px solid #c47b49;border-radius:0;box-shadow:0 0 0 5px #2d2039,inset 0 0 0 5px #f6cf7e,6px 6px 0 #38233e;background:linear-gradient(155deg,#fff2b5 0 30%,#b3d4e1 31% 64%,#6a83b4 65%)}
+.pixel-window.left{left:21%}.pixel-window.right{right:21%}
+.pixel-window:before{left:calc(50% - 5px);width:10px;background:#9c583f;box-shadow:3px 0 #f7b76e}
+.pixel-window:after{top:49%;height:10px;background:#9c583f;box-shadow:0 3px #f7b76e}
+.pixel-window .curtain{position:absolute;inset:0;box-shadow:inset 15px 0 #a64769,inset -15px 0 #a64769;opacity:.85}
+.pixel-plant{top:auto;bottom:32px;width:85px;height:100px;z-index:1;filter:drop-shadow(6px 6px 0 #241c36)}
+.pixel-plant.left{left:5%}.pixel-plant.right{right:5%}
+.pixel-plant:before{left:34px;top:15px;width:17px;height:52px;background:#47ad6d;box-shadow:-17px -8px #82d574,17px -13px #75c977,-29px 7px #398f69,29px 4px #3c9b68,-17px 19px #b3df72,16px 20px #65c46b,0 -22px #a1dc7c}
+.pixel-plant:after{left:20px;width:50px;height:32px;background:linear-gradient(90deg,#8f3d4b 0 9px,#ed9e64 9px 40px,#a8514c 40px);border:6px solid #e8b76f;clip-path:polygon(0 0,100% 0,85% 100%,15% 100%)}
+.top{height:119px;z-index:3}
+.top h1{font-family:Georgia,serif;font-weight:1000;font-size:clamp(24px,3vw,45px);border:6px solid #ffe1a2;border-radius:0;box-shadow:0 0 0 6px #172958,8px 8px 0 #281d39;background:linear-gradient(#20599a 0 17%,#103773 17% 83%,#092658 83%);text-shadow:3px 3px #6e3958}
+.top p{background:#5d335a;border:3px solid #f5c46c;color:#fff5cb;letter-spacing:1px}
+.lamp{font-size:0;top:0;width:55px;height:68px;filter:drop-shadow(0 0 10px #ffce67);background:linear-gradient(90deg,transparent 0 23px,#e1b96d 23px 31px,transparent 31px);}
+.lamp:before{content:'';position:absolute;left:4px;right:4px;top:27px;height:27px;background:#f8c65c;border:6px solid #6e3c45;clip-path:polygon(28% 0,72% 0,100% 100%,0 100%)}
+.lamp:after{content:'';position:absolute;left:10px;right:10px;top:54px;height:7px;background:#fff0a7;box-shadow:0 4px 0 #8c4a44,0 0 22px 12px #ffd56a50}
+.lamp.left{left:15%}.lamp.right{right:15%}
+.stage{gap:13px;padding:10px 15px 22px;grid-template-columns:minmax(190px,20%) minmax(0,1fr) minmax(190px,20%)}
+.side{border:6px solid #dba15d;border-radius:0;background:linear-gradient(135deg,#23558a,#0d2d63 75%);box-shadow:0 0 0 5px #38263d,8px 8px 0 #241b35,inset 0 0 0 4px #8ab6bd}
+.side h2{font-family:Georgia,serif;color:#ffe5a1;border-bottom:5px double #d69d5d}
+.phase,.sub button,.action,.smallbutton,.viewbar button,.red,.controlhead button{border-radius:0!important;clip-path:polygon(6px 0,calc(100% - 6px) 0,calc(100% - 6px) 5px,100% 5px,100% calc(100% - 5px),calc(100% - 6px) calc(100% - 5px),calc(100% - 6px) 100%,6px 100%,6px calc(100% - 5px),0 calc(100% - 5px),0 5px,6px 5px);font-family:system-ui,sans-serif;letter-spacing:.2px}
+.phase{background:linear-gradient(#3d77ae 0 18%,#1d508c 18% 85%,#133568 85%);border:3px solid #d5e6de;box-shadow:4px 5px 0 #061a3d}
+.phase.active{background:linear-gradient(#fff1a3 0 18%,#f7cb4e 18% 85%,#e6a13d 85%);border-color:#fff8cc}
+.action,.smallbutton{background:linear-gradient(#437ab2 0 20%,#215590 20% 83%,#12386e 83%);border:3px solid #b8d7dc;color:#fff9df;box-shadow:4px 4px 0 #0b2149}
+.book{border:13px solid #8a3e51;border-radius:13px 13px 29px 29px;box-shadow:0 0 0 7px #32243d,0 14px 0 #4d2b3d,inset 0 0 0 8px #d99857;background:#f6d79b;padding:29px 30px 33px}
+.book:before{width:31px;background:linear-gradient(90deg,#8c5647 0 12%,#d6a26e 22%,#fff2c9 44%,#fffaf0 50%,#d5a16c 78%,#885247 90%);box-shadow:0 0 0 2px #9b674a66;z-index:2}
+.book:after{height:12px;bottom:8px;border:3px solid #ad674b;background:repeating-linear-gradient(90deg,#e8c080 0 9px,#cf9a61 9px 13px)}
+.page{position:relative}
+.page:before{content:'◆';position:absolute;top:0;left:1px;color:#b78350;font-size:15px}
+.page:after{content:'◆';position:absolute;bottom:1px;right:1px;color:#b78350;font-size:15px}
+.page h2{font-family:Georgia,serif;font-weight:900;letter-spacing:.6px;border-bottom:4px double #b16d47}
+.ribbon{background:linear-gradient(#3468a0,#17457e);border:4px solid #e8bb73;box-shadow:4px 5px 0 #67405b}
+.yellow{background:linear-gradient(#ffeb9c,#f9d266);border:3px solid #ad7546;box-shadow:3px 3px 0 #b88d64}
+.rightbox{border:3px solid #e5bb79;box-shadow:4px 4px 0 #09244c}
+.rightbox h3{background:#194d85;color:#fff1b7}
+.viewbar{z-index:6}
+@media(max-width:1150px){.pixel-window{width:85px;height:103px}.pixel-window.left{left:20%}.pixel-window.right{right:20%}.pixel-plant{display:none}.lamp.left{left:13%}.lamp.right{right:13%}.book{padding:19px 14px 24px}}
+@media(max-width:900px){.pixel-window{display:none}.pixel-shelf{width:19%}.lamp{display:none}.top{height:94px}.stage{grid-template-columns:175px minmax(0,1fr) 175px;gap:8px;padding:8px}.book{padding:14px 9px 19px}}
+@media(max-width:650px){.pixel-shelf{display:none}.scene{min-height:900px}.stage{grid-template-columns:1fr 1fr}.book{grid-column:1/-1;grid-row:2}}
+
+/* V26: teacher controls fit beneath phases at normal classroom display zoom. */
+@media (min-width:651px){
+ .projection-mode .side:first-child{display:flex;flex-direction:column;gap:0;overflow-y:auto;scrollbar-width:thin;padding:8px 8px 6px}
+ .projection-mode .side:first-child h2{font-size:clamp(13px,1.3vw,18px);margin:0 0 5px;padding-bottom:5px;line-height:1.15;flex:none}
+ .projection-mode .side:first-child .phase{flex:none;min-height:0;padding:6px 6px;margin:3px 0;font-size:clamp(11px,1vw,14px);line-height:1.1;box-shadow:2px 3px 0 #091d3c}
+ .projection-mode .side:first-child .phase span{font-size:15px}
+ .projection-mode .side:first-child .sub{flex:none;margin:0 0 2px 11px}
+ .projection-mode .side:first-child .sub button{font-size:11px;padding:4px 5px;margin:3px 0;line-height:1.1;box-shadow:2px 2px 0 #091d3c}
+ .projection-mode .side:first-child .teacher-only{flex:none;margin-top:7px;margin-bottom:0}
+ .projection-mode .side:first-child .teacher-only h3{font-size:12px;line-height:1.15;padding:6px 4px}
+ .projection-mode .side:first-child .teacher-only .controlbody{max-height:none;overflow:visible;padding:5px!important}
+ .projection-mode .side:first-child .teacher-only .switch{font-size:11px;line-height:1.15;margin:3px 0;gap:5px}
+ .projection-mode .side:first-child .teacher-only .switch input{width:15px;height:15px;margin:0}
+ .projection-mode .side:first-child .teacher-only .action{font-size:11px;line-height:1.1;padding:5px 4px;margin:3px 0;box-shadow:2px 2px 0 #091d3c}
+ .projection-mode .side:first-child .teacher-only #controlHint{font-size:10px!important;line-height:1.2;margin:5px 0 2px}
+ .projection-mode .side:first-child .statusline{font-size:9px;margin-top:3px}
+}
+@media (min-width:651px) and (max-height:740px){
+ .projection-mode .side:first-child .phase{padding:4px 5px;margin:2px 0}
+ .projection-mode .side:first-child .sub button{padding:3px 4px;margin:2px 0}
+ .projection-mode .side:first-child .teacher-only .action{padding:4px 3px;margin:2px 0}
+ .projection-mode .side:first-child .teacher-only .switch{margin:2px 0}
+ .projection-mode .side:first-child .teacher-only{margin-top:4px}
+}
+
+/* V29: use the full height of the projection sidebar instead of leaving a blank lower area. */
+@media (min-width:651px) and (min-height:690px){
+ .projection-mode .side:first-child{overflow-y:hidden}
+ .projection-mode .side:first-child .phase{flex:1 1 0;display:flex;align-items:center;min-height:26px}
+ .projection-mode .side:first-child .sub.show{flex:0 0 auto}
+ .projection-mode .side:first-child .teacher-only{flex:2.6 1 auto;min-height:0;display:flex;flex-direction:column}
+ .projection-mode .side:first-child .teacher-only h3{flex:none}
+ .projection-mode .side:first-child .teacher-only .controlbody:not(.hidden){flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around}
+ .projection-mode .side:first-child .teacher-only .action{flex:1 1 auto;min-height:24px;max-height:47px;display:flex;align-items:center;justify-content:center}
+ .projection-mode .side:first-child .statusline{flex:none}
+}
+@media (min-width:651px) and (max-height:689px){
+ .projection-mode .side:first-child{overflow-y:auto}
+}
+
+/* V29: use both book pages and animate phase transitions */
+.book{perspective:1400px;isolation:isolate}
+.book .page{position:relative}
+.spread-note{font-size:12px;text-align:center;color:#754b39;margin:3px 0 8px;font-weight:800}
+.spread-list{flex:1;min-height:0;overflow:auto;padding:2px 7px 4px 2px;scrollbar-color:#b77d50 #f6e5c1}
+.spread-list .def{margin:8px 2px;padding:11px 9px;min-height:65px}
+.spread-list .def:first-child{background:#fff9e8;border-color:#bc996f}
+.spread-list .def.selected{background:#eaf5d5;border-color:#78a65d}
+.spread-summary{background:#fce4a6;border:3px solid #a86a44;box-shadow:3px 3px #d5a46c;padding:9px;text-align:center;font-weight:900;margin:6px 0 10px}
+.book-turn{position:absolute;z-index:20;top:18px;bottom:23px;left:50%;width:calc(50% - 27px);pointer-events:none;transform-origin:left center;backface-visibility:hidden;background:linear-gradient(90deg,#ddbb81 0%,#fff7de 12%,#fff5d7 87%,#d5a26e 100%);border:3px solid #b47c55;box-shadow:7px 3px 13px #51352c50;opacity:0;}
+.book-turn.turning{animation:page-turn .78s cubic-bezier(.25,.1,.35,1) both}
+.book-turn:before{content:'';position:absolute;inset:17px;border:3px double #d2a36a;background:repeating-linear-gradient(0deg,transparent 0 28px,#c9a47755 29px 30px);opacity:.65}
+@keyframes page-turn{0%{opacity:0;transform:rotateY(0deg)}8%{opacity:1}70%{opacity:1}100%{opacity:0;transform:rotateY(-178deg)}}
+@media(prefers-reduced-motion:reduce){.book-turn.turning{animation:none}}
+
+/* V29 · fichero catalográfico y hoja con anverso/reverso */
+.page{min-height:0}.catalog{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(5,minmax(0,1fr));gap:5px;padding:7px;background:repeating-linear-gradient(90deg,#78452d 0 13px,#925633 13px 23px);border:8px ridge #bd8750;box-shadow:inset 0 4px 0 #4c2b21,5px 5px 0 #765036;overflow:auto;min-height:0;align-content:start;flex:1}
+.catalog-card{position:relative;min-width:0;min-height:0;background:linear-gradient(#fdf1cd,#e8d09c);border:3px solid #b68c53;box-shadow:3px 4px 0 #573623;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#573b25}
+.catalog-card:before{content:'';position:absolute;top:-7px;width:48%;height:8px;background:#ead4a7;border:2px solid #a77b4b;border-bottom:0}
+.catalog-card b{font-size:clamp(14px,1.3vw,23px);line-height:1}.catalog-card small{font-size:clamp(7px,.65vw,9px);font-weight:900;text-align:center;line-height:1.1}
+.catalog-card.done{background:linear-gradient(#d9f4ba,#96c77d);border-color:#438d4b}.catalog-card.done:before{background:#a9d992;border-color:#438d4b}
+.catalog-card.absent{background:linear-gradient(#6b4935,#503427);border-color:#896344;color:#c4a482;box-shadow:inset 0 3px #3c281d}.catalog-card.absent:before{background:#72503a;border-color:#896344}
+.catalog-caption{font-weight:900;font-size:clamp(12px,1vw,15px);margin:8px 0;color:#70462d;text-align:center}
+.catalog-legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;font-size:11px;font-weight:800;margin-top:8px}.catalog-legend i{display:inline-block;width:12px;height:12px;border:2px solid #9a7548;vertical-align:middle}.catalog-legend .ok{background:#a6d588}.catalog-legend .waiting{background:#e8d09c}.catalog-legend .missing{background:#503427}
+.demo-controls{display:flex;gap:5px;align-items:center;justify-content:space-between;margin:6px 0}.demo-controls button{flex:1;background:#ffe08a;border:2px solid #a16c35;box-shadow:2px 2px #6b422c;font-weight:900;cursor:pointer;padding:4px;color:#4e3428}.demo-controls output{min-width:32px;text-align:center;font-weight:900}.teacher-only .switch{margin:4px 0}
+.book{perspective:1100px}.book-turn{backface-visibility:visible;transform-style:preserve-3d}.book-turn:after{content:'';position:absolute;inset:0;transform:rotateY(180deg) translateZ(1px);backface-visibility:hidden;background:linear-gradient(90deg,#cfa474,#fff4d4 18%,#fff9e7 90%,#c78b54);border:3px solid #b47c55}.book-turn:before{backface-visibility:hidden}
+@keyframes page-turn{0%{opacity:0;transform:rotateY(0deg)}8%{opacity:1}48%{opacity:1;transform:rotateY(-89deg)}85%{opacity:1}100%{opacity:0;transform:rotateY(-178deg)}}
+@media(max-height:760px){.catalog-card{min-height:0}.catalog{gap:5px;padding:5px}.demo-controls{margin:3px 0}}
+/* V31: 25 catalog cards, five columns and five rows */
+.catalog{overflow:hidden}
+.catalog-card{padding:2px 0;gap:0}
+.catalog-card:before{height:5px;top:-5px}
+@media(max-height:720px){.catalog-card small:first-child{display:none}.catalog{gap:3px;padding:5px}}
+
+/* V31: compact extra stage in left panel */
+.phase{padding-top:7px;padding-bottom:7px;margin:5px 0}.side .teacher-only{margin-top:7px}
+
+/* V34: preserve the library; isolate live-join experiment from V32 demo mechanics */
+#controls{display:none!important}.phase,.sub button{cursor:default!important}
+.v34panel{position:absolute;z-index:40;left:50%;top:52%;transform:translate(-50%,-50%);width:min(530px,calc(100vw - 40px));max-height:80vh;overflow:auto;background:#fff0c9;border:7px solid #a86745;box-shadow:0 0 0 6px #32243d,12px 13px 0 #201b33;padding:18px;color:#263253}
+.v34panel h2{font-family:Georgia,serif;color:#66334b;text-align:center;margin:0 0 12px}.v34panel p{line-height:1.4}
+.v34panel input{display:block;width:100%;font-size:16px;margin:8px 0;padding:11px;border:2px solid #93623d;background:#fffdf6}
+.v34panel button,.v34-livebtn{background:#19508e;color:white;border:3px solid #edc17d;font-weight:800;padding:10px 14px;margin:6px 5px 5px 0;cursor:pointer}
+.v34panel button:disabled{opacity:.5;cursor:wait}.v34status{min-height:25px;font-weight:700;color:#793b33;white-space:pre-wrap}.v34hide{display:none!important}
+#v34teacher{background:#fff0cf;border:2px solid #c9975c;padding:8px;margin:8px 0;color:#3c2946;font-size:12px}
+#v34teacher button{width:100%;font-size:12px}.v34-small{font-size:12px;color:#654b3c}
+.v38-writearea{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;overflow:auto;padding:9px}.v38-writearea textarea{min-height:145px;width:100%;font:inherit;font-size:17px;line-height:1.45;padding:12px;background:#fffdf6;border:3px solid #b68c53;resize:vertical}.v38-writearea button{font-weight:900;padding:12px;background:#19508e;color:#fff;border:3px solid #e2bb7a;cursor:pointer}.v38-writearea button:disabled{opacity:.55;cursor:default}.v38-note{background:#fff0c8;border:2px solid #c18a50;padding:11px;margin:5px;font-weight:700;color:#563d30}.v38-number{font-size:22px;font-weight:900;color:#194d85;margin:10px 0}.v38-error{color:#ab1932;font-weight:900}.v39-choice{display:flex;align-items:flex-start;gap:8px;background:#fff7df;border:2px solid #bd915d;padding:9px;margin:7px 0;font-size:13px;line-height:1.35}.v39-choice button{background:#22558f;color:white;border:2px solid #edc480;cursor:pointer;padding:7px 9px;font-weight:900;flex:none}.v39-choice button:disabled{opacity:.5;cursor:default}.v39-list{overflow:auto;min-height:0;flex:1}.v39-tag{background:#ffe17a;border:2px solid #bd8445;padding:6px;margin:4px 0;font-weight:800}
+.viewbar{display:none!important}
+@media(min-width:900px){.student-mode .book .page{font-size:clamp(12px,1.1vw,16px)}}
+</style></head><body><div class="scene" id="scene"><div class="library-decor" aria-hidden="true"><div class="pixel-shelf left"></div><div class="pixel-shelf right"></div><div class="pixel-window left"><i class="curtain"></i></div><div class="pixel-window right"><i class="curtain"></i></div><div class="pixel-plant left"></div><div class="pixel-plant right"></div></div><header class="top"><span class="lamp left" aria-hidden="true"></span><h1>📖 DEFINIZIOAK 2.0 — V42</h1><p>DEFINIZIOEN JOKO KOOPERATIBOA</p></header><div class="viewbar"><button id="projectionBtn" class="active">📺 PROIEKZIOA</button><button id="studentBtn">🎒 IKASLEA</button></div><div class="stage"><nav class="side"><h2>📖 JOKOAREN FASEAK</h2><button class="phase" data-p="start"><span>🌍</span> Hasiera</button><button class="phase" data-p="write"><span>✏️</span> Definizioak</button><button class="phase active" data-p="vote0"><span>📊</span> Bozketak</button><div class="sub show" id="rounds"><button data-p="vote0" class="active">▶ 1. bozketa · 4</button><button data-p="vote1">● 2. bozketa · 2</button><button data-p="vote2">● 3. bozketa · 1</button></div><button class="phase" data-p="improve"><span>🔄</span> Hobekuntza</button><button class="phase" data-p="finalvote"><span>🗳️</span> Azken bozketa</button><button class="phase" data-p="end"><span>🏆</span> Amaiera</button><div class="rightbox teacher-only"><h3>🔐 Irakaslearen kontrolak <button id="unlock" style="background:#ffdd56;border:0;border-radius:6px;padding:3px;cursor:pointer">▾</button></h3><div id="controls" class="controlbody" style="padding:7px"><label class="switch"><input type="checkbox" id="showResults"> Emaitzak erakutsi</label><label class="switch"><input type="checkbox" id="showNames"> Izenak erakutsi</label><label class="switch"><input type="checkbox" id="showDefinitions"> Definizioak erakutsi</label><div class="demo-controls"><button id="demoMinus" title="Ikasle bat gutxiago">−</button><output id="demoCount">0 / 25</output><button id="demoPlus" title="Ikasle bat gehiago">+</button></div><button class="action" id="closeVote">✓ Fasea amaitu</button><button class="action" id="previous">◀ Aurreko fasera itzuli</button><button class="action" id="next">▶ Hurrengo fasea</button><button class="action" id="reset">↺ Hasierara</button><p class="compact" id="controlHint">Emaitzak ezkutatuta daude.</p></div><div id="v34requests" class="v34hide" style="background:#fff0c9;color:#25314e;padding:6px;font-size:11px;max-height:180px;overflow:auto"></div><div id="v38teacherbox" class="v34hide" style="background:#fff0cf;border:3px solid #e3b878;color:#263253;padding:7px;margin:8px 0;font-size:12px">
+<b>✏️ DEFINIZIOAK · BENETAKO FASEA</b>
+<button class="v34-livebtn" id="v38open" style="width:100%;margin:7px 0 2px">HASI DEFINIZIOAK IDAZTEN</button>
+<p id="v38teacherhint" style="margin:5px 0">Lehenik sortu saio bat.</p>
+<div id="v39controls" class="v34hide">
+<button class="v34-livebtn" id="v39start" style="width:100%;margin:5px 0">HASI 1. BOZKETA</button>
+<button class="v34-livebtn" id="v39reveal" style="width:100%;margin:5px 0">ERAKUTSI BESTEEN DEFINIZIOAK</button>
+<button class="v34-livebtn" id="v39close" style="width:100%;margin:5px 0">AMAITU BOZKETA · 4 AUKERATU</button>
+<button class="v34-livebtn" id="v40start" style="width:100%;margin:5px 0">HASI 2. BOZKETA</button>
+<button class="v34-livebtn" id="v40reveal" style="width:100%;margin:5px 0">ERAKUTSI FINALISTAK</button>
+<button class="v34-livebtn" id="v40close" style="width:100%;margin:5px 0">AMAITU 2. BOZKETA · 2 AUKERATU</button>
+<button class="v34-livebtn" id="v41start" style="width:100%;margin:5px 0">HASI 3. BOZKETA</button>
+<button class="v34-livebtn" id="v41reveal" style="width:100%;margin:5px 0">ERAKUTSI AZKEN BI FINALISTAK</button>
+<button class="v34-livebtn" id="v41close" style="width:100%;margin:5px 0">AMAITU 3. BOZKETA · IRABAZLEA</button>
+<button class="v34-livebtn" id="v42start" style="width:100%;margin:5px 0">HASI HOBEKUNTZAK</button>
+<button class="v34-livebtn" id="v42reveal" style="width:100%;margin:5px 0">ERAKUTSI HOBEKUNTZAK</button>
+<p id="v39hint" style="font-weight:800;font-size:11px;white-space:pre-wrap"></p>
+</div>
+</div><div class="statusline">V42 · HOBEKUNTZAK</div></nav><main class="book"><div class="book-turn" id="bookTurn" aria-hidden="true"></div><section class="page" id="leftpage"></section><section class="page" id="rightpage"></section></main><aside class="side"><h2>🔑 SAIOAREN DATUAK</h2><div class="pin">------</div><div class="rightbox"><h3>📋 Partidaren datuak</h3><p>Kontzeptua: <strong id="activeTerm">—</strong></p><p>Ikasleak: <strong id="joinedCount">0</strong></p><p>Definizioak: <strong>—</strong></p><p>Fasea: <strong id="phaseLabel">1. bozketa</strong></p></div><div class="rightbox"><h3>🚩 Aukeraketa-prozesua</h3><div class="flow"><span>11<br>definizio</span><em>›</em><span id="flow4">4</span><em>›</em><span id="flow2">2</span><em>›</em><span id="flow1">1</span></div></div><div class="rightbox student-only hidden"><h3>🎒 Nire parte-hartzea</h3><p id="studentState">Zure txandaren zain</p><p>Emaitzak: <strong>ezkutatuta</strong></p></div><p class="note">V42 · Hirugarren bozketa eta hobekuntza-proposamenak. Azken bozketa hurrengo bertsioan.</p></aside></div><div class="footer">DEFINIZIOAK · LIBURUTEGI DIGITALA</div></div><script>
+const $=id=>document.getElementById(id);
+const examples=['Atomoa materiaren oinarrizko unitatea da, eta elementu kimiko baten propietateak gordetzen ditu.','Atomoa materia osatzen duen partikula oso txikia da.','Elementu kimiko baten propietateak dituen partikula da atomoa.','Materia osatzen duten partikula txiki eta neutroa da.','Elementu kimiko baten unitate txikiena da, nukleoaz eta elektroiez osatua.','Atomoak protoiak, neutroiak eta elektroiak ditu.','Materia osatzen duten oinarrizko egituretako bat da.','Atomoa elementu baten zatirik txikiena da.','Nukleoaren inguruan elektroiak dituen partikula da.','Atomoak molekulak osatzeko elkartu daitezke.','Elementu kimikoen osagai nagusia da atomoa.'];
+const order=['start','write','vote0','vote1','vote2','improve','finalvote','end'];const names={start:'Hasiera',write:'Definizioak',vote0:'1. bozketa',vote1:'2. bozketa',vote2:'3. bozketa',improve:'Hobekuntza',finalvote:'Azken bozketa',end:'Amaiera'};
+let phaseClosed={start:false,write:false,vote0:false,vote1:false,vote2:false,improve:false,finalvote:false,end:false}, phaseTouched={};let phase='start',role='projection',closed={vote0:false,vote1:false,vote2:false,finalvote:false},cast={},submitted=false,improved=false,showResults=false,showNames=false,showDefinitions=false,joined=0,progress={write:0,vote0:0,vote1:0,vote2:0,improve:0,finalvote:0};
+const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function catalog(mode){
+ const done=mode==='start'?joined:progress[mode]||0;
+ const title=mode==='start'?'KONEKTATUTA':mode==='write'?'DEFINIZIOAK BIDALITA':mode==='improve'?'HOBEKUNTZAK BIDALITA':'BOTOAK EMANDA';
+ const cards=Array.from({length:25},(_,i)=>{
+   const n=i+1, absent=n>joined, complete=mode==='start'?!absent:n<=done;
+   const state=absent?'absent':complete?'done':'';
+   const label=absent?'HUTSIK':complete?(mode==='start'?'SARTUTA':'EGINDA'):'ZAIN';
+   return `<div class="catalog-card ${state}" title="${n}. ikaslea · ${label}"><small>FITXA</small><b>${n}</b><small>${label}</small></div>`;
+ }).join('');
+ return `<div class="catalog-caption">${title}: ${done} / 25</div><div class="catalog">${cards}</div><div class="catalog-legend"><span><i class="ok"></i> Eginda</span><span><i class="waiting"></i> Zain</span><span><i class="missing"></i> Konektatu gabe</span></div>`;
+}
+function definitionList(n){return '<div class="scroll">'+examples.slice(0,n).map((t,i)=>`<div class="def"><b>${i+1}</b><span>${safe(t)}</span></div>`).join('')+'</div>'}
+function spreadDefinitions(from,to){return '<div class="spread-list">'+examples.slice(from,to).map((t,j)=>`<div class="def"><b>${from+j+1}</b><span>${safe(t)}</span></div>`).join('')+'</div>'}
+function spreadResults(goal){return '<div class="spread-summary">BOZKETA AMAITUTA · '+goal+' AUKERATU</div>'+ranking(goal)}
+function ranking(n){const votes=[3,2,1,1];return '<div class="scroll">'+Array.from({length:n},(_,i)=>`<div class="rank"><b>${i+1}.</b><div style="flex:1">${showNames?'Ikaslea '+(i+1):'Definizioa '+(i+1)}<div class="bar"><i style="width:${(votes[i]||0)/3*100}%"></i></div></div><span>${votes[i]||0}</span></div>`).join('')+'</div><p class="hint">Adibidea: 7 boto guztira (3 + 2 + 1 + 1).</p>'}
+function voteOptions(n){return '<div class="scroll">'+examples.slice(0,n).map((t,i)=>`<div class="voteoption"><span style="flex:1">${i+1}. ${safe(t)}</span><button data-vote="${i}" ${(cast[phase]!==undefined||phaseClosed[phase])?'disabled':''}>BOZKATU</button></div>`).join('')+'</div>'}
+function render(){const vote=phase.startsWith('vote')||phase==='finalvote';document.querySelectorAll('.phase').forEach(b=>b.classList.toggle('active',b.dataset.p===phase||(phase.startsWith('vote')&&b.dataset.p==='vote0')));$('rounds').classList.toggle('show',phase.startsWith('vote'));document.querySelectorAll('.sub button').forEach(b=>b.classList.toggle('active',b.dataset.p===phase));$('phaseLabel').textContent=names[phase];$('joinedCount').textContent=joined;['flow4','flow2','flow1'].forEach((id,i)=>$(id).classList.toggle('on',order.indexOf(phase)>=2+i));$('scene').classList.toggle('student-mode',role==='student');$('scene').classList.toggle('projection-mode',role==='projection');document.querySelectorAll('.student-only').forEach(x=>x.classList.toggle('hidden',role!=='student'));$('projectionBtn').classList.toggle('active',role==='projection');$('studentBtn').classList.toggle('active',role==='student');$('showResults').checked=showResults;$('showResults').disabled=!phaseClosed[phase];$('next').disabled=(phase!=='start'&&!phaseClosed[phase])||phase==='end';$('previous').disabled=order.indexOf(phase)<=0||!!phaseTouched[phase];$('closeVote').disabled=phase==='start'||phase==='end'||phaseClosed[phase];$('closeVote').textContent=phaseClosed[phase]?'✓ Fasea amaituta':'✓ Fasea amaitu';$('showNames').checked=showNames;$('showDefinitions').checked=showDefinitions;$('demoCount').textContent=(phase==='start'?joined:(progress[phase]||0))+' / 25';
+let l='',r='';const projection=role==='projection';
+if(phase==='start'){
+l='<h2>HASIERA</h2><div class="ribbon">ONGI ETORRI!</div><p class="bigtext">DEFINIZIOAK joko kooperatiboa.</p><div class="yellow">KONTZEPTUA: —</div><p class="bigtext">Pentsatu, idatzi, bozkatu eta hobetu!</p>';
+r=projection?'<h2>IKASLEEN FITXATEGIA</h2>'+catalog('start'):'<h2>SARTU JOKORA</h2><input class="field" placeholder="6 digituko PINa" aria-label="PIN"><input class="field" placeholder="Izena edo ezizena" aria-label="Izena edo ezizena"><button class="smallbutton" id="demoJoin">SARRERA GOIKO LEIHOAN</button><div class="info">Sarrera goiko leihotik egiten da.</div>';
+}else if(phase==='write'){
+l='<h2>DEFINIZIOAK</h2><div class="ribbon">ATOMOA</div>'+(projection?'<div class="yellow">'+progress.write+' / 11 DEFINIZIO BIDALITA</div>'+(showDefinitions?definitionList(progress.write):'<div class="info">🔒 Definizioak ezkutatuta. Irakasleak ezkerreko kontroletik erakuts ditzake.</div>'):'<p class="bigtext">Idatzi zure definizioa, besteena ikusi gabe.</p><textarea class="textentry" id="original" placeholder="Zure definizioa..." '+(submitted||phaseClosed.write?'disabled':'')+'></textarea><button class="smallbutton" id="sendOriginal" '+(submitted||phaseClosed.write?'disabled':'')+'>BIDALI DEFINIZIOA</button>');
+r=projection?'<h2>IKASLEEN FITXATEGIA</h2>'+catalog('write'):'<h2>NIRE EGOERA</h2><div class="yellow">'+(submitted?'Definizioa bidalita':'Bidaltzeko zain')+'</div><div class="info">Ez dituzu ikaskideen definizioak ikusiko bozketa hasi arte.</div>';
+}else if(vote){const n=phase==='vote0'?11:phase==='vote1'?4:2;const goal=phase==='vote0'?4:phase==='vote1'?2:1;const revealed=phaseClosed[phase]&&showResults;
+l='<h2>'+names[phase].toUpperCase()+'</h2><div class="ribbon">ATOMOA</div><div class="yellow">'+n+' DEFINIZIO · '+goal+' AUKERATU</div>'+(projection?'<div class="stats"><span>Jasotako botoak: '+progress[phase]+' / 11</span><span>'+(closed[phase]?'Bozketa amaituta':'Bozketa martxan')+'</span></div>'+definitionList(n):'<div class="info">'+(phase==='vote0'?'Ezin duzu zure definizioa bozkatu.':'Zure definizioa ere bozka dezakezu.')+'</div>'+(cast[phase]!==undefined?'<div class="yellow">Botoa gordeta (proba)</div>':voteOptions(n)));
+if(projection){
+  const split=Math.ceil(n/2);
+  l='<h2>'+names[phase].toUpperCase()+'</h2><div class="ribbon">ATOMOA</div><div class="yellow">'+n+' DEFINIZIO · '+goal+' AUKERATU</div>'+spreadDefinitions(0,split);
+  r='<h2>'+(revealed?'BOZKETAREN EMAITZAK':'DEFINIZIOAK · JARRAIPENA')+'</h2>';
+  if(revealed){r+=spreadResults(goal)}else{
+    r+='<div class="spread-note">'+(split+1)+'–'+n+' DEFINIZIOAK · Jasotako botoak: '+progress[phase]+' / 11</div>'+spreadDefinitions(split,n);
+    r+='<div class="spread-note">🔒 Emaitzak ezkutatuta</div>';
+  }
+}else{
+r='<h2>'+(projection?'BOZKETAREN EGOERA':'NIRE BOTOA')+'</h2>';
+if(projection){r+=revealed?'<div class="yellow">'+(closed[phase]?'BOZKETA AMAITUTA':'EMAITZAK IKUSGAI')+'</div>'+ranking(Math.min(goal,n)):'<div class="yellow">7 / 11 BOTO</div><div class="info">🔒 Sailkapena ezkutatuta. Irakasleak erabakiko du noiz erakutsi.</div>';}
+else r+='<div class="yellow">'+(cast[phase]!==undefined?'BOTOA EMANDA':'BOZKATZEKO ZAIN')+'</div><div class="info">Ezin dituzu behin-behineko emaitzak ikusi.</div>';}
+}else if(phase==='finalvote'){
+ const n=Math.max(1,Math.min(25,joined||11));
+ const improvedExamples=Array.from({length:n},(_,i)=>i===0?'Atomoa elementu kimiko baten propietateak gordetzen dituen materiaren oinarrizko unitatea da; nukleoa eta elektroiak ditu.':examples[i%examples.length]+' (berrikusia)');
+ const done=progress.finalvote||0;
+ l='<h2>AZKEN BOZKETA</h2><div class="ribbon">DEFINIZIO HOBETUAK</div><div class="yellow">'+n+' DEFINIZIO · 1 AUKERATU</div>'+(projection?'<div class="info">Hobekuntzen artean definizio onena aukeratuko dugu. Botoak: '+done+' / '+joined+'</div><div class="spread-list">'+improvedExamples.slice(0,Math.ceil(n/2)).map((t,i)=>'<div class="def"><b>'+(i+1)+'</b><span>'+safe(t)+'</span></div>').join('')+'</div>':(cast.finalvote!==undefined?'<div class="yellow">Botoa gordeta (proba)</div>':'<div class="scroll">'+improvedExamples.map((t,i)=>'<div class="voteoption"><span style="flex:1">'+(i+1)+'. '+safe(t)+'</span><button data-vote="'+i+'" '+(phaseClosed.finalvote?'disabled':'')+'>BOZKATU</button></div>').join('')+'</div>'));
+ r=projection?'<h2>'+(phaseClosed.finalvote&&showResults?'AZKEN EMAITZAK':'IKASLEEN FITXATEGIA')+'</h2>'+(phaseClosed.finalvote&&showResults?'<div class="yellow">AZKEN BOZKETAREN EMAITZAK</div>'+ranking(1):catalog('finalvote')):'<h2>NIRE BOTOA</h2><div class="yellow">'+(cast.finalvote!==undefined?'BOTOA EMANDA':'BOZKATZEKO ZAIN')+'</div><div class="info">Azken bozketako emaitzak irakasleak erakutsi arte ezkutatuta egongo dira.</div>';
+}else if(phase==='improve'){
+l='<h2>HOBEKUNTZA</h2><div class="ribbon">DEFINIZIOA HOBETU</div><div class="mini"><b>Irabazitako definizioa</b><p>'+safe(examples[0])+'</p></div>'+(projection?'<div class="yellow">'+progress.improve+' / 11 DEFINIZIO HOBETU</div>':'<textarea class="textentry" id="improved" placeholder="Idatzi definizio hobetua..." '+(improved||phaseClosed.improve?'disabled':'')+'></textarea><button class="smallbutton" id="sendImproved" '+(improved||phaseClosed.improve?'disabled':'')+'>BIDALI HOBEKUNTZA</button>');
+r='<h2>'+(projection?'HOBEKUNTZEN EGOERA':'NIRE BILAKAERA')+'</h2>'+(projection?catalog('improve'):'<div class="mini">Hasierako definizioa</div><div class="info">'+(improved?'Definizio hobetua bidalita':'Zure definizio hobetua bidaltzeko zain')+'</div>');
+}else{
+l='<h2>AMAIERA</h2><div class="ribbon">🏆 AZKEN DEFINIZIO IRABAZLEA</div><div class="yellow">ATOMOA</div><div class="mini bigtext">'+safe(examples[0]+' Nukleoa eta elektroiak ditu.')+'</div>'; 
+r='<h2>DEFINIZIOAREN BILAKAERA</h2><div class="mini"><b>Hasierakoa</b><p>'+safe(examples[0])+'</p></div><div class="mini"><b>Hobetua</b><p>'+safe(examples[0]+' Nukleoa eta elektroiak ditu.')+'</p></div><div class="info">Azken bozketa amaituta. Eskerrik asko parte hartzeagatik!</div>'+(projection?'<div class="yellow">PARTIDA AMAITUTA</div>':'<div class="yellow">ZORIONAK!</div>');}
+$('leftpage').innerHTML=l;$('rightpage').innerHTML=r;$('studentState').textContent=phase==='write'?(submitted?'Definizioa bidalita':'Idazteko zain'):vote?(cast[phase]!==undefined?'Botoa emanda':'Bozkatzeko zain'):names[phase];$('controlHint').textContent=phaseClosed[phase]?(showResults?'Fasea amaituta · emaitzak ikusgai.':'Fasea amaituta · emaitzak ezkutatuta.'):'Fasea irekita · emaitzak ezkutatuta.';
+document.querySelectorAll('[data-vote]').forEach(b=>b.onclick=()=>{if(phaseClosed[phase]||cast[phase]!==undefined)return;cast[phase]=Number(b.dataset.vote);phaseTouched[phase]=true;progress[phase]=Math.min(joined,Math.max(progress[phase],1));render()});if($('sendOriginal'))$('sendOriginal').onclick=()=>{if(!$('original').value.trim())return alert('Idatzi definizio bat.');if(phaseClosed.write)return;submitted=true;phaseTouched.write=true;progress.write=Math.min(joined,Math.max(progress.write,1));render()};if($('sendImproved'))$('sendImproved').onclick=()=>{if(!$('improved').value.trim())return alert('Idatzi definizio hobetua.');if(phaseClosed.improve)return;improved=true;phaseTouched.improve=true;progress.improve=Math.min(joined,Math.max(progress.improve,1));render()};if($('demoJoin'))$('demoJoin').onclick=()=>alert('Hau diseinu-prototipoa da: ez dago Firebase konexiorik.');}
+let turnBusy=false;
+function setPhase(p){
+ if(p===phase||turnBusy)return;
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){phase=p;showDefinitions=false;render();return;}
+ turnBusy=true;
+ const sheet=$('bookTurn');sheet.classList.remove('turning');void sheet.offsetWidth;
+ sheet.classList.add('turning');
+ window.setTimeout(()=>{phase=p;showResults=false;showDefinitions=false;render()},390);
+ window.setTimeout(()=>{sheet.classList.remove('turning');turnBusy=false},820);
+}
+document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{if(b.dataset.p!==phase)alert('Faseak aldatzeko, erabili irakaslearen kontrolak: «Fasea amaitu» eta «Hurrengo fasea».')});$('projectionBtn').onclick=()=>{role='projection';render()};$('studentBtn').onclick=()=>{role='student';render()};$('showResults').onchange=e=>{showResults=!!phaseClosed[phase]&&e.target.checked;render()};$('showNames').onchange=e=>{showNames=e.target.checked;render()};$('showDefinitions').onchange=e=>{showDefinitions=e.target.checked;render()};function adjustDemo(d){if(phase==='start'){joined=Math.max(0,Math.min(25,joined+d))}else if(progress[phase]!==undefined){progress[phase]=Math.max(0,Math.min(joined,progress[phase]+d))}render()}$('demoMinus').onclick=()=>adjustDemo(-1);$('demoPlus').onclick=()=>adjustDemo(1);$('unlock').onclick=()=>{$('controls').classList.toggle('hidden');$('unlock').textContent=$('controls').classList.contains('hidden')?'▸':'▾'};$('next').onclick=()=>{const i=order.indexOf(phase);if(i<order.length-1&&(phase==='start'||phaseClosed[phase]))setPhase(order[i+1]);else alert('Lehenik fasea amaitu behar duzu.')};$('previous').onclick=()=>{const i=order.indexOf(phase);if(i<=0)return;if(phaseTouched[phase])return alert('Ezin da atzera egin: fase honetan bidalketak edo botoak daude.');if(confirm('Aurreko fasera itzuli? Aurreko faseko datuak mantenduko dira.')){phaseClosed[order[i-1]]=false;setPhase(order[i-1])}};$('reset').onclick=()=>{if(confirm('Prototipoa hasierara eraman?')){closed={vote0:false,vote1:false,vote2:false,finalvote:false};showResults=false;showDefinitions=false;joined=0;phaseClosed={start:false,write:false,vote0:false,vote1:false,vote2:false,improve:false,finalvote:false,end:false};phaseTouched={};cast={};submitted=false;improved=false;progress={write:0,vote0:0,vote1:0,vote2:0,improve:0,finalvote:0};setPhase('start')}};$('closeVote').onclick=()=>{if(phase==='start'||phase==='end'||phaseClosed[phase])return;const eligible=joined;const completed=progress[phase]||0;const pending=Math.max(0,eligible-completed);if(pending>0&&!confirm(pending+' ikasle falta dira. Fasea amaitu nahi duzu?'))return;if(pending===0&&!confirm('Fasea amaitu?'))return;phaseClosed[phase]=true;closed[phase]=true;showResults=false;render()};;render();
+</script>
+<div class="v34panel" id="v34panel">
+<h2>📖 DEFINIZIOAK · V42</h2>
+<p><b>Idazketa-fasearen proba:</b> irakasleak fasea ireki eta ikasleek definizioak bidali.</p>
+<div id="v34choose"><button id="v34asTeacher">IRAKASLEA</button><button id="v34asStudent">IKASLEA</button></div>
+<div id="v34login" class="v34hide"><b>IRAKASLEAREN SAIOA</b><input type="email" id="v34email" placeholder="Irakaslearen helbide elektronikoa" autocomplete="username"><input type="password" id="v34password" placeholder="Pasahitza" autocomplete="current-password"><button id="v34signIn">SARTU</button><button id="v34back1">ATZERA</button></div>
+<div id="v34create" class="v34hide"><b>SAIO BERRIA</b><input id="v34term" maxlength="150" value="ATOMOA" placeholder="Kontzeptua"><button id="v34make">SAIOA SORTU</button><button id="v34signOut">IRAKASLEA IRTEN</button><p class="v34-small">Erabili saio berriko PINa. Ez du lehengo partidetako daturik ezabatuko.</p></div>
+<div id="v34join" class="v34hide"><b>IKASLEAREN SARRERA</b><input id="v34pin" inputmode="numeric" maxlength="6" placeholder="6 digituko PINa"><input id="v34nick" maxlength="40" placeholder="Izena edo ezizena"><button id="v34enter">SARTU</button><button id="v34back2">ATZERA</button></div>
+<div id="v34connected" class="v34hide"><h2 id="v34headline">KONEKTATUTA</h2><p id="v34details"></p><button id="v34dismiss">LIBURUTEGIA IKUSI</button></div>
+<div class="v34status" id="v34message"></div>
+</div>
+<script type="module">
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signInAnonymously,signOut} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
+import {getFirestore,doc,setDoc,getDoc,collection,onSnapshot,serverTimestamp,writeBatch,query,where} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
+const firebaseConfig={apiKey:'AIzaSyDLj3jQCMJ0OMQOstZ3UtSldAWIv-tehOI',authDomain:'definizioak.firebaseapp.com',projectId:'definizioak',storageBucket:'definizioak.firebasestorage.app',messagingSenderId:'905032835988',appId:'1:905032835988:web:5c26d98ffa6ee0805fa581'};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+const el=id=>document.getElementById(id);let unsub=null,unsubRequests=null,unsubRecovery=null,unsubSession=null,unsubDefs=null,unsubVotes=null,unsubStudentDefs=null,unsubMyVote=null,unsubV42Imps=null,sessionPin=null,mode=null,studentOwnerUid=null,liveTerm='',livePhase='join',liveDefs=[],liveMyText='',livePending=false,liveJoinedUsers=[],liveVotes=[],liveVotes1=[],liveVotes2=[],liveShowDefs=false,liveMyVote=null,liveFinalists=[],liveSecondFinalists=[],liveWinnerId='',liveDisplayDefs=[],liveImprovements=[],liveDisplayImprovements=[],liveMyImprovement="",liveShowImprovements=false,lastStudentDefsKey="",ownImprovementReadKey="";
+const nickKey=n=>Array.from(new TextEncoder().encode(n.trim().toLocaleLowerCase().replace(/\s+/g,' '))).map(x=>x.toString(16).padStart(2,'0')).join('');
+function closeWatches(){for(const name of ['unsub','unsubRequests','unsubRecovery','unsubSession','unsubDefs','unsubVotes','unsubStudentDefs','unsubMyVote','unsubV42Imps']){ /* explicit handles below */ } if(unsub){unsub();unsub=null;}if(unsubRequests){unsubRequests();unsubRequests=null;}if(unsubRecovery){unsubRecovery();unsubRecovery=null;}if(unsubSession){unsubSession();unsubSession=null;}if(unsubDefs){unsubDefs();unsubDefs=null;}if(unsubVotes){unsubVotes();unsubVotes=null;}if(unsubStudentDefs){unsubStudentDefs();unsubStudentDefs=null;}if(unsubMyVote){unsubMyVote();unsubMyVote=null;}if(unsubV42Imps){unsubV42Imps();unsubV42Imps=null;}}
+function studentReady(pin,nick,owner,recovered=false){
+ studentOwnerUid=owner;liveMyVote=null;liveDisplayDefs=[];liveDisplayImprovements=[];liveMyImprovement='';ownImprovementReadKey='';lastStudentDefsKey='';setPin(pin);setRole('student');watchV38Session(pin);readV38Own(pin,owner);
+ connected('ONGI ETORRI, '+nick+'!',recovered?'Irakasleak zure aurreko fitxa berreskuratzea onartu du. Zure lanak lehengo fitxarekin lotuta jarraitzen dute.':'Zure fitxa prest dago. Irakaslearen jarraibideen zain.');
+}
+function watchRecovery(pin,uid,nick,key){
+ if(unsubRecovery)unsubRecovery();
+ unsubRecovery=onSnapshot(doc(db,'saioak',pin,'recuperaciones',uid),async snap=>{
+  if(!snap.exists())return;
+  try{
+   const owner=snap.data().originalUid;
+   const original=await getDoc(doc(db,'saioak',pin,'ikasleak',owner));
+   if(!original.exists()||original.data().nickKey!==key)throw Error('Berreskuratutako fitxa ez dator bat ezizenarekin.');
+   if(unsubRecovery){unsubRecovery();unsubRecovery=null;}
+   studentReady(pin,original.data().nick,owner,true);
+  }catch(e){err(e)}
+ },err);
+}
+function watchRequests(pin){
+ if(unsubRequests)unsubRequests();
+ unsubRequests=onSnapshot(collection(db,'saioak',pin,'eskaerak'),async snap=>{
+  const box=el('v34requests');box.classList.remove('v34hide');box.replaceChildren();
+  const h=document.createElement('b');h.textContent='FITXAK BERRESKURATZEKO ESKAERAK';box.append(h);
+  let pending=0;
+  for(const req of snap.docs){
+   const d=req.data();
+   try{
+    const approved=await getDoc(doc(db,'saioak',pin,'recuperaciones',req.id));if(approved.exists())continue;
+    pending++;
+    const line=document.createElement('div');line.style.margin='8px 0';
+    const t=document.createElement('span');t.textContent=d.nick+' — ';
+    const btn=document.createElement('button');btn.textContent='BAIMENDU';
+    btn.onclick=async()=>{
+     if(!confirm('«'+d.nick+'» ikaslearen fitxa berreskuratu? Egiaztatu ikaslea aurrez aurre.'))return;
+     btn.disabled=true;
+     try{
+      const idx=await getDoc(doc(db,'saioak',pin,'ezizenak',d.nickKey));
+      if(!idx.exists()||idx.data().nick!==d.nick)throw Error('Ezizena ez da aurkitu.');
+      await setDoc(doc(db,'saioak',pin,'recuperaciones',req.id),{originalUid:idx.data().uid,approvedAt:serverTimestamp()});
+      line.remove();
+     }catch(e){btn.disabled=false;err(e)}
+    };
+    line.append(t,btn);box.append(line);
+   }catch(e){err(e)}
+  }
+  if(!pending){const t=document.createElement('p');t.textContent='Ez dago eskaerarik.';box.append(t);}
+ },err);
+}
+
+const sections=['v34choose','v34login','v34create','v34join','v34connected'];
+function section(id){sections.forEach(x=>el(x).classList.toggle('v34hide',x!==id));el('v34message').textContent='';}
+function msg(t){el('v34message').textContent=t;}
+function err(e){msg('Errorea: '+(e?.code||e?.message||String(e))+'.');}
+function lock(b){['v34signIn','v34make','v34enter'].forEach(x=>el(x).disabled=b);}
+function setRole(r){role=r;render();el('projectionBtn').disabled=r==='student';el('studentBtn').disabled=r==='projection';document.querySelector('.viewbar').classList.toggle('v42hidebar',!!mode);}
+function setPin(pin){sessionPin=pin;document.querySelector('.pin').textContent=pin;}
+function connected(title,detail){el('v34headline').textContent=title;el('v34details').textContent=detail;section('v34connected');}
+function teacherWatch(pin){if(unsub)unsub();unsub=onSnapshot(collection(db,'saioak',pin,'ikasleak'),snap=>{joined=snap.size;liveJoinedUsers=snap.docs.map(x=>x.id);renderV38();document.querySelector('.pin').textContent=pin;msg('Ikasleak: '+snap.size+' / 25');},err);watchRequests(pin);watchV38Session(pin);if(unsubDefs)unsubDefs();unsubDefs=onSnapshot(collection(db,'saioak',pin,'definizioak'),snap=>{liveDefs=snap.docs.filter(x=>x.data().stage==='write').map(x=>({id:x.id,...x.data()}));liveImprovements=snap.docs.filter(x=>x.data().stage==='improve').map(x=>({id:x.id,...x.data()}));renderV38();},err);el('v38teacherbox').classList.remove('v34hide');watchV39Votes(pin);}
+el('v34asTeacher').onclick=()=>{mode='teacher';section('v34login');};
+el('v34asStudent').onclick=()=>{mode='student';sessionPin=null;document.querySelector('.pin').textContent='------';el('activeTerm').textContent='—';el('v34pin').value='';el('v34nick').value='';section('v34join');};
+el('v34back1').onclick=el('v34back2').onclick=()=>section('v34choose');
+el('v34signIn').onclick=async()=>{lock(true);msg('Saioa hasten...');try{await signInWithEmailAndPassword(auth,el('v34email').value.trim(),el('v34password').value);setRole('projection');section('v34create');}catch(e){err(e)}finally{lock(false)}};
+el('v34signOut').onclick=async()=>{closeWatches();await signOut(auth);section('v34choose');};
+el('v34make').onclick=async()=>{const term=el('v34term').value.trim();if(!term)return msg('Idatzi kontzeptua.');lock(true);msg('Saioa sortzen...');try{if(!auth.currentUser||auth.currentUser.isAnonymous)throw Error('Irakaslearen kontuarekin sartu behar duzu.');let pin,ref;for(let i=0;i<12;i++){pin=String(Math.floor(100000+Math.random()*900000));ref=doc(db,'saioak',pin);const old=await getDoc(ref);if(!old.exists())break;ref=null;}if(!ref)throw Error('Ezin izan da PIN librerik sortu.');await setDoc(ref,{pin,term,phase:'join',createdAt:serverTimestamp()});setPin(pin);el('activeTerm').textContent=term;joined=0;setRole('projection');teacherWatch(pin);connected('SAIOA SORTUTA','PIN: '+pin+' · Kontzeptua: '+term+'. Ireki V42 beste gailu batean IKASLEA aukeratzeko.');}catch(e){err(e)}finally{lock(false)}};
+el('v34enter').onclick=async()=>{
+ const pin=el('v34pin').value.trim(),nick=el('v34nick').value.trim();
+ if(!/^\d{6}$/.test(pin))return msg('Idatzi 6 digituko PINa.');
+ if(!nick||nick.length>40)return msg('Idatzi izena edo ezizena (gehienez 40 karaktere).');
+ lock(true);msg('Saioa bilatzen...');
+ try{
+  if(auth.currentUser&&!auth.currentUser.isAnonymous)await signOut(auth);
+  if(!auth.currentUser)await signInAnonymously(auth);
+  const uid=auth.currentUser.uid,key=nickKey(nick),root=doc(db,'saioak',pin);
+  const snap=await getDoc(root);if(!snap.exists())throw Error('PIN hori ez dago.');
+  const mine=await getDoc(doc(db,'saioak',pin,'ikasleak',uid));
+  if(mine.exists()){
+   if(mine.data().nickKey!==key)throw Error('Gailu honetan beste izen bat erregistratuta dago.');
+   studentReady(pin,mine.data().nick,uid);return;
+  }
+  const recovery=await getDoc(doc(db,'saioak',pin,'recuperaciones',uid));
+  if(recovery.exists()){
+   const owner=recovery.data().originalUid;
+   const original=await getDoc(doc(db,'saioak',pin,'ikasleak',owner));
+   if(!original.exists()||original.data().nickKey!==key)throw Error('Ezizena ez dator bat berreskuratutako fitxarekin.');
+   studentReady(pin,original.data().nick,owner,true);return;
+  }
+  if(snap.data().phase!=='join')throw Error('Sarrera fasea itxita dago. Irakaslearekin hitz egin.');
+  const idx=doc(db,'saioak',pin,'ezizenak',key),existing=await getDoc(idx);
+  if(existing.exists()){
+   if(existing.data().nick!==nick)throw Error('Ezizen hori dagoeneko hartuta dago.');
+   await setDoc(doc(db,'saioak',pin,'eskaerak',uid),{nick,nickKey:key,createdAt:serverTimestamp()});
+   watchRecovery(pin,uid,nick,key);
+   msg('Ezizen hori dagoeneko erregistratuta dago. Irakasleari berreskuratze-eskaera bidali zaio. Itxaron.');return;
+  }
+  const batch=writeBatch(db);
+  batch.set(idx,{uid,nick,createdAt:serverTimestamp()});
+  batch.set(doc(db,'saioak',pin,'ikasleak',uid),{nick,nickKey:key,joinedAt:serverTimestamp()});
+  await batch.commit();studentReady(pin,nick,uid);
+ }catch(e){err(e)}finally{lock(false)}
+};
+
+el('v34dismiss').onclick=()=>el('v34panel').classList.add('v34hide');
+
+// V38: idazketa-fase errealaren konexioa; beste fase guztiak oraindik itxita.
+function watchV38Session(pin){
+ if(unsubSession)unsubSession();
+ unsubSession=onSnapshot(doc(db,'saioak',pin),snap=>{
+  if(!snap.exists())return;
+  const d=snap.data();livePhase=d.phase||'join';liveTerm=d.term||'';liveShowDefs=d.showDefinitions===true;liveFinalists=Array.isArray(d.finalists)?d.finalists:[];liveSecondFinalists=Array.isArray(d.secondFinalists)?d.secondFinalists:[];liveWinnerId=typeof d.winnerId==='string'?d.winnerId:'';liveShowImprovements=d.showImprovements===true;
+  if(mode==='student')el('activeTerm').textContent=liveTerm;
+  if(livePhase==='write' && mode==='student' && studentOwnerUid && !liveMyText) readV38Own(pin,studentOwnerUid);if(livePhase==='improve'&&mode==='student'&&studentOwnerUid&&ownImprovementReadKey!==pin+'|'+studentOwnerUid){ownImprovementReadKey=pin+'|'+studentOwnerUid;readV42Own(pin,studentOwnerUid);}if(mode==='student')watchV39Student(pin);
+  renderV38();
+ },err);
+}
+async function readV38Own(pin,owner){
+ try{const snap=await getDoc(doc(db,'saioak',pin,'definizioak',owner+'_write'));
+   liveMyText=snap.exists()?snap.data().text:'';renderV38();
+ }catch(e){if(e.code!=='permission-denied')err(e)}
+}
+async function readV42Own(pin,owner){try{const snap=await getDoc(doc(db,'saioak',pin,'definizioak',owner+'_improve'));liveMyImprovement=snap.exists()?snap.data().text:'';renderV38();}catch(e){if(e.code!=='permission-denied')err(e);}}
+function v38Catalog(){
+ const done=new Set(liveDefs.map(x=>x.author));
+ const slots=Array.from({length:25},(_,i)=>{
+  const uid=liveJoinedUsers[i],isPresent=!!uid,isDone=isPresent&&done.has(uid);
+  const state=!isPresent?'absent':isDone?'done':'';
+  return '<div class="catalog-card '+state+'"><small>FITXA</small><b>'+(i+1)+'</b><small>'+(!isPresent?'HUTSIK':isDone?'EGINDA':'ZAIN')+'</small></div>';
+ }).join('');
+ return '<div class="catalog-caption">DEFINIZIOAK BIDALITA: '+liveDefs.length+' / '+joined+'</div><div class="catalog">'+slots+'</div><div class="catalog-legend"><span><i class="ok"></i> Eginda</span><span><i class="waiting"></i> Zain</span><span><i class="missing"></i> Konektatu gabe</span></div>';
+}
+function v39Sorted(){return [...liveDefs].sort((a,b)=>a.id.localeCompare(b.id));}
+function v39Ranking(stage='vote0'){
+ const defs=stage==='vote2'?liveDefs.filter(d=>liveSecondFinalists.includes(d.id)):stage==='vote1'?liveDefs.filter(d=>liveFinalists.includes(d.id)):liveDefs;
+ const votes=stage==='vote2'?liveVotes2:stage==='vote1'?liveVotes1:liveVotes;
+ const counts=new Map(defs.map(x=>[x.id,0]));
+ for(const v of votes)if(counts.has(v.candidate))counts.set(v.candidate,counts.get(v.candidate)+1);
+ return [...defs].sort((a,b)=>(counts.get(b.id)||0)-(counts.get(a.id)||0)||a.id.localeCompare(b.id)).map(x=>({...x,votes:counts.get(x.id)||0}));
+}
+function v39List(defs,teacher=false,ranked=false){
+ return '<div class="v39-list">'+defs.map((d,i)=>'<div class="v39-choice"><b>'+(i+1)+'.</b><span style="flex:1">'+safe(d.text)+'</span>'+(ranked?'<b>'+d.votes+' boto</b>':'')+'</div>').join('')+'</div>';
+}
+function renderV38(){
+ if(!sessionPin)return;
+ phase=['write','vote0','between','vote1','between2','vote2','between3','improve'].includes(livePhase)?(livePhase==='vote0'?'vote0':livePhase==='between'?'vote1':livePhase==='vote1'?'vote1':livePhase==='between2'?'vote2':livePhase==='between3'?'vote2':livePhase==='vote2'?'vote2':livePhase==='improve'?'improve':'write'):'start';
+ if(mode==='teacher')progress.write=liveDefs.length;
+ if(mode==='student')submitted=!!liveMyText;document.querySelector('.viewbar').classList.toggle('v42hidebar',!!mode);
+ render();
+ el('activeTerm').textContent=liveTerm||'—';
+ if(livePhase==='join'){const h=el('leftpage').querySelector('.yellow');if(h)h.textContent='KONTZEPTUA: '+(liveTerm||'—');}
+ const box=el('v38teacherbox');
+ if(mode==='teacher'){
+  box.classList.remove('v34hide');
+  const open=el('v38open');open.disabled=livePhase!=='join';
+  open.textContent=livePhase==='join'?'HASI DEFINIZIOAK IDAZTEN':'✓ IDAZKETA FASEA IREKITA';
+  el('v38teacherhint').textContent=livePhase==='join'?'Ikasleak sartu ondoren ireki fasea.':'Jasotako definizioak: '+liveDefs.length+' / '+joined;
+  const ctrl=el('v39controls');ctrl.classList.toggle('v34hide',!['write','vote0','between','vote1','between2','vote2','between3','improve'].includes(livePhase));
+  el('v39start').disabled=livePhase!=='write'||liveDefs.length<2;
+  el('v39reveal').disabled=livePhase!=='vote0';
+  el('v39reveal').textContent=liveShowDefs?'EZKUTATU DEFINIZIOAK':'ERAKUTSI BESTEEN DEFINIZIOAK';
+  el('v39close').disabled=livePhase!=='vote0'||!liveShowDefs;
+  // Uneko faseari dagozkion botoiak bakarrik erakutsi, alboko panela gainezka ez dadin.
+  for(const id of ['v39start','v39reveal','v39close'])el(id).style.display=(livePhase==='write'&&id==='v39start')||(livePhase==='vote0'&&id!=='v39start')?'block':'none';
+  el('v40start').style.display=livePhase==='between'?'block':'none';
+  el('v40reveal').style.display=livePhase==='vote1'?'block':'none';
+  el('v40close').style.display=livePhase==='vote1'?'block':'none';
+  el('v40start').disabled=livePhase!=='between';
+  el('v40reveal').disabled=livePhase!=='vote1';
+  el('v40reveal').textContent=liveShowDefs?'EZKUTATU FINALISTAK':'ERAKUTSI FINALISTAK';
+  el('v40close').disabled=livePhase!=='vote1'||!liveShowDefs;
+  el('v41start').style.display=livePhase==='between2'?'block':'none';
+  el('v41reveal').style.display=livePhase==='vote2'?'block':'none';
+  el('v41close').style.display=livePhase==='vote2'?'block':'none';
+  el('v41start').disabled=livePhase!=='between2'||liveSecondFinalists.length===0;
+  el('v41reveal').disabled=livePhase!=='vote2';
+  el('v41reveal').textContent=liveShowDefs?'EZKUTATU AZKEN FINALISTAK':'ERAKUTSI AZKEN BI FINALISTAK';
+  el('v41close').disabled=livePhase!=='vote2'||!liveShowDefs;el('v42start').style.display=livePhase==='between3'?'block':'none';el('v42reveal').style.display=livePhase==='improve'?'block':'none';el('v42start').disabled=livePhase!=='between3'||!liveWinnerId;el('v42reveal').disabled=livePhase!=='improve';el('v42reveal').textContent=liveShowImprovements?'EZKUTATU HOBEKUNTZAK':'ERAKUTSI HOBEKUNTZAK';
+  el('v39hint').textContent=livePhase==='write'?'Lehen bozketa hasteko gutxienez 2 definizio behar dira.':livePhase==='vote0'?'1. bozketako botoak: '+liveVotes.length+' / '+joined+'.':livePhase==='between'?'Lehen bozketa amaituta. Hasi bigarrena irakasleak nahi duenean.':livePhase==='vote1'?'2. bozketako botoak: '+liveVotes1.length+' / '+joined+'.':livePhase==='between2'?'Bigarren bozketa amaituta. Hasi hirugarrena irakasleak nahi duenean.':livePhase==='vote2'?'3. bozketako botoak: '+liveVotes2.length+' / '+joined+'.':livePhase==='between3'?'Lehen definizio irabazlea aukeratuta. Sakatu HASI HOBEKUNTZAK.':livePhase==='improve'?'Jasotako hobekuntzak: '+liveImprovements.length+' / '+joined+'.':'';
+ }else box.classList.add('v34hide');
+ if(livePhase==='join' && mode==='student' && studentOwnerUid){el('rightpage').innerHTML='<h2>ONGI ETORRI!</h2><div class="yellow">FITXA PREST</div><div class="v38-note">Irakaslearen jarraibideen zain. Hemen agertuko dira zure jarduerak.</div>';return;}if(!['write','vote0','between','vote1','between2','vote2','between3','improve'].includes(livePhase))return;
+ const left=el('leftpage'),right=el('rightpage'),esc=safe;
+ if(livePhase==='improve'){
+  const winner=liveDefs.find(d=>d.id===liveWinnerId)||liveDisplayDefs.find(d=>d.id===liveWinnerId);
+  const winnerText=winner?esc(winner.text):'Irabazlearen definizioa kargatzen...';
+  if(mode==='teacher'){
+   left.innerHTML='<h2>🔄 HOBEKUNTZAK</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="yellow">'+liveImprovements.length+' / '+joined+' HOBEKUNTZA BIDALITA</div><div class="v38-note">Ikasle guztiek irabazlea hobetu dezakete. Jatorrizko irabazlea ere azken bozketan lehiatuko da.</div>';
+   right.innerHTML='<h2>DEFINIZIO IRABAZLEA</h2><div class="v39-tag">'+winnerText+'</div><h2>'+(liveShowImprovements?'HOBEKUNTZA GUZTIAK':'HOBEKUNTZAK EZKUTATUTA')+'</h2>'+(liveShowImprovements?('<div class="v39-list"><div class="v39-choice"><b>0.</b><span><b>JATORRIZKOA</b> — '+winnerText+'</span></div>'+liveImprovements.map((d,i)=>'<div class="v39-choice"><b>'+(i+1)+'.</b><span>'+esc(d.text)+'</span></div>').join('')+'</div>'):'<div class="v38-note">Sakatu ERAKUTSI HOBEKUNTZAK, denei proposamenak erakusteko.</div>');
+  }else if(mode==='student'){
+   left.innerHTML='<h2>🔄 NIRE HOBEKUNTZA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="v38-note"><b>Hobetuko dugun definizioa:</b></div><div class="v39-tag">'+winnerText+'</div>'+(liveMyImprovement?'<div class="yellow">✓ HOBEKUNTZA BIDALITA</div><div class="mini">'+esc(liveMyImprovement)+'</div>':'<label for="v42text"><b>Idatzi zure hobekuntza</b></label><textarea id="v42text" class="textentry" maxlength="1500" placeholder="Nire hobekuntza..."></textarea><button class="smallbutton" id="v42send">BIDALI HOBEKUNTZA</button>')+'<p id="v42sendstatus" class="v34status"></p>';
+   right.innerHTML='<h2>NIRE EGOERA</h2><div class="yellow">'+(liveMyImprovement?'HOBEKUNTZA BIDALITA':'HOBETZEKO ZAIN')+'</div>'+(liveShowImprovements?('<h2>HOBEKUNTZAK</h2><div class="v39-list"><div class="v39-choice"><b>0.</b><span><b>JATORRIZKOA</b> — '+winnerText+'</span></div>'+liveDisplayImprovements.map((d,i)=>'<div class="v39-choice"><b>'+(i+1)+'.</b><span>'+esc(d.text)+'</span></div>').join('')+'</div>'):'<div class="v38-note">Irakasleak proposamenak erakutsi arte, hobekuntzak ezkutuan daude.</div>');
+   const b=el('v42send');if(b)b.onclick=sendV42Improvement;
+  }
+  return;
+ }
+ if(livePhase==='write'){
+  if(mode==='teacher'){
+   left.innerHTML='<h2>✏️ DEFINIZIOAK IDATZI</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="yellow">IKASLEAK IDAZTEN ARI DIRA</div><div class="v38-note">Definizioak ez dira oraindik gelan erakusten. Irakasleak idazketa-fasea kontrolatzen du.</div><div class="v38-number">'+liveDefs.length+' / '+joined+' DEFINIZIO BIDALITA</div>';
+   right.innerHTML='<h2>IKASLEEN FITXATEGIA</h2>'+v38Catalog();
+  }else if(mode==='student'){
+   const sent=!!liveMyText;
+   left.innerHTML='<h2>✏️ NIRE DEFINIZIOA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="v38-writearea">'+(sent?'<div class="v38-note">✓ Definizioa gordeta dago. Ezin da bigarren aldiz bidali.</div><div class="mini">'+esc(liveMyText)+'</div>':'<label for="v38definition"><b>Idatzi zure definizioa</b></label><textarea id="v38definition" maxlength="1500" placeholder="Nire definizioa..."></textarea><button id="v38send">BIDALI DEFINIZIOA</button>')+'<p class="v34status" id="v38sendstatus"></p></div>';
+   right.innerHTML='<h2>NIRE EGOERA</h2><div class="yellow">'+(sent?'DEFINIZIOA BIDALITA':'IDAZTEKO ZAIN')+'</div><div class="v38-note">Zure definizioa soilik ikusten duzu. Besteenak lehen bozketa hasi arte ezkutatuta egongo dira.</div>';
+   const b=el('v38send');if(b)b.onclick=sendV38Definition;
+  }
+  return;
+ }
+ if(livePhase==='vote2'){
+  const finalists=liveDefs.filter(d=>liveSecondFinalists.includes(d.id)).sort((a,b)=>liveSecondFinalists.indexOf(a.id)-liveSecondFinalists.indexOf(b.id));
+  if(mode==='teacher'){
+   left.innerHTML='<h2>🗳️ 3. BOZKETA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="yellow">IRABAZLE BAKARRA AUKERATUKO DA</div><div class="v38-number">'+liveVotes2.length+' / '+joined+' BOTO JASOTA</div><div class="v38-note">Norberaren definizioa bozka daiteke. Irakasleak finalistak erakutsi edo ezkutatzen ditu.</div>';
+   right.innerHTML='<h2>'+(liveShowDefs?'AZKEN BI FINALISTAK':'FINALISTAK EZKUTATUTA')+'</h2>'+(liveShowDefs?v39List(finalists):'<div class="v38-note">Sakatu ERAKUTSI AZKEN BI FINALISTAK.</div>');
+  }else if(mode==='student'){
+   left.innerHTML='<h2>🗳️ 3. BOZKETA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="v38-note">'+(liveShowDefs?'Aukeratu irabazlea. Zure definizioa ere bozka dezakezu.':'Irakasleak finalistak erakutsi arte itxaron.')+'</div>';
+   const eligible=liveDisplayDefs.filter(d=>liveSecondFinalists.includes(d.id));
+   if(liveShowDefs&&liveMyVote){left.innerHTML+='<div class="yellow">✓ BOTOA GORDETA</div><div class="v38-note">Fase honetako botoa ezin da aldatu.</div>';}
+   else if(liveShowDefs)left.innerHTML+='<div class="v39-list">'+(eligible.length?eligible.map((d,i)=>'<div class="v39-choice"><b>'+(i+1)+'.</b><span style="flex:1">'+esc(d.text)+'</span><button data-candidate="'+esc(d.id)+'">BOZKATU</button></div>').join(''):'<div class="v38-note">Finalistak kargatzen...</div>')+'</div><p id="v39studentstatus" class="v34status"></p>';
+   right.innerHTML='<h2>NIRE EGOERA</h2><div class="yellow">'+(liveMyVote?'BOTOA EMANDA':liveShowDefs?'BOZKATZEKO ZAIN':'IRAKASLEAREN ZAIN')+'</div><div class="v38-note">'+(liveMyText?'Zure definizioa: '+esc(liveMyText):'Zure definizioa ez da aurkitu.')+'</div>';
+   document.querySelectorAll('[data-candidate]').forEach(btn=>btn.onclick=()=>v39Cast(btn.dataset.candidate));
+  }
+  return;
+ }
+ if(livePhase==='between3'){
+  const ranked=v39Ranking('vote2');const winner=ranked.find(d=>d.id===liveWinnerId)||liveDisplayDefs.find(d=>d.id===liveWinnerId);
+  if(mode==='teacher'){
+   left.innerHTML='<h2>🏆 3. BOZKETA AMAITUTA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="yellow">LEHEN DEFINIZIO IRABAZLEA</div><div class="v38-note">Boto guztiak: '+liveVotes2.length+'. Berdinketetan identifikatzailearen ordena erabili da. Hobekuntzak hurrengo bertsioan.</div>';
+   right.innerHTML='<h2>IRABAZLEA</h2>'+(winner?'<div class="v39-tag">'+esc(winner.text)+'</div><div class="v38-note">'+(winner.votes||0)+' boto</div>':'<div class="v38-note">Irabazlea kargatzen...</div>')+'<h2>3. BOZKETAKO EMAITZAK</h2>'+v39List(ranked,true,true);
+  }else if(mode==='student'){
+   left.innerHTML='<h2>🏆 3. BOZKETA AMAITUTA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="yellow">LEHEN IRABAZLEA AUKERATUTA</div><div class="v38-note">Hobekuntza-fasearen zain.</div>';
+   right.innerHTML='<h2>DEFINIZIO IRABAZLEA</h2>'+(winner?'<div class="v39-tag">'+esc(winner.text)+'</div>':'<div class="v38-note">Emaitza kargatzen...</div>');
+  }
+  return;
+ }
+ if(livePhase==='vote1'){
+  const finalists=liveDefs.filter(d=>liveFinalists.includes(d.id)).sort((a,b)=>liveFinalists.indexOf(a.id)-liveFinalists.indexOf(b.id));
+  if(mode==='teacher'){
+   left.innerHTML='<h2>🗳️ 2. BOZKETA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="yellow">2 FINALISTA AUKERATUKO DIRA</div><div class="v38-number">'+liveVotes1.length+' / '+joined+' BOTO JASOTA</div><div class="v38-note">Bigarren bozketatik aurrera norberaren definizioa ere bozkatu daiteke. Irakasleak finalistak erakutsi behar ditu.</div>';
+   right.innerHTML='<h2>'+(liveShowDefs?'LEHEN BOZKETAKO FINALISTAK':'FINALISTAK EZKUTATUTA')+'</h2>'+(liveShowDefs?v39List(finalists):'<div class="v38-note">Sakatu ERAKUTSI FINALISTAK.</div>');
+  }else if(mode==='student'){
+   left.innerHTML='<h2>🗳️ 2. BOZKETA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="v38-note">'+(liveShowDefs?'Aukeratu finalista bat. Orain zure definizioa ere bozka dezakezu.':'Irakasleak finalistak erakutsi arte itxaron.')+'</div>';
+   const eligible=liveDisplayDefs.filter(d=>liveFinalists.includes(d.id));
+   if(liveShowDefs&&liveMyVote){left.innerHTML+='<div class="yellow">✓ BOTOA GORDETA</div><div class="v38-note">Fase honetako botoa ezin da aldatu.</div>';}
+   else if(liveShowDefs)left.innerHTML+='<div class="v39-list">'+(eligible.length?eligible.map((d,i)=>'<div class="v39-choice"><b>'+(i+1)+'.</b><span style="flex:1">'+esc(d.text)+'</span><button data-candidate="'+esc(d.id)+'">BOZKATU</button></div>').join(''):'<div class="v38-note">Finalistak kargatzen...</div>')+'</div><p id="v39studentstatus" class="v34status"></p>';
+   right.innerHTML='<h2>NIRE EGOERA</h2><div class="yellow">'+(liveMyVote?'BOTOA EMANDA':liveShowDefs?'BOZKATZEKO ZAIN':'IRAKASLEAREN ZAIN')+'</div><div class="v38-note">'+(liveMyText?'Zure definizioa: '+esc(liveMyText):'Zure definizioa ez da aurkitu.')+'</div>';
+   document.querySelectorAll('[data-candidate]').forEach(btn=>btn.onclick=()=>v39Cast(btn.dataset.candidate));
+  }
+  return;
+ }
+ if(livePhase==='between2'){
+  const ranked=v39Ranking('vote1');const finalists=liveSecondFinalists.map(id=>ranked.find(x=>x.id===id)).filter(Boolean);
+  if(mode==='teacher'){
+   left.innerHTML='<h2>🏅 2. BOZKETA AMAITUTA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="yellow">'+finalists.length+' FINALISTA</div><div class="v38-note">Bigarren bozketako botoak: '+liveVotes1.length+'. Irakasleak hirugarren bozketa irekiko du.</div>';
+   right.innerHTML='<h2>BIGARREN BOZKETAKO EMAITZAK</h2>'+v39List(ranked,true,true);
+  }else if(mode==='student'){
+   left.innerHTML='<h2>🏅 BIGARREN BOZKETA AMAITUTA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="v38-note">Irakasleak hirugarren bozketa prestatuko du.</div>';
+   right.innerHTML='<h2>2 FINALISTAK</h2>'+v39List(finalists);
+  }
+  return;
+ }
+ if(livePhase==='vote0'){
+  if(mode==='teacher'){
+   left.innerHTML='<h2>🗳️ 1. BOZKETA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="yellow">4 FINALISTA AUKERATUKO DIRA</div><div class="v38-number">'+liveVotes.length+' / '+joined+' BOTO JASOTA</div><div class="v38-note">Definizioak erakusteko edo ezkutatzeko kontrola ezkerrean duzu. Norberaren definizioari ezin zaio botorik eman.</div>';
+   right.innerHTML='<h2>'+ (liveShowDefs?'DEFINIZIO GUZTIAK':'DEFINIZIOAK EZKUTATUTA')+'</h2>'+(liveShowDefs?v39List(v39Sorted()):'<div class="v38-note">Sakatu ERAKUTSI BESTEEN DEFINIZIOAK.</div>');
+  } else if(mode==='student'){
+   left.innerHTML='<h2>🗳️ 1. BOZKETA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="v38-note">'+(liveShowDefs?'Aukeratu definizio bat. Ezin duzu zurea bozkatu.':'Irakasleak definizioak erakutsi arte itxaron.')+'</div>';
+   let eligible=liveDisplayDefs.filter(d=>d.author!==studentOwnerUid);
+   if(liveShowDefs&&liveMyVote){left.innerHTML+='<div class="yellow">✓ BOTOA GORDETA</div><div class="v38-note">Fase honetako botoa ezin da aldatu.</div>';}
+   else if(liveShowDefs)left.innerHTML+='<div class="v39-list">'+(eligible.length?eligible.map((d,i)=>'<div class="v39-choice"><b>'+(i+1)+'.</b><span style="flex:1">'+esc(d.text)+'</span><button data-candidate="'+esc(d.id)+'">BOZKATU</button></div>').join(''):'<div class="v38-note">Definizioak kargatzen, edo ez dago bozka dezakezun definiziorik.</div>')+'</div><p id="v39studentstatus" class="v34status"></p>';
+   right.innerHTML='<h2>NIRE EGOERA</h2><div class="yellow">'+(liveMyVote?'BOTOA EMANDA':liveShowDefs?'BOZKATZEKO ZAIN':'IRAKASLEAREN ZAIN')+'</div><div class="v38-note">'+(liveMyText?'Zure definizioa: '+esc(liveMyText):'Zure definizioa ez da aurkitu.')+'</div>';
+   document.querySelectorAll('[data-candidate]').forEach(btn=>btn.onclick=()=>v39Cast(btn.dataset.candidate));
+  }
+  return;
+ }
+ if(livePhase==='between'){
+  const ranked=v39Ranking();const finalists=liveFinalists.map(id=>ranked.find(x=>x.id===id)).filter(Boolean);
+  if(mode==='teacher'){
+   left.innerHTML='<h2>🏅 1. BOZKETA AMAITUTA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="yellow">'+finalists.length+' FINALISTA</div><div class="v38-note">Boto guztiak: '+liveVotes.length+'. Berdinketetan identifikatzailearen ordena erabili da. Bigarren bozketa irakasleak irekiko du.</div>';
+   right.innerHTML='<h2>EMAITZAK</h2>'+v39List(ranked,true,true);
+  }else if(mode==='student'){
+   left.innerHTML='<h2>🏅 LEHEN BOZKETA AMAITUTA</h2><div class="ribbon">'+esc(liveTerm)+'</div><div class="v38-note">Irakasleak hurrengo fasea prestatuko du.</div>';
+   right.innerHTML='<h2>FINALISTAK</h2>'+v39List(finalists);
+  }
+ }
+}
+function watchV39Votes(pin){
+ if(unsubVotes)unsubVotes();
+ unsubVotes=onSnapshot(collection(db,'saioak',pin,'botoak'),snap=>{liveVotes=snap.docs.filter(d=>d.data().stage==='vote0').map(d=>d.data());liveVotes1=snap.docs.filter(d=>d.data().stage==='vote1').map(d=>d.data());liveVotes2=snap.docs.filter(d=>d.data().stage==='vote2').map(d=>d.data());renderV38();},err);
+}
+function watchV39Student(pin){
+ const shouldRead=(['vote0','vote1','vote2','between2','between3'].includes(livePhase) && liveShowDefs)||livePhase==='improve';const shouldReadImps=livePhase==='improve'&&liveShowImprovements;
+ const key=pin+'|'+livePhase+'|'+(shouldRead?'yes':'no')+'|'+(shouldReadImps?'imps':'hidden')+'|'+studentOwnerUid;
+ if(lastStudentDefsKey===key)return;
+ lastStudentDefsKey=key;liveMyVote=null;
+ if(unsubStudentDefs){unsubStudentDefs();unsubStudentDefs=null;}
+ if(unsubMyVote){unsubMyVote();unsubMyVote=null;}if(unsubV42Imps){unsubV42Imps();unsubV42Imps=null;}
+ liveDisplayDefs=[];liveDisplayImprovements=[];
+ if(shouldReadImps){unsubV42Imps=onSnapshot(query(collection(db,'saioak',pin,'definizioak'),where('stage','==','improve')),snap=>{liveDisplayImprovements=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.id.localeCompare(b.id));renderV38();},err);}
+ if(shouldRead){
+  unsubStudentDefs=onSnapshot(query(collection(db,'saioak',pin,'definizioak'),where('stage','==','write')),snap=>{liveDisplayDefs=snap.docs.filter(d=>d.data().stage==='write').map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.id.localeCompare(b.id));renderV38();},err);
+  if(['vote0','vote1','vote2'].includes(livePhase))unsubMyVote=onSnapshot(doc(db,'saioak',pin,'botoak',studentOwnerUid+'_'+livePhase),snap=>{liveMyVote=snap.exists()?snap.data().candidate:null;renderV38();},e=>{if(e.code!=='permission-denied')err(e);});
+ }
+}
+async function v39Cast(id){
+ if(!sessionPin||!studentOwnerUid||!['vote0','vote1','vote2'].includes(livePhase)||!liveShowDefs||liveMyVote)return;
+ const votePhase=livePhase;const choice=liveDisplayDefs.find(d=>d.id===id);if(!choice||(votePhase==='vote0'&&choice.author===studentOwnerUid)||(votePhase==='vote1'&&!liveFinalists.includes(id))||(votePhase==='vote2'&&!liveSecondFinalists.includes(id)))return;
+ if(!confirm('Definizio hau bozkatu? Botoa ezin da aldatu.'))return;
+ document.querySelectorAll('[data-candidate]').forEach(b=>b.disabled=true);
+ try{await setDoc(doc(db,'saioak',sessionPin,'botoak',studentOwnerUid+'_'+votePhase),{author:studentOwnerUid,candidate:id,stage:votePhase,createdAt:serverTimestamp()});liveMyVote=id;renderV38();}
+ catch(e){alert('Botoa ez da gorde: '+(e.code||e.message));renderV38();}
+}
+async function sendV38Definition(){
+ const input=el('v38definition'),status=el('v38sendstatus');
+ if(!input||!status||livePending)return;
+ const value=input.value.trim();
+ if(value.length<3){status.textContent='Idatzi gutxienez hiru karaktere.';return;}
+ if(value.length>1500){status.textContent='Gehienez 1500 karaktere.';return;}
+ if(!sessionPin||!studentOwnerUid){status.textContent='Sarrera egiaztatu behar da.';return;}
+ livePending=true;const b=el('v38send');b.disabled=true;status.textContent='Bidaltzen...';
+ try{
+  const path=doc(db,'saioak',sessionPin,'definizioak',studentOwnerUid+'_write');
+  await setDoc(path,{author:studentOwnerUid,text:value,stage:'write',createdAt:serverTimestamp()});
+  liveMyText=value;renderV38();
+ }catch(e){status.textContent='Errorea: '+(e.code||e.message);b.disabled=false;}
+ finally{livePending=false;}
+}
+async function sendV42Improvement(){
+ const input=el('v42text'),status=el('v42sendstatus');if(!input||!status||livePending||livePhase!=='improve'||liveMyImprovement)return;
+ const value=input.value.trim();if(value.length<3||value.length>1500){status.textContent='Idatzi 3 eta 1500 karaktere arteko testua.';return;}
+ if(!sessionPin||!studentOwnerUid){status.textContent='Ikaslearen sarrera egiaztatu.';return;}
+ livePending=true;const b=el('v42send');b.disabled=true;status.textContent='Bidaltzen...';
+ try{await setDoc(doc(db,'saioak',sessionPin,'definizioak',studentOwnerUid+'_improve'),{author:studentOwnerUid,text:value,stage:'improve',createdAt:serverTimestamp()});liveMyImprovement=value;renderV38();}
+ catch(e){status.textContent='Errorea: '+(e.code||e.message);b.disabled=false;}finally{livePending=false;}
+}
+el('v42start').onclick=async()=>{if(mode!=='teacher'||livePhase!=='between3'||!liveWinnerId)return;if(!confirm('Hobekuntzak idazteko fasea ireki?'))return;try{await setDoc(doc(db,'saioak',sessionPin),{phase:'improve',showImprovements:false},{merge:true});}catch(e){err(e);}};
+el('v42reveal').onclick=async()=>{if(mode!=='teacher'||livePhase!=='improve')return;try{await setDoc(doc(db,'saioak',sessionPin),{showImprovements:!liveShowImprovements},{merge:true});}catch(e){err(e);}};
+el('v41start').onclick=async()=>{
+ if(mode!=='teacher'||livePhase!=='between2'||!liveSecondFinalists.length)return;
+ if(!confirm('Hirugarren bozketa ireki? Bi finalistetako bat izango da irabazlea; norberarena bozkatu daiteke.'))return;
+ try{await setDoc(doc(db,'saioak',sessionPin),{phase:'vote2',showDefinitions:false},{merge:true});}catch(e){err(e)}
+};
+el('v41reveal').onclick=async()=>{
+ if(mode!=='teacher'||livePhase!=='vote2')return;
+ try{await setDoc(doc(db,'saioak',sessionPin),{showDefinitions:!liveShowDefs},{merge:true});}catch(e){err(e)}
+};
+el('v41close').onclick=async()=>{
+ if(mode!=='teacher'||livePhase!=='vote2'||!liveShowDefs)return;
+ if(!confirm('Hirugarren bozketa amaitu? Jasotako botoak: '+liveVotes2.length+' / '+joined+'.'))return;
+ const ranked=v39Ranking('vote2'),winnerId=ranked.length?ranked[0].id:'';
+ if(!winnerId){alert('Ez dago finalistarik.');return;}
+ try{await setDoc(doc(db,'saioak',sessionPin),{phase:'between3',winnerId,showDefinitions:true},{merge:true});}catch(e){err(e)}
+};
+el('v40start').onclick=async()=>{
+ if(mode!=='teacher'||livePhase!=='between'||!liveFinalists.length)return;
+ if(!confirm('Bigarren bozketa ireki? Finalistak bakarrik lehiatuko dira; norberarena bozkatu daiteke.'))return;
+ try{await setDoc(doc(db,'saioak',sessionPin),{phase:'vote1',showDefinitions:false},{merge:true});}catch(e){err(e)}
+};
+el('v40reveal').onclick=async()=>{
+ if(mode!=='teacher'||livePhase!=='vote1')return;
+ try{await setDoc(doc(db,'saioak',sessionPin),{showDefinitions:!liveShowDefs},{merge:true});}catch(e){err(e)}
+};
+el('v40close').onclick=async()=>{
+ if(mode!=='teacher'||livePhase!=='vote1'||!liveShowDefs)return;
+ if(!confirm('Bigarren bozketa amaitu? Jasotako botoak: '+liveVotes1.length+' / '+joined+'.'))return;
+ const ranked=v39Ranking('vote1'),secondFinalists=ranked.slice(0,Math.min(2,ranked.length)).map(d=>d.id);
+ try{await setDoc(doc(db,'saioak',sessionPin),{phase:'between2',secondFinalists,showDefinitions:true},{merge:true});}catch(e){err(e)}
+};
+el('v39start').onclick=async()=>{
+ if(mode!=='teacher'||livePhase!=='write'||liveDefs.length<2)return;
+ if(!confirm('Idazketa amaitu eta lehen bozketa ireki? Hemendik aurrera ezingo da definiziorik bidali.'))return;
+ try{await setDoc(doc(db,'saioak',sessionPin),{phase:'vote0',showDefinitions:false},{merge:true});}
+ catch(e){err(e);}
+};
+el('v39reveal').onclick=async()=>{
+ if(mode!=='teacher'||livePhase!=='vote0')return;
+ try{await setDoc(doc(db,'saioak',sessionPin),{showDefinitions:!liveShowDefs},{merge:true});}catch(e){err(e)}
+};
+el('v39close').onclick=async()=>{
+ if(mode!=='teacher'||livePhase!=='vote0'||!liveShowDefs)return;
+ if(!confirm('Lehen bozketa amaitu? Jasotako botoak: '+liveVotes.length+' / '+joined+'.'))return;
+ const ranked=v39Ranking(),finalists=ranked.slice(0,Math.min(4,ranked.length)).map(d=>d.id);
+ try{await setDoc(doc(db,'saioak',sessionPin),{phase:'between',finalists,showDefinitions:true},{merge:true});}
+ catch(e){err(e)}
+};
+el('v38open').onclick=async()=>{
+ if(mode!=='teacher'||!sessionPin||livePhase!=='join')return;
+ if(!confirm('DEFINIZIOAK IDATZI fasea ireki? Ikasleek definizio bana bidali ahal izango dute.'))return;
+ const b=el('v38open');b.disabled=true;
+ try{await setDoc(doc(db,'saioak',sessionPin),{phase:'write'},{merge:true});}
+ catch(e){err(e);b.disabled=false;}
+};
+// V34 is limited to the live joining test. V32 demo phase buttons are intentionally disabled.
+document.querySelectorAll('[data-p],#demoMinus,#demoPlus,#closeVote,#previous,#next,#reset').forEach(b=>{b.onclick=()=>alert('V42 proban fase honen kontrolak ezkerreko IRAKASLEAREN KONTROLAK atalean daude. Faseak hurrengo bertsioetan konektatuko ditugu.');});
+el('projectionBtn').onclick=()=>{if(mode==='teacher'&&auth.currentUser&&!auth.currentUser.isAnonymous){setRole('projection');}else{el('v34panel').classList.remove('v34hide');section('v34choose');}};
+el('studentBtn').onclick=()=>{if(mode==='student'&&sessionPin){setRole('student');}else{el('v34panel').classList.remove('v34hide');section('v34choose');}};
+onAuthStateChanged(auth,u=>{if(u&&!u.isAnonymous&&mode==='teacher'&&!sessionPin)section('v34create');});
+</script>
+</body></html>
