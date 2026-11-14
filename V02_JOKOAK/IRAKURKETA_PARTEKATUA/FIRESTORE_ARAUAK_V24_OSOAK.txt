@@ -1,0 +1,385 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function teacher() {
+      return request.auth != null && request.auth.uid == 'hW0ZtZEXfSNP6pTfBe5yu9J60Im1';
+    }
+    function student() {
+      return request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous';
+    }
+    function sessionPath(id) {
+      return /databases/$(database)/documents/saioak/$(id);
+    }
+    function sessionPhase(id) {
+      return get(sessionPath(id)).data.phase;
+    }
+    function recoveryPath(id) {
+      return /databases/$(database)/documents/saioak/$(id)/recuperaciones/$(request.auth.uid);
+    }
+    function ownerUid(id) {
+      return exists(recoveryPath(id)) ? get(recoveryPath(id)).data.originalUid : request.auth.uid;
+    }
+    function registered(id) {
+      return student() && exists(/databases/$(database)/documents/saioak/$(id)/ikasleak/$(ownerUid(id)));
+    }
+    function definitionPath(id, candidate) {
+      return /databases/$(database)/documents/saioak/$(id)/definizioak/$(candidate);
+    }
+    match /saioak/{id} {
+      allow create: if teacher()
+        && request.resource.data.keys().hasAll(['pin','term','phase','createdAt'])
+        && request.resource.data.keys().hasOnly(['pin','term','phase','createdAt'])
+        && id.matches('^[0-9]{6}$')
+        && request.resource.data.pin == id
+        && request.resource.data.term is string
+        && request.resource.data.term.size() > 0
+        && request.resource.data.term.size() <= 150
+        && request.resource.data.phase == 'join';
+      allow get: if teacher() || student();
+      allow list: if teacher();
+      allow update, delete: if teacher();
+
+      match /ikasleak/{uid} {
+        allow get: if teacher() || (student() && ownerUid(id) == uid);
+        allow list: if teacher();
+        allow create: if student()
+          && request.auth.uid == uid
+          && sessionPhase(id) == 'join'
+          && request.resource.data.keys().hasAll(['nick','joinedAt'])
+          && request.resource.data.keys().hasOnly(['nick','joinedAt'])
+          && request.resource.data.nick is string
+          && request.resource.data.nick.size() > 0
+          && request.resource.data.nick.size() <= 40;
+        allow update, delete: if teacher();
+      }
+
+      match /eskaerak/{uid} {
+        allow get: if teacher() || (student() && request.auth.uid == uid);
+        allow list: if teacher();
+        allow create: if student() && request.auth.uid == uid
+          && request.resource.data.keys().hasAll(['nick','createdAt'])
+          && request.resource.data.keys().hasOnly(['nick','createdAt'])
+          && request.resource.data.nick is string
+          && request.resource.data.nick.size() > 0
+          && request.resource.data.nick.size() <= 40;
+        allow update, delete: if false;
+      }
+      match /recuperaciones/{uid} {
+        allow get: if teacher() || (student() && request.auth.uid == uid);
+        allow list: if teacher();
+        allow create: if teacher()
+          && request.resource.data.keys().hasAll(['originalUid','approvedAt'])
+          && request.resource.data.keys().hasOnly(['originalUid','approvedAt'])
+          && request.resource.data.originalUid is string
+          && exists(/databases/$(database)/documents/saioak/$(id)/ikasleak/$(request.resource.data.originalUid))
+          && exists(/databases/$(database)/documents/saioak/$(id)/eskaerak/$(uid))
+          && get(/databases/$(database)/documents/saioak/$(id)/ikasleak/$(request.resource.data.originalUid)).data.nick
+             == get(/databases/$(database)/documents/saioak/$(id)/eskaerak/$(uid)).data.nick;
+        allow update, delete: if false;
+      }
+
+      match /definizioak/{docId} {
+        allow get: if teacher() || (registered(id) && (
+          resource.data.author == ownerUid(id)
+          || (resource.data.stage == 'write' && sessionPhase(id) in ['vote0','vote1','between','done','improve','improved','improvedvote','finished'])
+          || (resource.data.stage == 'improve' && sessionPhase(id) in ['improvedvote','finished'])
+        ));
+        allow list: if teacher() || (registered(id) && (
+          (resource.data.stage == 'write' && sessionPhase(id) in ['vote0','vote1','between','done','improve','improved','improvedvote','finished'])
+          || (resource.data.stage == 'improve' && sessionPhase(id) in ['improvedvote','finished'])
+        ));
+        allow create: if registered(id)
+          && request.resource.data.keys().hasAll(['author','text','stage','createdAt'])
+          && request.resource.data.keys().hasOnly(['author','text','stage','createdAt'])
+          && request.resource.data.author == ownerUid(id)
+          && request.resource.data.text is string
+          && request.resource.data.text.size() > 0
+          && request.resource.data.text.size() <= 1500
+          && request.resource.data.stage in ['write','improve']
+          && ((request.resource.data.stage == 'write' && sessionPhase(id) == 'write')
+              || (request.resource.data.stage == 'improve' && sessionPhase(id) == 'improve'))
+          && docId == ownerUid(id) + '_' + request.resource.data.stage;
+        allow update, delete: if teacher();
+      }
+
+      match /botoak/{voteId} {
+        allow get: if teacher() || (student() && resource.data.author == ownerUid(id));
+        allow list: if teacher();
+        allow create: if registered(id)
+          && sessionPhase(id) in ['vote0','vote1','improvedvote']
+          && voteId == ownerUid(id) + '_' + sessionPhase(id)
+          && request.resource.data.keys().hasAll(['author','candidate','stage','createdAt'])
+          && request.resource.data.keys().hasOnly(['author','candidate','stage','createdAt'])
+          && request.resource.data.author == ownerUid(id)
+          && request.resource.data.stage == sessionPhase(id)
+          && request.resource.data.candidate is string
+          && exists(definitionPath(id,request.resource.data.candidate))
+          && (
+            (sessionPhase(id) == 'vote0'
+              && get(definitionPath(id,request.resource.data.candidate)).data.stage == 'write'
+              && get(definitionPath(id,request.resource.data.candidate)).data.author != ownerUid(id))
+            || (sessionPhase(id) == 'vote1'
+              && get(definitionPath(id,request.resource.data.candidate)).data.stage == 'write'
+              && request.resource.data.candidate in get(sessionPath(id)).data.finalists)
+            || (sessionPhase(id) == 'improvedvote'
+              && get(definitionPath(id,request.resource.data.candidate)).data.stage == 'improve')
+          );
+        allow update, delete: if false;
+      }
+    }
+    // IRAKURKETA PARTEKATUA — V14, PIN bidezko konexio-proba.
+    // DEFINIZIOAKeko saioak eta arauak ez dira aldatzen.
+    match /irakurketa_saioak/{pin} {
+      function ipSessionPath() {
+        return /databases/$(database)/documents/irakurketa_saioak/$(pin);
+      }
+      function ipParticipantPath(uid) {
+        return /databases/$(database)/documents/irakurketa_saioak/$(pin)/partehartzaileak/$(uid);
+      }
+      function ipOwner() {
+        return teacher() && resource.data.ownerUid == request.auth.uid;
+      }
+      allow get: if teacher() || student();
+      allow list: if teacher();
+      allow create: if teacher()
+        && pin.matches('^[0-9]{6}$')
+        && request.resource.data.keys().hasAll(['pin','ownerUid','open','createdAt','participantCount'])
+        && request.resource.data.keys().hasOnly(['pin','ownerUid','open','createdAt','participantCount'])
+        && request.resource.data.pin == pin
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.open == true
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.participantCount == 0;
+      // Irakasleak saioa ixtea baino ez: beste eremu guztiak bere horretan.
+      allow update: if ipOwner()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['open'])
+        && resource.data.open == true
+        && request.resource.data.open == false;
+      // Parte-hartzaile berria transakzio berean sortzen bada soilik igo kontagailua.
+      allow update: if student()
+        && resource.data.open == true
+        && resource.data.participantCount is int
+        && resource.data.participantCount >= 0
+        && resource.data.participantCount < 25
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['participantCount'])
+        && request.resource.data.participantCount == resource.data.participantCount + 1
+        && !exists(ipParticipantPath(request.auth.uid))
+        && getAfter(ipParticipantPath(request.auth.uid)).data.uid == request.auth.uid;
+      allow delete: if ipOwner();
+
+      match /partehartzaileak/{uid} {
+        allow get: if teacher() || (student() && request.auth.uid == uid);
+        allow list: if teacher();
+        allow create: if student() && request.auth.uid == uid
+          && exists(ipSessionPath())
+          && get(ipSessionPath()).data.open == true
+          && get(ipSessionPath()).data.participantCount is int
+          && get(ipSessionPath()).data.participantCount < 25
+          && getAfter(ipSessionPath()).data.participantCount == get(ipSessionPath()).data.participantCount + 1
+          && request.resource.data.keys().hasAll(['uid','nick','joinedAt'])
+          && request.resource.data.keys().hasOnly(['uid','nick','joinedAt'])
+          && request.resource.data.uid == uid
+          && request.resource.data.nick is string
+          && request.resource.data.nick.size() >= 2
+          && request.resource.data.nick.size() <= 18
+          && request.resource.data.joinedAt == request.time;
+        allow update: if false;
+        allow delete: if teacher();
+      }
+    }
+    // V17 — Banakako irakurketa: testua aukeratutako ikasleak soilik irakur dezake.
+    match /irakurketa_saioak/{pin}/irakurgaiak/{uid} {
+      function ipOwnSession() {
+        return teacher() && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)).data.ownerUid == request.auth.uid;
+      }
+      // Ikasleak bere dokumentu hutsa entzun dezake irakurle hautatu aurretik.
+      // Testua badago, uneko irakurle hautatua izan behar du.
+      allow get: if ipOwnSession() || (
+        student()
+        && request.auth.uid == uid
+        && exists(/databases/$(database)/documents/irakurketa_saioak/$(pin)/partehartzaileak/$(uid))
+        && (resource == null || (
+          exists(/databases/$(database)/documents/irakurketa_saioak/$(pin)/kontrola/egoera)
+          && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)/kontrola/egoera).data.readerUid == uid
+          && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)/kontrola/egoera).data.paragraphIndex == resource.data.paragraphIndex
+        ))
+      );
+      allow list: if false;
+      allow create, update: if ipOwnSession()
+        && exists(/databases/$(database)/documents/irakurketa_saioak/$(pin)/partehartzaileak/$(uid))
+        && request.resource.data.keys().hasOnly(['text','paragraphIndex','turn','createdAt'])
+        && request.resource.data.keys().hasAll(['text','paragraphIndex','turn','createdAt'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 6000
+        && request.resource.data.paragraphIndex is int
+        && request.resource.data.paragraphIndex >= 0
+        && request.resource.data.turn is int
+        && request.resource.data.createdAt == request.time;
+      allow delete: if ipOwnSession();
+    }
+    match /irakurketa_saioak/{pin}/kontrola/{docid} {
+      function ipOwnSession() {
+        return teacher() && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)).data.ownerUid == request.auth.uid;
+      }
+      allow get: if ipOwnSession() || (student() && exists(/databases/$(database)/documents/irakurketa_saioak/$(pin)/partehartzaileak/$(request.auth.uid)));
+      allow list: if false;
+      allow create, update: if ipOwnSession() && docid == 'egoera'
+        && request.resource.data.keys().hasOnly(['paragraphIndex','readerUid','readerNick','round','usedReaders','updatedAt'])
+        && request.resource.data.keys().hasAll(['paragraphIndex','readerUid','readerNick','round','usedReaders','updatedAt'])
+        && request.resource.data.paragraphIndex is int
+        && request.resource.data.paragraphIndex >= 0
+        && request.resource.data.readerUid is string
+        && exists(/databases/$(database)/documents/irakurketa_saioak/$(pin)/partehartzaileak/$(request.resource.data.readerUid))
+        && request.resource.data.readerNick is string
+        && request.resource.data.readerNick.size() <= 18
+        && request.resource.data.round is int
+        && request.resource.data.round >= 0
+        && request.resource.data.usedReaders is list
+        && request.resource.data.usedReaders.size() <= 25
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if ipOwnSession();
+    }
+
+    // V18 — Laburpenen fasea, irakasleak kontrolatua.
+    match /irakurketa_saioak/{pin}/laburpen_kontrola/{docid} {
+      function owned(){return teacher() && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)).data.ownerUid == request.auth.uid;}
+      function joined(){return student() && exists(/databases/$(database)/documents/irakurketa_saioak/$(pin)/partehartzaileak/$(request.auth.uid));}
+      allow get: if docid == 'egoera' && (owned() || joined());
+      allow list: if false;
+      allow create, update: if docid == 'egoera' && owned()
+        && request.resource.data.keys().hasOnly(['phase','paragraphIndex','turn','selectedUid','selectedText','updatedAt'])
+        && request.resource.data.keys().hasAll(['phase','paragraphIndex','turn','selectedUid','selectedText','updatedAt'])
+        && request.resource.data.phase in ['idle','writing','show']
+        && request.resource.data.paragraphIndex is int && request.resource.data.paragraphIndex >= 0
+        && request.resource.data.turn is int && request.resource.data.turn > 0
+        && request.resource.data.selectedUid is string
+        && request.resource.data.selectedText is string && request.resource.data.selectedText.size() <= 800
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if owned();
+    }
+    match /irakurketa_saioak/{pin}/laburpenak/{uid} {
+      function owned(){return teacher() && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)).data.ownerUid == request.auth.uid;}
+      function joined(){return student() && request.auth.uid == uid && exists(/databases/$(database)/documents/irakurketa_saioak/$(pin)/partehartzaileak/$(uid));}
+      function phase(){return get(/databases/$(database)/documents/irakurketa_saioak/$(pin)/laburpen_kontrola/egoera).data;}
+      function valid(){return joined() && phase().phase == 'writing'
+        && phase().selectedUid == uid
+        && request.resource.data.keys().hasOnly(['uid','nick','text','paragraphIndex','turn','submittedAt'])
+        && request.resource.data.keys().hasAll(['uid','nick','text','paragraphIndex','turn','submittedAt'])
+        && request.resource.data.uid == uid
+        && request.resource.data.nick == get(/databases/$(database)/documents/irakurketa_saioak/$(pin)/partehartzaileak/$(uid)).data.nick
+        && request.resource.data.text is string && request.resource.data.text.size() >= 10 && request.resource.data.text.size() <= 800
+        && request.resource.data.paragraphIndex == phase().paragraphIndex
+        && request.resource.data.turn == phase().turn
+        && request.resource.data.submittedAt is timestamp
+        && request.resource.data.submittedAt <= request.time
+        && request.resource.data.submittedAt >= request.time - duration.value(5, 'm');}
+      allow get: if owned() || joined();
+      allow list: if owned();
+      allow create: if valid();
+      allow update: if valid() && resource.data.turn != request.resource.data.turn;
+      allow delete: if owned();
+    }
+    // V21: galderaren kontrola eta ikasle bakoitzaren erantzunak.
+    match /irakurketa_saioak/{pin}/galdera_kontrola/{docid} {
+      function owned(){return teacher() && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)).data.ownerUid == request.auth.uid;}
+      function joined(){return student() && exists(/databases/$(database)/documents/irakurketa_saioak/$(pin)/partehartzaileak/$(request.auth.uid));}
+      function valid(){return docid == 'egoera' && owned()
+        && request.resource.data.keys().hasOnly(['phase','paragraphIndex','questionIndex','turn','text','type','options','correctText','updatedAt'])
+        && request.resource.data.keys().hasAll(['phase','paragraphIndex','questionIndex','turn','text','type','options','correctText','updatedAt'])
+        && request.resource.data.phase in ['asking','results','done']
+        && request.resource.data.paragraphIndex is int && request.resource.data.paragraphIndex >= 0
+        && request.resource.data.questionIndex is int && request.resource.data.questionIndex >= 0 && request.resource.data.questionIndex <= 2
+        && request.resource.data.turn is int && request.resource.data.turn > 0
+        && request.resource.data.text is string && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 1500
+        && request.resource.data.type in ['AUKERAK','EGIA_GE_ZURRA','LABURRA']
+        && request.resource.data.options is list && request.resource.data.options.size() <= 4
+        && request.resource.data.correctText is string && request.resource.data.correctText.size() <= 400
+        && request.resource.data.updatedAt == request.time;}
+      allow get: if docid == 'egoera' && (owned() || joined());
+      allow list: if false;
+      allow create: if valid() && request.resource.data.phase == 'asking' && request.resource.data.correctText == ''
+        && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)/laburpen_kontrola/egoera).data.phase == 'show';
+      allow update: if valid() && (
+        (request.resource.data.phase == 'asking' && request.resource.data.correctText == ''
+          && resource.data.phase in ['results','done']
+          && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)/laburpen_kontrola/egoera).data.phase == 'show')
+        || (request.resource.data.phase == 'results' && resource.data.phase == 'asking'
+          && request.resource.data.turn == resource.data.turn
+          && request.resource.data.paragraphIndex == resource.data.paragraphIndex
+          && request.resource.data.questionIndex == resource.data.questionIndex
+          && request.resource.data.text == resource.data.text
+          && request.resource.data.options == resource.data.options)
+        || (request.resource.data.phase == 'done' && resource.data.phase == 'results'
+          && request.resource.data.turn == resource.data.turn
+          && request.resource.data.paragraphIndex == resource.data.paragraphIndex
+          && request.resource.data.questionIndex == resource.data.questionIndex)
+      );
+      allow delete: if owned();
+    }
+    match /irakurketa_saioak/{pin}/erantzunak/{answerId} {
+      function owned(){return teacher() && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)).data.ownerUid == request.auth.uid;}
+      function joined(uid){return student() && request.auth.uid == uid && exists(/databases/$(database)/documents/irakurketa_saioak/$(pin)/partehartzaileak/$(uid));}
+      function control(){return get(/databases/$(database)/documents/irakurketa_saioak/$(pin)/galdera_kontrola/egoera).data;}
+      allow get: if owned() || (student() && answerId.matches('^p[0-9]+_q[0-9]+_' + request.auth.uid + '$'));
+      allow list: if owned();
+      allow create: if joined(request.resource.data.uid)
+        && answerId.matches('^p[0-9]+_q[0-9]+_' + request.auth.uid + '$')
+        && control().phase == 'asking'
+        && request.resource.data.keys().hasOnly(['uid','nick','paragraphIndex','questionIndex','turn','answer','submittedAt'])
+        && request.resource.data.keys().hasAll(['uid','nick','paragraphIndex','questionIndex','turn','answer','submittedAt'])
+        && request.resource.data.nick == get(/databases/$(database)/documents/irakurketa_saioak/$(pin)/partehartzaileak/$(request.auth.uid)).data.nick
+        && request.resource.data.paragraphIndex == control().paragraphIndex
+        && request.resource.data.questionIndex == control().questionIndex
+        && request.resource.data.turn == control().turn
+        && ((control().type == 'LABURRA' && request.resource.data.answer is string && request.resource.data.answer.size() >= 1 && request.resource.data.answer.size() <= 300)
+          || (control().type != 'LABURRA' && request.resource.data.answer is int && request.resource.data.answer >= 0 && request.resource.data.answer < control().options.size()))
+        && request.resource.data.submittedAt == request.time;
+      allow update: if false;
+      allow delete: if owned();
+    }
+
+    // V24 — galderen kopia iraunkorra eta soluzioen artxiboa (IRAKASLEA SOILIK).
+    // Ez da ikasleen gailuetara erantzun zuzena bidaltzen.
+    match /irakurketa_saioak/{pin}/galdera_prestaketa/{paragraphId} {
+      function owned(){return teacher() && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)).data.ownerUid == request.auth.uid;}
+      allow get, list: if owned();
+      allow create, update: if owned()
+        && paragraphId.matches('^[0-9]+$')
+        && request.resource.data.keys().hasOnly(['paragraphIndex','paragraphText','questions','updatedAt'])
+        && request.resource.data.keys().hasAll(['paragraphIndex','paragraphText','questions','updatedAt'])
+        && request.resource.data.paragraphIndex is int
+        && request.resource.data.paragraphText is string
+        && request.resource.data.paragraphText.size() <= 6000
+        && request.resource.data.questions is list
+        && request.resource.data.questions.size() >= 1
+        && request.resource.data.questions.size() <= 3
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if owned();
+    }
+    match /irakurketa_saioak/{pin}/galdera_artxiboa/{questionId} {
+      function owned(){return teacher() && get(/databases/$(database)/documents/irakurketa_saioak/$(pin)).data.ownerUid == request.auth.uid;}
+      allow get, list: if owned();
+      allow create: if owned()
+        && questionId.matches('^p[0-9]+_q[0-2]$')
+        && request.resource.data.keys().hasOnly(['paragraphIndex','questionIndex','text','type','options','correct','accepted','explanation','createdAt'])
+        && request.resource.data.keys().hasAll(['paragraphIndex','questionIndex','text','type','options','correct','accepted','explanation','createdAt'])
+        && request.resource.data.paragraphIndex is int
+        && request.resource.data.questionIndex is int
+        && questionId == 'p' + string(request.resource.data.paragraphIndex) + '_q' + string(request.resource.data.questionIndex)
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 1500
+        && request.resource.data.type in ['AUKERAK','EGIA_GE_ZURRA','LABURRA']
+        && request.resource.data.options is list && request.resource.data.options.size() <= 4
+        && request.resource.data.correct is int
+        && request.resource.data.correct >= -1 && request.resource.data.correct <= 3
+        && request.resource.data.accepted is list && request.resource.data.accepted.size() <= 20
+        && request.resource.data.explanation is string && request.resource.data.explanation.size() <= 1500
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

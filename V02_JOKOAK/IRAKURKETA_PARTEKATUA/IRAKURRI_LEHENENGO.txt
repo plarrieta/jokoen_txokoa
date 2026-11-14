@@ -1,0 +1,21 @@
+IRAKURKETA PARTEKATUA — V24 / EMAITZAK OSOAK
+
+V23tik abiatutako bertsioa. IRAK. / LABUR. / GALD. eta diseinu retroa mantendu dira.
+
+BERRIA:
+* GALD. hastean, irakasleak soilik irakur dezakeen galdera eta soluzioaren kopia aldaezina gordetzen da Firebasen: galdera_artxiboa.
+* Editatutako galderak galdera_prestaketa bilduman gordetzen dira, PINaren barruan. Excel bera kargatuta, berreskuratu daitezke.
+* EXCEL eta PDF esportazioek artxiboko galderen testua, erantzun zuzena eta nota erabiltzen dituzte, ez unean kargatutako Excelaren soluzioak.
+* 908294 bezalako saio zaharrek ez dute artxibo hau: ezin izan ditugun ebaluazioak berreskuratu faltsutu gabe.
+
+BEHARREZKOA: FIRESTORE_ARAUAK_V24_OSOAK.txt fitxategiko arau OSOAK Firebase > Firestore > Reglas atalean ordezkatu eta argitaratu.
+DEFINIZIOAK-en aurreko arauak mantendu dira.
+
+PROBA:
+1. Arauak argitaratu; ireki irakaslea.html eta ikasleen index.html.
+2. Kargatu Excel, prestatu 2 galdera eta sortu PIN berria.
+3. IRAK. > LABUR. > GALD. egin gutxienez ikasle batekin.
+4. Deskargatu Excel/PDF, itxi irakaslearen fitxa, ireki berriro eta berreskuratu PIN berbera.
+5. Excel bera kargatu (galderak berriz deskargatuko dira PIN horretatik); esportatu berriz emaitzak. Galderak, soluzioak eta emaitzak gordeta egon behar dute.
+
+OHARRA: ez da Firebaseko bide zuzenetara konektatu gabe egiaztatu; proba erreala irakaslearen kontuarekin egin behar da.

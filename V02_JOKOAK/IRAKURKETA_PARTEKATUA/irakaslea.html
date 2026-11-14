@@ -1,0 +1,550 @@
+<!doctype html><html lang="eu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IRAKURKETA PARTEKATUA — V24 EMAITZAK OSOAK</title><link rel="stylesheet" href="estiloa-v19.css"></head><body><div class="frame"><header class="brand"><h1>◉ IRAKURKETA PARTEKATUA</h1><span class="status"><span class="dot"></span>FIRESTORE · V24 EMAITZAK OSOAK</span></header><div class="layout">
+<aside class="panel teacher"><div><h2 class="section-title">IRAKASLEAREN TXOKOA</h2><div class="summary">SAIOA: <span id="readingTitle">EZ DAGO IRAKURKETARIK</span><br><span id="status-conn">IKASLEAK: 0 / 25</span><br><span id="status-phase">FASEA: SARRERA</span></div></div>
+<div class="paragraph-section"><h2 class="section-title">PARAGRAFOAK</h2><div id="paragraphPicker"></div><div class="tooltip">IRAK. → LABUR. → GALD.</div></div>
+<div class="file-section" id="fileSection"><button class="fold-toggle" type="button" id="fileToggle" aria-expanded="true">IRAKURKETA KARGATU (.XLSX) ▾</button><div class="file-body" id="fileBody"><input id="xlsxFile" type="file" accept=".xlsx"><div id="loaded" class="muted">Hautatu Excel bat</div></div><div class="fold-info" id="fileInfo" hidden>Ez dago irakurketarik</div><button id="editQuestions" class="fold-toggle" type="button" disabled>GALDERAK PRESTATU / EDITATU</button></div>
+<div class="credentials" id="credentialsSection"><button class="fold-toggle" type="button" id="loginToggle" aria-expanded="true">IRAKASLEAREN SARBIDEA ▾</button><div class="credentials-body" id="credentialsBody"><label for="email">POSTA ELEKTRONIKOA</label><input id="email" type="email" autocomplete="username" placeholder="Irakaslearen kontua"><label for="password">PASAHITZA</label><input id="password" type="password" autocomplete="current-password" placeholder="Pasahitza"><button id="login" disabled>IRAKASLEA: SARTU</button><div id="account" class="muted">Saioa hasi gabe</div></div><div id="loginInfo" class="fold-info" hidden>Irakaslea baimenduta</div></div>
+<div class="controls"><button id="exportResults" type="button" disabled>EMAITZAK DESKARGATU</button><button id="create" disabled>SAIO BERRIA SORTU</button><div class="inline"><input id="resumePin" inputmode="numeric" maxlength="6" placeholder="6 zifrako PINa"><button id="resume" disabled>BERRESKURATU</button></div><div class="inline"><div id="pin" class="pincode">------</div><button id="copyPin" disabled>KOPIATU PINa</button></div><div class="inline"><button id="copy" disabled>KOPIATU IKASLEEN LOTURA</button><button id="closeSession" disabled>ITXI</button></div><div id="state" class="notice">Firebase kargatzen...</div></div>
+</aside>
+<main class="panel main-panel"><h2 class="section-title">INFORMAZIO PANTAILA</h2><div class="screen"><small>IRAKURKETA PARTEKATUA</small><div id="display">IKASLEAK KONEKTATZEN ARI DIRA...</div></div><h2 class="section-title board-title">IKASLEEN KONTROL PANELA</h2><div id="board" class="board"></div><div class="muted" id="count">0 / 25 IKASLE ERREGISTRATUTA</div><div class="main-footer"><div id="readerState" class="readystate">Hasi saioa, kargatu Excel eta aukeratu IRAK.</div><div id="summaryState" class="readystate">Lehenik irakurlea aukeratu.</div><div id="summaryChoices" class="summary-choices"></div><div id="questionTeacher" class="question-teacher" hidden><div id="questionStatus"></div><div id="questionAnswers"></div><div class="question-actions"><button id="showQuestionResults" class="action-btn">ERANTZUNAK AZTERTU</button><button id="nextQuestion" class="action-btn" hidden>HURRENGO GALDERA</button></div></div><div class="compact-line"></div><div class="tooltip">IRAK.: irakurlea hautatzen du · LABUR.: idazketa irekitzen du · GALD.: denek erantzuten dute · «Konektatuta» = erregistratuta, ez online presentzia.</div></div></main>
+<aside class="panel results-panel"><h2 class="section-title">EMAITZAK</h2><div class="results"><div class="meter"><div class="meter-label" style="color:var(--green)">ZUZEN</div><div class="lights" id="greenlights"></div><div class="score" id="oks">0</div></div><div class="meter"><div class="meter-label" style="color:var(--red)">OKER</div><div class="lights" id="redlights"></div><div class="score" id="bads">0</div></div></div><div class="results-footer">ERANTZUNAK<br>UNEAN-UNEAN</div></aside></div><div class="bottom"><div class="ticker"><div class="moving">◉ IRAKURKETA PARTEKATUA · ENTZUN ARRETAZ · IRAKURRI · LABURTU · PENTSATU · ERANTZUN · ELKARREKIN IKASTEN ◉</div></div></div></div>
+<div id="questionEditor" class="qe-backdrop" hidden>
+ <section class="qe-dialog" role="dialog" aria-modal="true" aria-labelledby="qeTitle">
+  <div class="qe-header"><div><h2 id="qeTitle">GALDERAK PRESTATU</h2><div class="qe-sub">Excel-etik kargatutako galderak proposamenak dira; irakasleak berrikusi eta aldatu ditzake.</div></div><button id="qeClose" type="button">ITXI ✕</button></div>
+  <div class="qe-toolbar"><label>PARAGRAFOA <select id="qeParagraph"></select></label><label>GALDERA KOPURUA <select id="qeCount"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></label></div>
+  <div id="qeCards" class="qe-cards"></div>
+  <div id="qeMessage" role="status" class="qe-message">Aldaketak gorde aurretik berrikusi.</div>
+  <div class="qe-actions"><button id="qeSave" type="button">GORDE ALDAKETAK</button><button id="qeCancel" type="button">UTZI</button></div>
+ </section>
+</div>
+<div id="exportDialog" class="export-backdrop" hidden>
+ <section class="export-dialog" role="dialog" aria-modal="true" aria-labelledby="exportTitle">
+  <h2 id="exportTitle">EMAITZAK DESKARGATU</h2>
+  <p>Saioaren ikasleen erantzunak eta laburpenak. Aukeratu formatua:</p>
+  <div class="export-actions"><button id="exportExcel" type="button">EXCEL (.XLSX)</button><button id="exportPdf" type="button">PDF (INPRIMATU / GORDE)</button><button id="exportClose" type="button">ITXI</button></div>
+  <div id="exportInfo" class="export-info" role="status">Datuak Firebasetik irakurriko dira.</div>
+ </section>
+</div>
+<button id="pickReader" class="hidden-btn" disabled aria-hidden="true">IRAKURLEA AUKERATU</button><button id="startSummaries" class="hidden-btn" disabled aria-hidden="true">LABURPENAK ESKATU</button><script src="firebase-config.js"></script><script src="xlsx-reader.js"></script><script src="emaitzak-export.js"></script><script type="module">import {initializeApp} from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js';
+import {initializeAuth,browserSessionPersistence,signInWithEmailAndPassword,signInAnonymously,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js';
+import {getFirestore,doc,collection,getDoc,getDocs,setDoc,runTransaction,onSnapshot,query,orderBy,serverTimestamp,updateDoc,writeBatch} from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js';
+const $=id=>document.getElementById(id);
+const cfg=window.IP_FIREBASE_CONFIG;
+const errorText=e=>({ 'permission-denied':'Baimenik ez. Egiaztatu Firestore arauak eta irakasle-kontua.', 'unavailable':'Konexiorik ez. Egiaztatu Internet.', 'auth/invalid-credential':'Helbidea edo pasahitza ez dira zuzenak.'})[e.code] || (e.message||String(e));
+// V19.2: faseak ordenean; V19.1eko irakaslearen sarbidea eta Excel aukeraketa tolestu, kontrolak agerian uzteko.
+function fold(section, body, info, toggle, collapsed){
+ const s=$(section), b=$(body), i=$(info), btn=$(toggle);
+ s.classList.toggle('collapsed',collapsed);b.hidden=collapsed;i.hidden=!collapsed;
+ btn.setAttribute('aria-expanded',String(!collapsed));
+ btn.textContent=(section==='credentialsSection'?'IRAKASLEAREN SARBIDEA':'IRAKURKETA KARGATU (.XLSX)')+(collapsed?' ▸':' ▾');
+}
+$('loginToggle').onclick=()=>fold('credentialsSection','credentialsBody','loginInfo','loginToggle',!$('credentialsSection').classList.contains('collapsed'));
+$('fileToggle').onclick=()=>fold('fileSection','fileBody','fileInfo','fileToggle',!$('fileSection').classList.contains('collapsed'));
+function message(t,bad=false){$('state').textContent=t;$('state').className='notice '+(bad?'error':'');}
+
+let auth,db,uid=null,pin=null,stopSession=null,stopParticipants=null,stopSummary=null,stopSubmissions=null,stopQuestion=null,stopAnswers=null,participants=[],reading=null,paragraphIndex=0,usedReaders=[],round=0,selecting=false,previousReaderUid=null,summaryPhase=null,submissions=[],usedSummarizers=[],questionPhase=null,answers=[],autoPublishing=false,questionBusy=false;
+// Sesioa fitxan gordetzen da; beste fitxek ez dute irakaslea ordezkatzen.
+
+function render(names=[]){$('board').replaceChildren();for(let i=0;i<25;i++){const el=document.createElement('div');el.className='student '+(names[i]?'on':'');if(names[i] && participants[i]?.uid===previousReaderUid)el.classList.add('reader-current');const bulb=document.createElement('span');bulb.className='bulb';const name=document.createElement('span');name.className='nick';name.textContent=names[i]||'';el.append(bulb,name);$('board').append(el);} $('count').textContent=names.length+' / 25 IKASLE ERREGISTRATUTA';if(summaryPhase?.phase==='show' && (!questionPhase||questionPhase.phase==='done')) $('display').textContent=summaryPhase.selectedText||''; else if(questionPhase && questionPhase.phase!=='done') renderQuestionDisplay(); else if(summaryPhase?.phase==='writing') $('display').textContent='LABURPENA: '+(participants.find(p=>p.uid===summaryPhase.selectedUid)?.nick||'AUKERATUTA'); else if(summaryPhase?.phase==='idle') $('display').textContent='IRAKURLEA: '+(participants.find(p=>p.uid===previousReaderUid)?.nick||''); else $('display').textContent=names.length+' IKASLE SARTUTA';$('status-conn').textContent='IKASLEAK: '+names.length+' / 25';}
+function cleanListeners(){if(stopQuestion){stopQuestion();stopQuestion=null;}if(stopAnswers){stopAnswers();stopAnswers=null;}if(stopSummary){stopSummary();stopSummary=null;}if(stopSubmissions){stopSubmissions();stopSubmissions=null;}if(stopSession){stopSession();stopSession=null;}if(stopParticipants){stopParticipants();stopParticipants=null;}}
+function makePin(){let a=new Uint32Array(1);crypto.getRandomValues(a);return String(100000+a[0]%900000);}
+async function observe(newPin){
+ cleanListeners();
+ pin=newPin;participants=[];summaryPhase=null;questionPhase=null;answers=[];render();submissions=[];autoPublishing=false;watchQuestions(newPin);
+ watchSummaries(newPin);
+ $('pin').textContent=pin;
+ $('copy').disabled=false;$('copyPin').disabled=false;$('closeSession').disabled=false;
+ usedReaders=[];usedSummarizers=[];round=0;paragraphIndex=0;previousReaderUid=null;
+ stopSession=onSnapshot(doc(db,'irakurketa_saioak',pin),s=>{
+   if(!s.exists()){message('Saioa ez dago erabilgarri.',true);return;}
+   if(!s.data().open)message('Saioa itxita dago.');
+ },e=>message('Saioa entzutean: '+errorText(e),true));
+ stopParticipants=onSnapshot(query(collection(db,'irakurketa_saioak',pin,'partehartzaileak'),orderBy('joinedAt')),s=>{
+   participants=s.docs.slice(0,25).map(x=>({uid:x.id,nick:x.data().nick}));
+   render(participants.map(x=>x.nick));updatePickStatus();renderSummaryChoices();
+ },e=>message('Ikasleak entzutean: '+errorText(e),true));
+ // V16ko arauek oraindik ez dute /kontrola/egoera irakurtzen uzten.
+ // Aukerako berreskuratze honek ez du saioaren sorkuntza edo berreskuratzea hondatuko.
+ try{
+   const state=await getDoc(doc(db,'irakurketa_saioak',pin,'kontrola','egoera'));
+   if(state.exists()){
+     usedReaders=Array.isArray(state.data().usedReaders)?state.data().usedReaders:[];
+     round=Number(state.data().round||0);
+     paragraphIndex=Number(state.data().paragraphIndex||0);
+     previousReaderUid=state.data().readerUid||null;
+   }
+ }catch(e){
+   if(e.code==='permission-denied'){
+     $('readerState').textContent='V17ko irakurle-kontrola ez dago oraindik baimenduta. Saioa erabil daiteke; irakurlea aukeratzeko, V17ko arauak argitaratu eta probatu behar dira.';
+   }else{
+     $('readerState').textContent='Irakurle-kontrola berreskuratzean: '+errorText(e);
+   }
+ }
+ renderParagraphs();updatePickStatus();
+}
+render();
+try{if(!cfg?.apiKey||!cfg?.appId||!cfg?.projectId)throw Error('Bete firebase-config.js');
+const app=initializeApp(cfg);auth=initializeAuth(app,{persistence:browserSessionPersistence});db=getFirestore(app);
+onAuthStateChanged(auth,user=>{uid=user?.uid||null;const authorized=uid==='hW0ZtZEXfSNP6pTfBe5yu9J60Im1';$('account').textContent=user?.email?(authorized?user.email+' · baimenduta':user.email+' · ez baimenduta'):'Saioa hasi gabe';$('loginInfo').textContent=authorized?(user.email+' · BAIMENDUTA'):'IRAKASLEA: SARTU';if(authorized)fold('credentialsSection','credentialsBody','loginInfo','loginToggle',true);else fold('credentialsSection','credentialsBody','loginInfo','loginToggle',false);$('create').disabled=!authorized;$('resume').disabled=!authorized;$('exportResults').disabled=!authorized;updatePickStatus();if(!authorized && pin){cleanListeners();pin=null;$('pin').textContent='------';render();$('copy').disabled=true;$('copyPin').disabled=true;$('closeSession').disabled=true;}});$('login').disabled=false;message('Sartu irakasle-kontuarekin.');
+}catch(e){message(errorText(e),true);}
+$('login').onclick=async()=>{try{await signInWithEmailAndPassword(auth,$('email').value.trim(),$('password').value);$('password').value='';message('Saioa hasita. SORTU PIN bat.');}catch(e){message('Sarrera: '+errorText(e),true);}};
+$('create').onclick=async()=>{
+ if(!uid||$('create').disabled)return;
+ $('create').disabled=true;
+ try{
+   for(let i=0;i<20;i++){
+     const candidate=makePin();
+     const ref=doc(db,'irakurketa_saioak',candidate);
+     try{
+       // SORKUNTZA eta BEHAKETA bananduta: kontrolaren irakurketa ezin da PIN hutsegite gisa hartu.
+       await setDoc(ref,{pin:candidate,ownerUid:uid,open:true,createdAt:serverTimestamp(),participantCount:0});
+     }catch(e){
+       if(e.code==='permission-denied'){
+         // PINa jada badago, aukeratu beste bat; bestela benetako baimen-errorea erakutsi.
+         const existing=await getDoc(ref);
+         if(existing.exists())continue;
+       }
+       throw e;
+     }
+     await observe(candidate);
+     if(reading){for(let j=0;j<reading.paragraphs.length;j++)if(reading.questions?.[j]?.length)await persistQuestionDraft(j,candidate);}
+     message('PIN sortuta: '+candidate+'. Saioa prest dago.');
+     return;
+   }
+   throw Error('Ezin izan da PIN librerik sortu.');
+ }catch(e){message('Saioa sortzean: '+errorText(e),true);}
+ finally{$('create').disabled=uid!=='hW0ZtZEXfSNP6pTfBe5yu9J60Im1';}
+};
+$('resume').onclick=async()=>{
+ const candidate=$('resumePin').value.trim();
+ if(!/^\d{6}$/.test(candidate)){message('Sei digituko PINa idatzi.',true);return;}
+ try{
+   const snap=await getDoc(doc(db,'irakurketa_saioak',candidate));
+   if(!snap.exists())throw Error('PIN hori ez da aurkitu.');
+   if(snap.data().ownerUid!==uid)throw Error('Saio hori beste irakasle batena da.');
+   await observe(candidate);
+   if(reading)await loadSavedQuestions();
+   message('Saio zaharra berreskuratuta. '+(snap.data().open?'Irekita dago.':'Itxita dago.' ));
+ }catch(e){message('Berreskuratzean: '+errorText(e),true);}
+};
+$('copyPin').onclick=async()=>{if(!pin)return;try{await navigator.clipboard.writeText(pin);message('PINa kopiatuta: '+pin);}catch(e){message('PINa: '+pin);}};
+$('copy').onclick=()=>{if(!pin)return;const u=new URL('index.html',location.href);u.searchParams.set('pin',pin);const url=u.href;if(location.protocol==='file:'){message('Beste gailuetarako ezin da file:// lotura erabili. Argitaratu GitHub Pagesen; bitartean PINa beste fitxa batean probatu.');return;}if(navigator.clipboard?.writeText){navigator.clipboard.writeText(url).then(()=>message('Lotura kopiatuta.')).catch(()=>message('Lotura: '+url));}else message('Lotura: '+url);};
+// V19.2: paragrafoak eta faseak hurrenez hurren. GALD. oraindik ez dago inplementatuta.
+// Behin laburpena erakutsita, hurrengo paragrafoaren IRAK. irekitzen da
+// (GALD. fasera igarotzea behin-behinean saltatzen dugu; ez dira galderak egin direla adierazten).
+function currentStep(){
+ if(!summaryPhase) return {index: previousReaderUid?-1:0, action:previousReaderUid?'sync':'read'};
+ const idx=Number(summaryPhase.paragraphIndex);
+ if(summaryPhase.phase==='idle')return {index:idx,action:'summary'};
+ if(summaryPhase.phase==='writing')return {index:idx,action:'wait'};
+ if(summaryPhase.phase==='show'){
+   if(!questionPhase||questionPhase.paragraphIndex!==idx)return {index:idx,action:'question'};
+   if(questionPhase.phase==='done')return {index:idx+1,action:'read'};
+   return {index:idx,action:'waitquestions'};
+ }
+ return {index:-1,action:'sync'};
+}
+function renderParagraphs(){
+ const area=$('paragraphPicker');area.replaceChildren();if(!reading)return;
+ const step=currentStep();const allowed=Boolean(uid&&pin&&participants.length&&!selecting);
+ reading.paragraphs.forEach((t,i)=>{
+  const row=document.createElement('div');row.className='phase-row';
+  const number=document.createElement('span');number.className='num';number.textContent=String(i+1).padStart(2,'0');row.append(number);
+  const ir=document.createElement('button');ir.textContent='IRAK.';
+  const readReady=allowed&&step.action==='read'&&step.index===i;
+  const readDone=(summaryPhase&&i<=summaryPhase.paragraphIndex)||(!summaryPhase&&previousReaderUid&&i===paragraphIndex);
+  ir.disabled=!readReady;ir.className=readReady?'active':(readDone?'done':'');
+  ir.title=readReady?'Irakurlea aukeratu eta paragrafoa bidali':readDone?'Irakurketa egina':'Aurreko paragrafoa bukatu lehenik';
+  ir.onclick=()=>{if(!readReady)return;paragraphIndex=i;updatePickStatus();$('pickReader').click();};row.append(ir);
+  const lab=document.createElement('button');lab.textContent='LABUR.';
+  const summaryReady=allowed&&step.action==='summary'&&step.index===i&&Boolean(previousReaderUid);
+  lab.disabled=!summaryReady;
+  lab.className=summaryReady?'active':(summaryPhase&&i<summaryPhase.paragraphIndex||summaryPhase&&i===summaryPhase.paragraphIndex&&summaryPhase.phase==='show'?'done':'');
+  lab.title=summaryReady?'Bigarren zozketa: laburpena ikasle bakarrak idatziko du':'Irakurketa bukatu arte itxaron';
+  lab.onclick=()=>{if(summaryReady)$('startSummaries').click();};row.append(lab);
+  const gal=document.createElement('button');gal.textContent='GALD.';const ready=allowed&&step.action==='question'&&step.index===i&&Boolean(reading.questions?.[i]?.length);gal.disabled=!ready;gal.className=ready?'active':(questionPhase?.paragraphIndex===i&&questionPhase.phase==='done'?'done':'');gal.title=ready?'Galderak ireki: ikasle guztiek erantzungo dute':'Lehenik laburpena bidali';gal.onclick=()=>{if(ready)startQuestion(i,0);};row.append(gal);
+  area.append(row);
+ });
+ $('readingTitle').textContent=reading.title+' · '+reading.paragraphs.length+' PARAGRAFO';
+ if(step.action==='read'&&step.index>=reading.paragraphs.length){$('status-phase').textContent='FASEA: IRAKURKETA AMAITUTA';}
+}
+function updatePickStatus(){
+ const step=currentStep();
+ $('pickReader').disabled=!(uid&&pin&&reading&&participants.length&&!selecting&&step.action==='read'&&step.index<reading.paragraphs.length);
+ $('startSummaries').disabled=!(uid&&pin&&reading&&participants.length&&!selecting&&step.action==='summary'&&Boolean(previousReaderUid));
+ renderParagraphs();
+}
+$('xlsxFile').addEventListener('change',async(e)=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>8e6)throw Error('Excel handiegia: 8 MB gehienez.');reading=await window.IP_readWorkbook(f);if(pin)await loadSavedQuestions();$('editQuestions').disabled=false;$('loaded').textContent='✓ '+reading.title+' · '+reading.paragraphs.length+' paragrafo';$('fileInfo').textContent='✓ '+reading.title+' · '+reading.paragraphs.length+' paragrafo';fold('fileSection','fileBody','fileInfo','fileToggle',true);paragraphIndex=summaryPhase?Number(summaryPhase.paragraphIndex||0):paragraphIndex;renderParagraphs();updatePickStatus();}catch(err){reading=null;$('editQuestions').disabled=true;$('loaded').textContent='ERROREA: '+err.message;updatePickStatus();}});
+function shuffled(list){const a=[...list];for(let i=a.length-1;i>0;i--){const n=new Uint32Array(1);crypto.getRandomValues(n);const j=n[0]%(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
+function flash(names,chosen){const tiles=[...$('board').children];let i=0;const seq=[...shuffled(names),...shuffled(names),chosen];return new Promise(resolve=>{const next=()=>{tiles.forEach(el=>el.classList.remove('selected-reader'));const who=seq[i++];const idx=participants.findIndex(p=>p.uid===who);if(idx>=0)tiles[idx]?.classList.add('selected-reader');if(i<seq.length)setTimeout(next,140);else{setTimeout(()=>resolve(),250);}};next();});}
+$('pickReader').onclick=async()=>{
+ const step=currentStep();
+ if(selecting||!pin||!reading||!participants.length||step.action!=='read'||step.index!==paragraphIndex||step.index>=reading.paragraphs.length)return;
+ selecting=true;updatePickStatus();try{
+  let eligible=participants.filter(p=>!usedReaders.includes(p.uid));
+  if(!eligible.length){usedReaders=[];round++;eligible=[...participants];}
+  // Bi bira ausaz, bakoitzean hautagai guztiak behin; gelditu aukeratutakoan.
+  const pick=shuffled(eligible)[0];
+  $('readerState').textContent='IRAKURLEA AUKERATZEN...';
+  await flash(participants.map(p=>p.uid),pick.uid);
+  const nextUsed=[...usedReaders,pick.uid];
+  const batch=writeBatch(db);const base=['irakurketa_saioak',pin];
+  if(previousReaderUid && previousReaderUid!==pick.uid)batch.delete(doc(db,...base,'irakurgaiak',previousReaderUid));
+  batch.set(doc(db,...base,'irakurgaiak',pick.uid),{text:reading.paragraphs[paragraphIndex],paragraphIndex,turn:Date.now(),createdAt:serverTimestamp()});
+  batch.set(doc(db,...base,'kontrola','egoera'),{paragraphIndex,readerUid:pick.uid,readerNick:pick.nick,round,usedReaders:nextUsed,updatedAt:serverTimestamp()});
+  batch.set(doc(db,...base,'laburpen_kontrola','egoera'),{phase:'idle',paragraphIndex,turn:Date.now(),selectedUid:'',selectedText:'',updatedAt:serverTimestamp()});
+  await batch.commit();usedReaders=nextUsed;previousReaderUid=pick.uid;
+  $('readerState').textContent='IRAKURLEA: '+pick.nick+' · '+(paragraphIndex+1)+'. PARAGRAFOA. Testua bere gailuan soilik.';$('status-phase').textContent='FASEA: IRAKURKETA';$('display').textContent=pick.nick.toUpperCase()+' · '+(paragraphIndex+1)+'. PARAGRAFOA';render(participants.map(x=>x.nick));updatePickStatus();
+ }catch(e){$('readerState').textContent='ERROREA: '+errorText(e);}finally{selecting=false;updatePickStatus();}
+};
+$('closeSession').onclick=async()=>{if(!pin)return;try{await updateDoc(doc(db,'irakurketa_saioak',pin),{open:false});message('Saioa itxita. Ikasle berriak ezin dira sartu.');$('closeSession').disabled=true;}catch(e){message(errorText(e),true);}};
+
+// V18: ikasleen laburpenak, irakaslearen fase-kontrolarekin.
+function summaryRef(){return doc(db,'irakurketa_saioak',pin,'laburpen_kontrola','egoera');}
+function watchSummaries(p){
+ stopSummary=onSnapshot(doc(db,'irakurketa_saioak',p,'laburpen_kontrola','egoera'),snap=>{
+   summaryPhase=snap.exists()?snap.data():null;
+   if(summaryPhase)paragraphIndex=Number(summaryPhase.paragraphIndex||0);
+   renderSummaryChoices();updatePickStatus();$('status-phase').textContent='FASEA: '+({idle:'IRAKURKETA',writing:'LABURPENAK',show:'GALDERAK PREST'}[summaryPhase?.phase]||'SARRERA');
+   if(summaryPhase?.phase==='show' && (!questionPhase||questionPhase.paragraphIndex!==summaryPhase.paragraphIndex||questionPhase.phase==='done')) $('display').textContent=summaryPhase.selectedText||'';
+   publishSummaryAutomatically();
+ },e=>{$('summaryState').textContent='LABURPENAK: '+errorText(e);});
+ stopSubmissions=onSnapshot(collection(db,'irakurketa_saioak',p,'laburpenak'),snap=>{
+   submissions=snap.docs.map(d=>d.data());renderSummaryChoices();updatePickStatus();publishSummaryAutomatically();
+ },e=>{$('summaryState').textContent='LABURPENAK: '+errorText(e);});
+}
+function renderSummaryChoices(){
+ const box=$('summaryChoices');box.replaceChildren();
+ if(!summaryPhase){$('summaryState').textContent='Lehenik irakurlea aukeratu.';return;}
+ if(summaryPhase.phase==='idle'){$('summaryState').textContent='IRAKURKETA: sakatu LABUR. bigarren zozketa egiteko.';return;}
+ if(summaryPhase.phase==='show'){$('summaryState').textContent='LABURPENA PANTAILAN. Sakatu GALD. ikasle guztiei galderak bidaltzeko.';return;}
+ const chosen=participants.find(p=>p.uid===summaryPhase.selectedUid);
+ const s=submissions.find(s=>s.uid===summaryPhase.selectedUid&&s.turn===summaryPhase.turn&&s.paragraphIndex===summaryPhase.paragraphIndex);
+ $('summaryState').textContent='LABURPENA: '+(chosen?.nick||'AUKERATUA')+' · '+(s?'JASOTA. PANTAILAN AUTOMATIKOKI ERAKUSTEN...':'IDAZTEN / BIDALTZEKO ZAIN');
+}
+async function publishSummaryAutomatically(){
+ if(autoPublishing||!pin||!summaryPhase||summaryPhase.phase!=='writing'||uid!=='hW0ZtZEXfSNP6pTfBe5yu9J60Im1')return;
+ const stage=summaryPhase;
+ const s=submissions.find(x=>x.uid===stage.selectedUid&&x.turn===stage.turn&&x.paragraphIndex===stage.paragraphIndex);
+ if(!s)return;
+ autoPublishing=true;
+ try{
+  await runTransaction(db,async tx=>{
+   const ref=summaryRef(),fresh=await tx.get(ref);
+   if(!fresh.exists())return;
+   const d=fresh.data();
+   if(d.phase!=='writing'||d.turn!==stage.turn||d.selectedUid!==s.uid)return;
+   tx.set(ref,{phase:'show',paragraphIndex:d.paragraphIndex,turn:d.turn,selectedUid:s.uid,selectedText:s.text,updatedAt:serverTimestamp()});
+  });
+ }catch(e){$('summaryState').textContent='Laburpena automatikoki erakustean: '+errorText(e);}
+ finally{autoPublishing=false;}
+}
+$('startSummaries').onclick=async()=>{
+ const step=currentStep();
+ if(selecting||!pin||!reading||!previousReaderUid||!participants.length||step.action!=='summary'||step.index!==paragraphIndex)return;
+ selecting=true;updatePickStatus();
+ try{
+  let eligible=participants.filter(p=>!usedSummarizers.includes(p.uid));
+  if(!eligible.length){usedSummarizers=[];eligible=[...participants];}
+  const pick=shuffled(eligible)[0];
+  $('summaryState').textContent='LABURPENA: BIGARREN ZOZKETA...';
+  $('display').textContent='LABURPENA · ZOZKETA';
+  await flash(participants.map(p=>p.uid),pick.uid);
+  const stamp=Date.now();
+  await setDoc(summaryRef(),{phase:'writing',paragraphIndex,turn:stamp,selectedUid:pick.uid,selectedText:'',updatedAt:serverTimestamp()});
+  usedSummarizers.push(pick.uid);
+  $('display').textContent='LABURPENA: '+pick.nick.toUpperCase();
+  $('summaryState').textContent='LABURPENA: '+pick.nick+' · ikasle horrek bakarrik idatziko du.';
+ }catch(e){$('summaryState').textContent='ERROREA: '+errorText(e);}
+ finally{selecting=false;updatePickStatus();}
+};
+
+// V21: galderak irakasleak zuzentzen ditu. Erantzun zuzenak ez dira inoiz ikasleen dokumentura bidaltzen.
+function questionRef(){return doc(db,'irakurketa_saioak',pin,'galdera_kontrola','egoera');}
+// V24 — Galdera bakoitzaren erantzun zuzena irakasleak soilik irakurtzen duen
+// artxibo aldaezinean gordetzen da, IKASLEEN gailuetara inoiz bidali gabe.
+function archiveQuestionRef(pidx,qidx,targetPin=pin){return doc(db,'irakurketa_saioak',targetPin,'galdera_artxiboa','p'+pidx+'_q'+qidx);}
+function draftQuestionRef(pidx,targetPin=pin){return doc(db,'irakurketa_saioak',targetPin,'galdera_prestaketa',String(pidx));}
+function validQuestionSnapshot(q){return {text:q.text,type:q.type,options:Array.isArray(q.options)?q.options:[],correct:Number.isInteger(q.correct)?q.correct:-1,accepted:Array.isArray(q.accepted)?q.accepted:[],explanation:q.explanation||''};}
+async function archiveCurrentQuestion(pidx,qidx,q){
+ const ref=archiveQuestionRef(pidx,qidx);
+ const existing=await getDoc(ref);
+ if(existing.exists()){
+  const v=existing.data();
+  // Erantzunak biltzen hasitako galdera ez da ordezkatuko beste soluzio batez.
+  if(v.text!==q.text||v.type!==q.type||JSON.stringify(v.options)!==JSON.stringify(q.options)||v.correct!==q.correct||JSON.stringify(v.accepted)!==JSON.stringify(q.accepted||[]))
+   throw Error('Galdera honen soluzioa jada artxibatuta dago eta ezin da aldatu.');
+  return;
+ }
+ await setDoc(ref,{paragraphIndex:pidx,questionIndex:qidx,...validQuestionSnapshot(q),createdAt:serverTimestamp()});
+}
+async function persistQuestionDraft(pidx,targetPin=pin){
+ if(!targetPin||!reading?.paragraphs?.[pidx]||!reading.questions?.[pidx]?.length)return;
+ await setDoc(draftQuestionRef(pidx,targetPin),{paragraphIndex:pidx,paragraphText:reading.paragraphs[pidx],questions:reading.questions[pidx].map(validQuestionSnapshot),updatedAt:serverTimestamp()});
+}
+async function loadSavedQuestions(){
+ if(!pin||!reading)return;
+ const activePin=pin,originalReading=reading;
+ const snapshot=await getDocs(collection(db,'irakurketa_saioak',activePin,'galdera_prestaketa'));
+ if(pin!==activePin||reading!==originalReading)return;
+ let count=0;
+ for(const d of snapshot.docs){
+  const value=d.data(),idx=Number(d.id);
+  if(!Number.isInteger(idx)||idx<0||idx>=reading.paragraphs.length||value.paragraphText!==reading.paragraphs[idx]||!Array.isArray(value.questions))continue;
+  reading.questions[idx]=value.questions.map((q,j)=>({num:j+1,...q}));count++;
+ }
+ if(count){message('Firebase: '+count+' paragrafotako galderak eta erantzun zuzenak berreskuratuta.');renderParagraphs();updatePickStatus();}
+}
+
+function normalizeAnswer(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');}
+function questionCorrect(q,a){if(!q||!a)return false;if(q.type==='LABURRA')return q.accepted.some(x=>normalizeAnswer(x)===normalizeAnswer(a.answer));return Number(a.answer)===q.correct;}
+function activeQuestion(){return reading?.questions?.[questionPhase?.paragraphIndex]?.[questionPhase?.questionIndex]||null;}
+function answerList(){return answers.filter(a=>a.paragraphIndex===questionPhase?.paragraphIndex&&a.questionIndex===questionPhase?.questionIndex&&a.turn===questionPhase?.turn);}
+function showLights(correct,wrong){
+ const n=50;
+ for(const [id,num,cls] of [['greenlights',correct,'ok'],['redlights',wrong,'no']]){
+  const el=$(id);el.replaceChildren();for(let i=0;i<n;i++){const d=document.createElement('i');d.className='light'+(i<Math.min(num,n)?' on '+cls:'');el.append(d);}
+ }
+ $('oks').textContent=String(correct);$('bads').textContent=String(wrong);
+}
+function renderQuestionDisplay(){
+ if(!questionPhase||questionPhase.phase==='done')return;
+ const q=activeQuestion();
+ if(q)$('display').textContent='GALD. '+(questionPhase.paragraphIndex+1)+'.'+(questionPhase.questionIndex+1)+' · '+q.text;
+ else $('display').textContent='GALDERAK · KARGATU IRAKURKETA EXCELA';
+}
+function renderQuestionTeacher(){
+ const state=questionPhase;
+ $('questionTeacher').hidden=!state||state.phase==='done';
+ if(!state||state.phase==='done')return;
+ const q=activeQuestion(),current=answerList(),good=current.filter(a=>questionCorrect(q,a)).length,bad=current.length-good;
+ $('questionStatus').textContent='GALDERA '+(state.questionIndex+1)+' / '+(reading?.questions?.[state.paragraphIndex]?.length||'?')+' · ERANTZUNAK '+current.length+' / '+participants.length;
+ $('questionAnswers').replaceChildren();
+ if(!q){$('questionStatus').textContent+=' · KARGATU EXCELA ZUZENTZEKO';$('showQuestionResults').disabled=true;return;}
+ for(const a of current){const line=document.createElement('div');line.className='question-answer-line';line.textContent=(questionCorrect(q,a)?'✓ ':'✗ ')+(a.nick||'IKASLEA')+' — '+(q.type==='LABURRA'?String(a.answer):q.options[Number(a.answer)]||'');$('questionAnswers').append(line);}
+ showLights(good,bad);
+ $('showQuestionResults').hidden=state.phase!=='asking';
+ $('showQuestionResults').disabled=!current.length||questionBusy;
+ $('nextQuestion').hidden=state.phase!=='results';
+ $('nextQuestion').textContent=state.questionIndex+1<(reading?.questions?.[state.paragraphIndex]?.length||0)?'HURRENGO GALDERA':'GALDERAK AMAITU';
+ $('nextQuestion').disabled=questionBusy;
+ renderQuestionDisplay();
+}
+function watchQuestions(p){
+ stopQuestion=onSnapshot(doc(db,'irakurketa_saioak',p,'galdera_kontrola','egoera'),snap=>{
+  questionPhase=snap.exists()?snap.data():null;renderQuestionTeacher();updatePickStatus();
+  if(questionPhase?.phase==='done'&&summaryPhase?.phase==='show')$('display').textContent=summaryPhase.selectedText||'';
+ },e=>{$('questionStatus').textContent='GALDERAK: '+errorText(e);});
+ stopAnswers=onSnapshot(collection(db,'irakurketa_saioak',p,'erantzunak'),snap=>{answers=snap.docs.map(d=>d.data());renderQuestionTeacher();},e=>{$('questionStatus').textContent='ERANTZUNAK: '+errorText(e);});
+}
+async function startQuestion(pidx,qidx){
+ if(questionBusy||!pin||!reading||!reading.questions?.[pidx]?.[qidx])return;
+ if(qidx===0 && (summaryPhase?.phase!=='show'||summaryPhase?.paragraphIndex!==pidx||questionPhase?.paragraphIndex===pidx))return;
+ if(qidx>0 && (questionPhase?.phase!=='results'||questionPhase.paragraphIndex!==pidx||questionPhase.questionIndex!==qidx-1))return;
+ questionBusy=true;
+ try{
+  const q=reading.questions[pidx][qidx];
+  await archiveCurrentQuestion(pidx,qidx,q);
+  await setDoc(questionRef(),{phase:'asking',paragraphIndex:pidx,questionIndex:qidx,turn:Date.now(),text:q.text,type:q.type,options:q.options,correctText:'',updatedAt:serverTimestamp()});
+  $('status-phase').textContent='FASEA: GALDERAK';
+ }catch(e){$('questionStatus').textContent='GALDERA IREKITZEAN: '+errorText(e);}
+ finally{questionBusy=false;renderQuestionTeacher();}
+}
+$('showQuestionResults').onclick=async()=>{
+ if(questionBusy||questionPhase?.phase!=='asking')return;
+ const q=activeQuestion();if(!q)return;
+ questionBusy=true;
+ try{
+  const correctText=q.type==='LABURRA'?q.accepted.join(' / '):q.options[q.correct];
+  await updateDoc(questionRef(),{phase:'results',correctText,updatedAt:serverTimestamp()});
+ }catch(e){$('questionStatus').textContent='ERROREA: '+errorText(e);}finally{questionBusy=false;renderQuestionTeacher();}
+};
+$('nextQuestion').onclick=async()=>{
+ if(questionBusy||questionPhase?.phase!=='results'||!reading)return;
+ const pidx=questionPhase.paragraphIndex,next=questionPhase.questionIndex+1;
+ if(next<reading.questions[pidx].length){await startQuestion(pidx,next);return;}
+ questionBusy=true;
+ try{await updateDoc(questionRef(),{phase:'done',updatedAt:serverTimestamp()});}
+ catch(e){$('questionStatus').textContent='ERROREA: '+errorText(e);}finally{questionBusy=false;renderQuestionTeacher();}
+};
+showLights(0,0);
+
+// V22: galderen editorea. Ez du Firestore araurik aldatzen; irakaslearen Excel/galderen datuak prestatzen ditu.
+let qeIndex=0;
+const qeEl=id=>document.getElementById(id);
+function qePlain(text){return String(text??'');}
+function qeLocked(i){
+ if(!pin || !summaryPhase) return false;
+ const si=Number(summaryPhase.paragraphIndex);
+ if(i<si)return true;
+ if(questionPhase && Number(questionPhase.paragraphIndex)===i && questionPhase.phase!=='done')return true;
+ if(questionPhase && Number(questionPhase.paragraphIndex)===i && questionPhase.phase==='done')return true;
+ return false;
+}
+function qeShowMessage(t,bad=false){qeEl('qeMessage').textContent=t;qeEl('qeMessage').style.color=bad?'#ff9f9f':'#a9efd6';}
+function qeInput(label,value,kind='text'){
+ const wrap=document.createElement('label');wrap.className='qe-field';
+ const span=document.createElement('span');span.textContent=label;
+ const input=document.createElement(kind==='textarea'?'textarea':'input');
+ if(kind!=='textarea')input.type='text';
+ input.value=qePlain(value);wrap.append(span,input);return {wrap,input};
+}
+function qeSelect(label,options,value){
+ const wrap=document.createElement('label');wrap.className='qe-field';
+ const cap=document.createElement('span');cap.textContent=label;wrap.append(cap);
+ const select=document.createElement('select');for(const [v,t] of options){const opt=document.createElement('option');opt.value=v;opt.textContent=t;select.append(opt);}select.value=value;wrap.append(select);
+ return {wrap,input:select};
+}
+function qeQuestionCard(q,j){
+ const card=document.createElement('section');card.className='qe-card';card.dataset.question=String(j);
+ const heading=document.createElement('h3');heading.textContent=(j+1)+'. GALDERA';card.append(heading);
+ const type=qeSelect('MOTA',[['AUKERAK','Aukera anitzekoa'],['EGIA_GE_ZURRA','Egia / Gezurra'],['LABURRA','Erantzun laburra']],q.type||'AUKERAK');type.input.className='qe-type';card.append(type.wrap);
+ const text=qeInput('GALDERAREN TESTUA',q.text,'textarea');text.input.className='qe-text';card.append(text.wrap);
+ const optionsArea=document.createElement('div');optionsArea.className='qe-optarea';
+ const options=[...(q.options||[])];const numOptions=Math.max(2,Math.min(4,options.length||4));
+ const optionWrap=document.createElement('div');optionWrap.className='qe-options';
+ for(let k=0;k<4;k++){
+  const f=qeInput('ABCD'[k]+'. AUKERA',q.type==='AUKERAK'?(options[k]||''):'');
+  f.input.className='qe-option';f.input.dataset.option=String(k);optionWrap.append(f.wrap);
+ }
+ optionsArea.append(optionWrap);
+ const correct=qeSelect('ERANTZUN ZUZENA', [['0','A'],['1','B'],['2','C'],['3','D']],String(q.correct>=0?q.correct:0));correct.input.className='qe-correct';optionsArea.append(correct.wrap);
+ const tf=qeSelect('ERANTZUN ZUZENA', [['0','EGIA'],['1','GEZURRA']],String(q.correct>=0?q.correct:0));tf.input.className='qe-truth';optionsArea.append(tf.wrap);
+ const acc=qeInput('ERANTZUN ONARTUAK (banatu | ikurrarekin)',(q.accepted||[]).join(' | '));acc.input.className='qe-accepted';optionsArea.append(acc.wrap);
+ card.append(optionsArea);
+ const explanation=qeInput('AZALPENA (aukerakoa)',q.explanation||'','textarea');explanation.input.className='qe-explanation';card.append(explanation.wrap);
+ const toggle=()=>{
+  const t=type.input.value; optionWrap.hidden=t!=='AUKERAK';correct.wrap.hidden=t!=='AUKERAK';tf.wrap.hidden=t!=='EGIA_GE_ZURRA';acc.wrap.hidden=t!=='LABURRA';
+ };type.input.addEventListener('change',toggle);toggle();
+ return card;
+}
+function qeReadDraft(){
+ const items=[];
+ for(const card of qeEl('qeCards').querySelectorAll('.qe-card')){
+  const type=card.querySelector('.qe-type').value;
+  const text=card.querySelector('.qe-text').value.trim();
+  const explanation=card.querySelector('.qe-explanation').value.trim();
+  let options=[],correct=-1,accepted=[];
+  if(!text)throw Error((items.length+1)+'. galderak ez du testurik.');
+  if(type==='AUKERAK'){
+   const raw=Array.from(card.querySelectorAll('.qe-option')).map(x=>x.value.trim());
+   if(raw.some((v,i)=>v && raw.slice(0,i).some(v2=>!v2)))throw Error('Aukerak jarraian bete: A, B, C, D.');
+   options=raw.filter(Boolean);correct=Number(card.querySelector('.qe-correct').value);
+   if(options.length<2||correct>=options.length)throw Error('Aukera anitzeko galderak 2-4 aukera eta erantzun zuzena behar ditu.');
+  }else if(type==='EGIA_GE_ZURRA'){
+   options=['EGIA','GEZURRA'];correct=Number(card.querySelector('.qe-truth').value);
+  }else{
+   accepted=card.querySelector('.qe-accepted').value.split('|').map(x=>x.trim()).filter(Boolean);
+   if(!accepted.length)throw Error('Erantzun laburrak gutxienez erantzun onartu bat behar du.');
+  }
+  items.push({num:items.length+1,type,text,options,correct,accepted,explanation});
+ }
+ return items;
+}
+function qeDraftTemplates(){
+ const current=reading?.questions?.[qeIndex]||[];
+ let draft=qeEl('questionEditor')._draft;
+ if(draft && draft.idx===qeIndex) return draft.questions;
+ return structuredClone(current);
+}
+function qeRender(){
+ if(!reading)return;
+ const items=qeDraftTemplates();const count=Number(qeEl('qeCount').value||items.length||1);
+ const disabled=qeLocked(qeIndex);
+ const cards=qeEl('qeCards');cards.replaceChildren();
+ for(let j=0;j<count;j++)cards.append(qeQuestionCard(items[j]||{type:'AUKERAK',text:'',options:['','','',''],correct:0,accepted:[],explanation:''},j));
+ qeEl('qeSave').disabled=disabled;qeEl('qeCount').disabled=disabled;
+ cards.querySelectorAll('input,textarea,select').forEach(x=>x.disabled=disabled);
+ qeShowMessage(disabled?'Paragrafo honetan GALD. fasea hasita edo amaituta dago. Ezin dira galderak orain aldatu.':'Aukeratu 1, 2 edo 3 galdera eta gorde. Aldaketak irakaslearen leiho honetan mantentzen dira.');
+}
+function qeOpen(){
+ if(!reading){message('Lehenik Excel fitxategia kargatu.',true);return;}
+ qeEl('qeParagraph').replaceChildren();
+ reading.paragraphs.forEach((t,i)=>{const o=document.createElement('option');o.value=String(i);o.textContent=(i+1)+'. '+t.slice(0,62);qeEl('qeParagraph').append(o);});
+ qeIndex=Math.min(Math.max(0,paragraphIndex),reading.paragraphs.length-1);
+ qeEl('qeParagraph').value=String(qeIndex);
+ qeEl('questionEditor')._draft=null;
+ qeEl('qeCount').value=String(Math.min(3,Math.max(1,reading.questions[qeIndex]?.length||1)));
+ qeEl('questionEditor').hidden=false;qeRender();
+}
+function qeClose(){qeEl('questionEditor').hidden=true;qeEl('questionEditor')._draft=null;}
+qeEl('editQuestions').addEventListener('click',qeOpen);
+qeEl('qeClose').addEventListener('click',qeClose);
+qeEl('qeCancel').addEventListener('click',qeClose);
+qeEl('questionEditor').addEventListener('click',e=>{if(e.target===qeEl('questionEditor'))qeClose();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!qeEl('questionEditor').hidden)qeClose();});
+qeEl('qeParagraph').addEventListener('change',()=>{
+ // Aldaketak ez dira automatikoki gordetzen; paragrafoa aldatzean ohartarazi.
+ qeIndex=Number(qeEl('qeParagraph').value);
+ qeEl('questionEditor')._draft=null;
+ qeEl('qeCount').value=String(Math.min(3,Math.max(1,reading.questions[qeIndex]?.length||1)));
+ qeRender();
+});
+qeEl('qeCount').addEventListener('change',()=>{
+ try{
+  const draft=qeReadDraft();qeEl('questionEditor')._draft={idx:qeIndex,questions:draft};
+ }catch(e){
+  // Preserve partially edited fields when changing count.
+  const cards=qeEl('qeCards').querySelectorAll('.qe-card');
+  const draft=[];
+  for(const card of cards){draft.push({type:card.querySelector('.qe-type').value,text:card.querySelector('.qe-text').value,options:Array.from(card.querySelectorAll('.qe-option')).map(el=>el.value),correct:Number(card.querySelector('.qe-type').value==='EGIA_GE_ZURRA'?card.querySelector('.qe-truth').value:card.querySelector('.qe-correct').value),accepted:card.querySelector('.qe-accepted').value.split('|'),explanation:card.querySelector('.qe-explanation').value});}
+  qeEl('questionEditor')._draft={idx:qeIndex,questions:draft};
+ }
+ qeRender();
+});
+qeEl('qeSave').addEventListener('click',async()=>{
+ if(qeLocked(qeIndex)){qeShowMessage('GALD. hasi da; paragrafo hau blokeatuta dago.',true);return;}
+ try{
+  const validated=qeReadDraft();
+  const oldQuestions=reading.questions[qeIndex];
+  reading.questions[qeIndex]=validated;
+  try{if(pin)await persistQuestionDraft(qeIndex);}catch(err){reading.questions[qeIndex]=oldQuestions;throw Error('Firebase: '+errorText(err));}
+  qeEl('questionEditor')._draft=null;
+  qeShowMessage('✓ '+(qeIndex+1)+'. paragrafoan '+validated.length+' galdera gordeta.');
+  updatePickStatus();renderQuestionTeacher();
+ }catch(e){qeShowMessage('ERROREA: '+e.message,true);}
+});
+
+// V23: emaitzen esportazioa. Irakurketa, zozketak eta galderak ez dira aldatzen.
+const exportDialog=$('exportDialog');
+$('exportResults').onclick=()=>{if(!pin||uid!=='hW0ZtZEXfSNP6pTfBe5yu9J60Im1'){message('Lehenik PIN bat sortu edo berreskuratu.',true);return;}exportDialog.hidden=false;$('exportInfo').textContent='Saioaren '+pin+' emaitzak. Aukeratu Excel edo PDF.';};
+$('exportClose').onclick=()=>{exportDialog.hidden=true;};
+exportDialog.addEventListener('click',ev=>{if(ev.target===exportDialog)exportDialog.hidden=true;});
+async function collectExportData(){
+ if(!pin||uid!=='hW0ZtZEXfSNP6pTfBe5yu9J60Im1')throw Error('Irakasle-kontua eta PINa behar dira.');
+ const p=pin;
+ const [ps,as,ss,archive]=await Promise.all([
+  getDocs(collection(db,'irakurketa_saioak',p,'partehartzaileak')),
+  getDocs(collection(db,'irakurketa_saioak',p,'erantzunak')),
+  getDocs(collection(db,'irakurketa_saioak',p,'laburpenak')),
+  getDocs(collection(db,'irakurketa_saioak',p,'galdera_artxiboa'))
+ ]);
+ const people=ps.docs.map(d=>({uid:d.id,nick:d.data().nick||''}));
+ const responseRows=as.docs.map(d=>({docid:d.id,...d.data()}));
+ const summaries=ss.docs.map(d=>({docid:d.id,...d.data()}));
+ const archivedQuestions=[];
+ for(const d of archive.docs){const q=d.data(),i=Number(q.paragraphIndex),j=Number(q.questionIndex);if(!Number.isInteger(i)||!Number.isInteger(j)||i<0||j<0||i>200||j>2)continue;if(!archivedQuestions[i])archivedQuestions[i]=[];archivedQuestions[i][j]=q;}
+ return {pin:p,title:reading?.title||'',createdAt:new Date().toLocaleString('eu-ES'),people,responseRows,summaries,questions:archivedQuestions,archivedCount:archive.size};
+}
+async function doExport(kind){
+ const printWindow=kind==='pdf'?window.open('','_blank'):null;
+ if(kind==='pdf'&&!printWindow){$('exportInfo').textContent='ERROREA: leiho berria blokeatuta. Baimendu pop-upak.';return;}
+ if(printWindow){printWindow.document.write('<p>Firebaseko emaitzak prestatzen...</p>');}
+ const x=$('exportExcel'),y=$('exportPdf'); x.disabled=y.disabled=true;
+ $('exportInfo').textContent='Firebasetik emaitzak eskuratzen...';
+ try{
+  const data=await collectExportData();
+  if(kind==='xlsx'){
+   const bytes=window.IPResultsExport.toXlsx(data);
+   const blob=new Blob([bytes],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+   const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='IRAKURKETA_EMAITZAK_'+data.pin+'.xlsx';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);
+   $('exportInfo').textContent='✓ EXCEL deskargatuta. '+data.responseRows.length+' erantzun, '+data.summaries.length+' laburpen eta '+data.archivedCount+' galdera artxibatuta.';
+  }else{
+   const html=window.IPResultsExport.toPrintHtml(data);
+   printWindow.document.open();printWindow.document.write(html);printWindow.document.close();
+   $('exportInfo').textContent='PDF: leiho berrian INPRIMATU → GORDE PDF GISA aukeratu.';
+  }
+ }catch(e){if(printWindow)printWindow.close();$('exportInfo').textContent='ERROREA: '+(e.message||String(e));}finally{x.disabled=y.disabled=false;}
+}
+$('exportExcel').onclick=()=>doExport('xlsx');
+$('exportPdf').onclick=()=>doExport('pdf');
+</script></body></html>
