@@ -1,8 +1,21 @@
-<!DOCTYPE html><html lang="eu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JOKOEN TXOKOA · Prototipo V0.2.8</title><style>
+<!DOCTYPE html><html lang="eu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JOKOEN TXOKOA · Prototipo V0.2.9</title><style>
 :root{--bg:#071225;--panel:#122744;--edge:#4fb5d3;--text:#f2f6ff;--muted:#c6d8ed;--yellow:#ffe67a;--green:#8ed47f}*{box-sizing:border-box}body{margin:0;font:16px system-ui,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 50% -10%,#203b69,#071225 60%)}button,select{font:inherit}button{cursor:pointer}header{padding:24px 20px;text-align:center;background:#08162d;border-bottom:3px solid #3baad5}h1{margin:0;color:var(--yellow);font-size:clamp(26px,5vw,45px);letter-spacing:2px;text-shadow:0 3px #17344f}header p{margin:4px;color:#a9e6fb;letter-spacing:2px;font-weight:700}.shell{max-width:1260px;margin:auto;padding:20px}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}.tabs button,.filter button{border:1px solid #599ac4;border-radius:11px;color:var(--text);padding:12px 16px;background:#182e4d;font-weight:750}.tabs button.active,.filter button.active{background:var(--yellow);color:#172642;border-color:var(--yellow)}section.page{display:none}section.page.active{display:block}.intro{color:var(--muted);line-height:1.6;margin:4px 0 20px}.filter{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 16px}.filter button{padding:8px 12px;font-size:14px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px}.card,.panel{background:linear-gradient(145deg,#142d4c,#0e2039);border:1px solid #477ca4;border-radius:17px;padding:20px;box-shadow:0 8px 20px #0004}.card{min-height:230px;display:flex;flex-direction:column}.card h3{margin:8px 0;color:#ffeb9e;font-size:21px}.card p{color:var(--muted);line-height:1.4;margin:4px 0 15px;flex:1}.tag{font-size:12px;border:1px solid #7c98b2;border-radius:20px;padding:4px 9px;color:#ddeaff;display:inline-block;align-self:flex-start}.card button,.primary{background:linear-gradient(135deg,#56b8ec,#a58cfa);color:#06162c;border:0;border-radius:9px;padding:10px;font-weight:800}.muted{color:var(--muted)}h2{color:var(--yellow);margin-top:5px}.panel{margin:13px 0}.panel h3{color:#94ddf3;margin:0 0 10px}.panel p{line-height:1.5;color:var(--muted)}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:600px}th,td{text-align:left;padding:11px;border-bottom:1px solid #55718a}th{color:var(--yellow)}.template{margin-top:15px}.template button{margin:6px 6px 0 0}.note{border-left:3px solid var(--green);padding:12px;background:#1a3853;border-radius:4px;color:#e1f6e6}footer{padding:30px;text-align:center;font-size:13px;color:#a9bbd6}.chip{display:inline-block;margin:3px 5px 3px 0;padding:5px 8px;border-radius:9px;background:#254763;color:#cceaff}.hidden{display:none!important}@media(max-width:640px){.shell{padding:12px}.card{min-height:180px}}
 
 /* IRAKASLEAREN TXOKOA v0.2.8 */
 .teacher-jumps,.teacher-links,.prompt-actions{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0 16px}.jump-link,.secondary-btn{display:inline-block;border:1px solid #599ac4;border-radius:9px;padding:10px 13px;background:#1a3656;color:#f2f6ff;text-decoration:none;font-weight:750;font-size:14px;cursor:pointer}.teacher-links .primary{display:inline-flex;align-items:center;text-decoration:none;font-size:14px}.teacher-steps{line-height:1.6;padding-left:23px}.teacher-steps li{margin:8px 0}.teacher-info{border-left:3px solid #8ed47f;background:#1a3853;border-radius:5px;padding:12px;margin-top:12px;line-height:1.55;color:#e1f6e6}.inline-link{display:inline;border:none;background:none;color:#ffe67a;text-decoration:underline;font-size:inherit;cursor:pointer;padding:0}.prompt-layout{display:grid;grid-template-columns:minmax(175px,0.8fr) minmax(0,2.3fr);gap:16px;margin-top:14px}.prompt-picker{display:flex;flex-direction:column;gap:7px}.prompt-picker button{width:100%;border:1px solid #599ac4;border-radius:9px;padding:11px;background:#192f4d;color:#ecf6ff;text-align:left;font-weight:700;cursor:pointer}.prompt-picker button.active{background:#ffe67a;color:#132238;border-color:#ffe67a}.prompt-editor{min-width:0}.prompt-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px}.prompt-editor textarea{width:100%;min-height:420px;resize:vertical;background:#081b2b;color:#eff8ff;border:1px solid #6cabc4;border-radius:10px;padding:14px;font:14px/1.5 ui-monospace,Consolas,monospace}.prompt-actions button{font-size:14px}.prompt-status{color:#b3deec;font-size:13px;min-height:20px}.prompt-status.success{color:#8ed47f}@media(max-width:720px){.prompt-layout{grid-template-columns:1fr}.prompt-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.prompt-picker button{font-size:12px;padding:9px}.prompt-editor textarea{min-height:360px}.teacher-links .primary{width:100%;justify-content:center}}
+
+/* IRAKASLEAREN TXOKOA V0.2.9: formulario bidezko prompt-sorgailua */
+.prompt-mode{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.prompt-mode button{background:#183758;border:1px solid #71b9d8;color:#eef8ff;padding:12px 15px;border-radius:9px;font-weight:800;cursor:pointer}
+.prompt-mode button.active{background:#ffe67a;border-color:#ffe67a;color:#172642}
+.prompt-form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin:14px 0}
+.prompt-form-grid label{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:800;color:#d4eaff}
+.prompt-form-grid input,.prompt-form-grid select{background:#081e32;color:#fff;border:1px solid #70aacc;border-radius:8px;padding:10px;width:100%;min-width:0;font:inherit}
+.prompt-form-grid input:focus,.prompt-form-grid select:focus{outline:2px solid #ffe67a;outline-offset:1px}
+.prompt-source-hint{border-left:3px solid #ffe67a;padding:12px;background:#213950;color:#e7f3ff;border-radius:5px;font-size:14px;line-height:1.55}
+.prompt-editor textarea{min-height:280px}
+.prompt-form-caption{color:#c6d8ed;font-size:13px;line-height:1.5}
+@media(max-width:700px){.prompt-layout{grid-template-columns:1fr}.prompt-form-grid{grid-template-columns:1fr}}
 </style></head><body><header><h1>🎮 JOKOEN TXOKOA</h1><p>GELA JOKO INTERAKTIBOAK</p></header><div class="shell"><nav class="tabs" aria-label="Menu nagusia"><button class="active" data-page="jokoak">🎲 JOKOAK</button><button data-page="irakasle">🎓 IRAKASLEAREN TXOKOA</button><button data-page="txantiloiak">📄 TXANTILOIAK</button><button data-page="ikasle">🔑 IKASLEAREN SARRERA</button></nav>
 <section class="page active" id="jokoak"><h2>GURE JOKOAK</h2><p class="intro">Zazpi joko ireki daitezke. Horietatik lauk CSV fitxategiak kargatzeko aukera dute; IRAKURKETA PARTEKATUA PIN bidezko talde-saioetarako da. DEFINIZIOAK 2.0 prestatzen ari gara.</p><div class="filter"><button class="active" data-filter="all">GUZTIAK</button><button data-filter="banaka">BANAKA</button><button data-filter="gela">GELAN</button><button data-filter="taldeka">TALDEKA</button></div><div class="cards" id="games"></div></section>
 <section class="page" id="irakasle">
@@ -20,9 +33,14 @@
 <p class="muted" style="font-size:13px">Gorde CSVak UTF-8 formatuan eta ez aldatu zutabeen goiburukoak. XLSX ereduan, mantendu lau fitxak eta beren izenak. Irudien estekek publikoak eta erabilgarriak izan behar dute.</p>
 </div>
 <div class="panel" id="promptak-irakasle"><h3>3 · SORTU MATERIALAK IA-REKIN</h3>
-<p>Aukeratu jokoa. Prompt bakoitzak fitxategiaren benetako zutabeak, kopuruak eta baldintzak jasotzen ditu. Eskuineko testuan <strong>[MAILA]</strong>, <strong>[GAIA]</strong> eta antzeko eremuak zure datuekin ordezka ditzakezu, kopiatu aurretik.</p>
+<p>Aukeratu jokoa eta bete datuak. <strong>GAIA ADIERAZI</strong> moduan, IAri gaia emango diozu; <strong>DOKUMENTUA ERABILI</strong> moduan, argazki edo dokumentu bat erantsiko diozu ChatGPTn. Ez dugu fitxategirik webgune honetan igotzen.</p>
 <div class="prompt-layout"><div class="prompt-picker" id="promptPicker" role="group" aria-label="Aukeratu jokoaren prompta"></div>
-<div class="prompt-editor"><div class="prompt-header"><strong id="promptTitle">Aukeratu jokoa</strong><span class="tag">PROMPT KOPIAGARRIA</span></div><textarea id="promptContent" aria-label="Editatu eta kopiatu prompta" spellcheck="false"></textarea><div class="prompt-actions"><button type="button" class="primary" id="copyPrompt">⧉ KOPIATU PROMPTA</button><button type="button" class="secondary-btn" id="resetPrompt">↺ JATORRIZKOA</button><a class="secondary-btn" href="https://chatgpt.com/" target="_blank" rel="noopener">IREKI CHATGPT</a></div><p id="copyPromptStatus" class="prompt-status" role="status" aria-live="polite">Irakasleak prompta bere beharren arabera aldatu dezake.</p></div></div>
+<div class="prompt-editor"><div class="prompt-header"><strong id="promptTitle">Aukeratu jokoa</strong><span class="tag">PROMPT KOPIAGARRIA</span></div>
+<div class="prompt-mode" role="group" aria-label="Materialaren jatorria"><button type="button" class="active" id="modeTopic" aria-pressed="true">✎ GAIA ADIERAZI</button><button type="button" id="modeSource" aria-pressed="false">▣ DOKUMENTUA ERABILI</button></div>
+<div class="prompt-form-grid" id="promptForm" aria-label="Promptaren datuak"></div>
+<p class="prompt-source-hint" id="promptSourceHint" role="status">Irakasleak gaia eta maila zehaztuko ditu. Jarraian sortutako prompta ChatGPTra kopiatu.</p>
+<p class="prompt-form-caption">Testua automatikoki osatzen da. Beheko prompta eskuz ere zuzendu dezakezu kopiatu aurretik.</p>
+<textarea id="promptContent" aria-label="Editatu eta kopiatu prompta" spellcheck="false"></textarea><div class="prompt-actions"><button type="button" class="primary" id="copyPrompt">⧉ KOPIATU PROMPTA</button><button type="button" class="secondary-btn" id="resetPrompt">↺ JATORRIZKOA</button><a class="secondary-btn" href="https://chatgpt.com/" target="_blank" rel="noopener">IREKI CHATGPT</a></div><p id="copyPromptStatus" class="prompt-status" role="status" aria-live="polite">Irakasleak prompta bere beharren arabera aldatu dezake.</p></div></div>
 <div class="teacher-info"><strong>ARGI:</strong> orain 50 unitate integratuak erabil daitezke. Ez dago CSV bidez norberaren galdera-bankuak sartzeko aukerarik; horregatik ez dugu inportazio-promptik eskaintzen.</div>
 <div class="teacher-info"><strong>DEFINIZIOAK 2.0:</strong> oraindik ez dago erabilgarri JOKOEN TXOKOAN. Ez dago hemen automatikoki alta emateko aukerarik.</div>
 </div>
@@ -30,7 +48,7 @@
 </section>
 <section class="page" id="txantiloiak"><h2>MATERIALEN TXANTILOIAK</h2><p class="intro">Joko bakoitzean zer zutabe behar diren, adibideak eta deskargak. CSV hauek dagokien jokoaren inportazioarekin bateragarriak dira. Bingoko kartoi-sortzaile originala oraindik -25etik 25era mugatua dago. Bingoaren pantaila retro V03.3 integratuta dago.</p><div id="templates"></div><div class="panel"><h3>BINGO KARTOIEN SORTZAILEA</h3><p>Jatorrizko 50 zenbakiko kartoi-sortzailea. 12 kartoi A4 orri bakoitzean.</p><a class="primary" href="V02_JOKOAK/BINGO_KARTOIEN_SORTZAILEA_ORIGINAL.html" target="_blank" rel="noopener">▶ KARTOIAK SORTU</a></div></section>
 <section class="page" id="ikasle"><h2>IKASLEAREN SARRERA</h2><div class="panel"><h3>PIN bidezko sarrera</h3><p>IRAKURKETA PARTEKATUAren ikasleak irakasleak sortutako PINa eta ezizena erabiliz sartzen dira. Gainerako jokoek beren sarbide-sistema dute.</p><a class="primary" style="display:inline-block;margin:6px 0;text-decoration:none" href="V02_JOKOAK/IRAKURKETA_PARTEKATUA/index.html" target="_blank" rel="noopener">▶ IRAKURKETA: IKASLEA SARTU</a><div class="note">IRAKURKETA PARTEKATUA: irakasleak saioa ireki eta 6 digituko PINa eman behar du. Beste jokoetarako PIN bidezko sarrera ez dago hemen aktibatuta.</div></div></section>
-</div><footer>JOKOEN TXOKOA · PROTOTIPOA V0.2.8 · 7 joko erabilgarri · Jatorrizko jokoak aldatu gabe</footer><script>
+</div><footer>JOKOEN TXOKOA · PROTOTIPOA V0.2.9 · 7 joko erabilgarri · Jatorrizko jokoak aldatu gabe</footer><script>
 const games=[['ARGI · Ezagutzaren Dorrea','banaka','Banakako arcade-erronkak: 50 unitate eta norberaren puntuazioa.','JOLASTU · 50 UNITATE'],['Panel Ezkutuak','gela taldeka','50 unitateetako 1.000 panel edo CSV/Google Sheets bidezko norberaren panelak, irudi-pistekin.','JOLASTU · 50 UNITATE + CSV'],['Definizioak 2.0','gela','Talde osoan definizioak eta bozkaketak.','Garapenean'],['Irakurketa Partekatua','gela','Irakasleak zuzendutako irakurketa: irakurlearen zozketa, laburpena eta galderak. Ikasleak PIN bidez sartzen dira.','JOLASTU · IRAKASLEA + PIN'],['Trivial Pursuit','gela taldeka','Irakasleak zuzendutako sei kategoriako mahai-jokoa.','JOLASTU · CSV'],['Letren Eraztuna','gela taldeka','Bi talderentzako 18 letrako bi eraztun.','JOLASTU · CSV'],['Ekuazioen Bingoa','gela','Ekuazioen zozketa eta A4 kartoiak.','JOLASTU · CSV'],['Nor da Nor? · Ezagutzaren Detektibeak','gela','Kontzeptu sekretua asmatu BAI/EZ galderekin. Pantaila handian, talde osoarekin.','JOLASTU · CSV']];
 const routes=['V02_JOKOAK/ARGI/index.html','V02_JOKOAK/PANEL_EZKUTUAK_V2_BATERATUA.html','','V02_JOKOAK/IRAKURKETA_PARTEKATUA/irakaslea.html', 'V02_JOKOAK/TRIVIAL_TXOKO_V02.html','V02_JOKOAK/LETREN_ERAZTUNA_TXOKO_V02.html','V02_JOKOAK/EKUAZIOEN_BINGOA_TXOKO_V02.html','V02_JOKOAK/NOR_DA_NOR_V7.html'];function openGame(i){if(routes[i])window.open(routes[i],'_blank','noopener');else alert('Oraindik bertsio nagusia berreskuratzeko dago.')}
 const holder=document.getElementById('games');holder.innerHTML=games.map((g,i)=>`<article class="card" data-types="${g[1]}"><span class="tag">${g[3]}</span><h3>${g[0]}</h3><p>${g[2]}</p><button onclick="openGame(${i})">${routes[i]?'▶ JOKOA IREKI':'JOKOA IKUSI · LASTER'}</button></article>`).join('');document.querySelectorAll('[data-filter]').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.card').forEach(c=>c.classList.toggle('hidden',btn.dataset.filter!=='all'&&!c.dataset.types.includes(btn.dataset.filter)))});
@@ -42,25 +60,94 @@ document.getElementById('templates').innerHTML=templates.map((t,i)=>`<article cl
 // IRAKASLEAREN TXOKOA — prompt katalogoa. Datuak orrialdean bertan gordeta, konexiorik gabe ere.
 const teacherPrompts = [{"name": "PANEL EZKUTUAK", "title": "4. PANEL EZKUTUAK — CSV", "prompt": "JOKOEN TXOKOAko PANEL EZKUTUAK jokorako materiala sortu nahi dut.\nMaila: [MAILA]. Arloa: [ARLOA]. Gaia: [GAIA]. Hizkuntza: euskara.\nSortu [KOPURUA] panel, pista argi eta pedagogikoki egokiekin. Panelaren erantzunak nahikoa laburra izan behar du erruletako laukietan sartzeko; saihestu erantzun anbiguoak.\nItzuli UTF-8 CSV testu hutsa, zehazki goiburu honekin eta ordena honetan:\nID,ARLOA,GAIA,PISTA,PANELA,IRUDIA\nID guztiak desberdinak izan daitezela. PANELAk letra larriz idatzi, eta PISTA ez dadila erantzunaren kopia izan.\nIRUDIA zutabea hutsik utzi, irudi publikoen HTTPS esteka zuzena ematen ez badizut. Ez asmatu irudien URLrik.\nKoma edo komatxoak dituzten eremuak behar bezala ihes egin CSV estandarraren arabera. Ez gehitu azalpenik, markdownik edo bestelako testurik."}, {"name": "TRIVIAL PURSUIT", "title": "5. TRIVIAL PURSUIT — CSV", "prompt": "JOKOEN TXOKOAko TRIVIAL PURSUIT jokorako galdera-banku bat sortu nahi dut.\nMaila: [MAILA]. Arloa/arloak: [ARLOAK]. Unitatea: [UNITATEA]. Hizkuntza: euskara.\nJoko-identifikatzaile bakarra: [JOKOA_ID]. Jokoaren izena: [JOKOAREN_IZENA].\nSortu sei GAIA desberdin (sei kategoriak), eta gutxienez [GALDERA_KOPURUA] galdera GAIA bakoitzeko.\nGaldera bakoitzak lau aukera izan behar ditu (A, B, C, D), eta erantzun zuzen bakarra. Aldatu aukera zuzenaren kokapena galderaz galdera.\nItzuli UTF-8 CSV testu hutsa, zehazki:\nJOKOA,IZENA,GAIA,GALDERA,A,B,C,D,ZUZENA\nZUZENA zutabean A, B, C edo D bakarrik erabili. JOKOA berdina izan dadila lerro guztietan; GAIA seiren artean banatu. Egiaztatu erantzun guztiak. Ez gehitu markdownik edo beste azalpenik."}, {"name": "LETREN ERAZTUNA", "title": "6. LETREN ERAZTUNA — CSV", "prompt": "JOKOEN TXOKOAko LETREN ERAZTUNA jokorako 18 definizioko bilduma bat sortu nahi dut.\nMaila: [MAILA]. Arloa: [ARLOA]. Unitatea: [UNITATEA]. Hizkuntza: euskara.\nBILDUMA kodea: [BILDUMA_ID].\nErabili jokoaren 18 letra hauetarako lerro bana, zehazki: A, B, D, E, G, H, I, K, L, M, N, O, P, R, S, T, U, Z.\nZutabeak eta ordena:\nBILDUMA,LETRA,MOTA,GALDERA,ERANTZUNA\nMOTA balioak HASTEN edo DAUKA soilik izan daitezke. HASTEN erabiltzen baduzu, ERANTZUNA dagokion letraz hasi behar da; DAUKA erabiltzen baduzu, letra hori ERANTZUNAn egon behar da.\nSortu definizio zuzen, labur eta argiak; ez erabili hitz bera bi aldiz. Idatzi ERANTZUNA letra larriz. Begiratu euskarazko ortografia eta letra-baldintza bakoitza, eta sortu UTF-8 CSV hutsa azalpen gehigarririk gabe."}, {"name": "EKUAZIOEN BINGOA", "title": "7. EKUAZIOEN BINGOA — CSV", "prompt": "JOKOEN TXOKOAko EKUAZIOEN BINGOA jokorako 50 ekuazio sortu nahi ditut.\nMaila: [MAILA]. Edukia: [EKUAZIO_MOTA]. Hizkuntza: euskara.\nEzinbesteko baldintza: jatorrizko kartoiak erabiltzeko EMAITZA balioek zehazki hauek izan behar dute, bakoitza behin: -25etik -1era eta 1etik 25era (0 ez).\nSortu emaitza bakoitzerako ekuazio bat, x ezezagunarekin, eta emaitza hori bakarra izan dadila. Ekuazioen zailtasuna progresiboa izan dadila.\nItzuli UTF-8 CSV testu hutsa, bi zutaberekin:\nEKUAZIOA,EMAITZA\nEkuazioak matematika aldetik egiaztatu, soluzioak ordezkatuz. 50 lerro egon behar dira eta EMAITZA guztiek desberdinak izan behar dute. Ez jarri azalpenik edo markdownik."}, {"name": "NOR DA NOR?", "title": "8. NOR DA NOR? — CSV", "prompt": "JOKOEN TXOKOAko NOR DA NOR? — EZAGUTZAREN DETEKTIBEAK jokorako 12 kontzeptuko bilduma sortu nahi dut.\nMaila: [MAILA]. Arloa: [ARLOA]. Unitatea: [UNITATEA]. Hizkuntza: euskara.\nGorde lehen hiru zutabe hauek zehazki: id,izena,formula\nOndoren, sortu gaiari dagozkion 10–12 BAI/EZ ezaugarri argi, zutabe bana bakoitzeko; izenak laburrak eta deskribatzaileak izan daitezela.\nSortu 12 kontzeptu, bakoitza lerro batean, eta erabili 1 = BAI, 0 = EZ balioak ezaugarrien zutabeetan. 'formula' zutabean ikur labur bat edo deskribapen oso laburra jar dezakezu, behar denean; bestela hutsik.\nEgiaztatu kontzeptuak ez direla berdin-berdinak ezaugarri guztietan: ahal den neurrian, 12 txartelek konbinazio bereizgarriak izan ditzatela. Ezin da erantzun anbiguorik egon; ezaugarri guztiak egiaztagarriak izan behar dira.\nItzuli UTF-8 CSV testu hutsa (goiburukoa + 12 lerro), azalpenik eta markdownik gabe."}, {"name": "IRAKURKETA PARTEKATUA", "title": "9. IRAKURKETA PARTEKATUA — XLSX", "prompt": "IRAKURKETA PARTEKATUA V24rako irakurgai didaktikoa eta galderak prestatu nahi ditut.\nMaila: [MAILA]. Arloa: [ARLOA]. Gaia: [GAIA]. Hizkuntza: euskara.\nSortu [PARAGRAFO_KOPURUA] paragrafo (ikasleek ozen irakurtzeko neurri egokian). Paragrafo bakoitzak ideia nagusi bat izan dezala.\nSortu paragrafo bakoitzerako [1 / 2 / 3] galdera: aukera anitzekoak (AUKERAK), egia/gezurra (EGIA_GE_ZURRA) edo erantzun laburrekoak (LABURRA). Galderaren erantzuna paragrafoan oinarrituta egon dadila.\nErabili nire IRAKURKETA_PARTEKATUA_ADIBIDEA.xlsx fitxategia EGITURA-EREDU GISA. Ez aldatu fitxen izenak, goiburukoak edo antolaketa:\n1) JARRAIBIDEAK: mantendu jatorrizkoa.\n2) IRAKURKETA: bete IZENBURUA, HIZKUNTZA='eu', DESKRIBAPENA eta BERTSIOA.\n3) PARAGRAFOAK: PARAGRAFO_ID, PARAGRAFOAREN TESTUA, OHARRAK (AUKERAKOA).\n4) GALDERAK: PARAGRAFO_ID, GALDERA_ZK, MOTA, GALDERA, A, B, C, D, ERANTZUN_ZUZENA, ONARTUTAKO_ERANTZUNAK, AZALPENA.\nAUKERAK motan, jarri 2–4 erantzun-aukera eta ERANTZUN_ZUZENA zutabean aukera zuzenaren letra (A/B/C/D). EGIA_GE_ZURRA motan erabili EGIA edo GEZURRA. LABURRA motan erabili ONARTUTAKO_ERANTZUNAK zutabea, erantzun baliokideak ' | ' bereizita.\nEman .xlsx fitxategi editagarri eta deskargagarria, aurkeztu aurretik datuak egiaztatuta. Jatorrizko eredu-fitxategia ezin baduzu ireki edo editatu, ez asmatu egiturarik: eskatu eredua igotzeko."}];
 let activeTeacherPrompt=0;
+let activePromptMode='topic';
+const promptFields=[
+ {key:'MAILA', label:'Ikasmaila', placeholder:'DBH 1', default:'DBH 1'},
+ {key:'ARLOA', label:'Arloa', placeholder:'Matematika', default:'Matematika'},
+ {key:'UNITATEA',label:'Unitatea / gaia',placeholder:'Zenbaki osoak',default:'Zenbaki osoak'},
+ {key:'KOPURUA',label:'Panel kopurua',type:'number',min:1,max:100,default:'12'},
+ {key:'JOKOA_ID',label:'Jokoaren kodea',placeholder:'MAT01',default:'MAT01'},
+ {key:'JOKOAREN_IZENA',label:'Jokoaren izena',placeholder:'Matematika Trivial',default:'Matematika Trivial'},
+ {key:'GALDERA_KOPURUA',label:'Galdera kopurua kategoria bakoitzeko',type:'number',min:1,max:100,default:'10'},
+ {key:'BILDUMA_ID',label:'Bildumaren kodea',placeholder:'OSASUNA_1',default:'OSASUNA_1'},
+ {key:'EKUAZIO_MOTA',label:'Ekuazio mota',placeholder:'Lehen mailako ekuazioak',default:'Lehen mailako ekuazioak'},
+ {key:'PARAGRAFO_KOPURUA',label:'Paragrafo kopurua',type:'number',min:1,max:40,default:'4'},
+ {key:'GALDERAK_PARAGRAFOKO',label:'Galderak paragrafo bakoitzeko',type:'select',options:['1','2','3'],default:'2'}
+];
+const gameFieldKeys=[
+ ['MAILA','ARLOA','UNITATEA','KOPURUA'],
+ ['MAILA','ARLOA','UNITATEA','JOKOA_ID','JOKOAREN_IZENA','GALDERA_KOPURUA'],
+ ['MAILA','ARLOA','UNITATEA','BILDUMA_ID'],
+ ['MAILA','ARLOA','UNITATEA','EKUAZIO_MOTA'],
+ ['MAILA','ARLOA','UNITATEA'],
+ ['MAILA','ARLOA','UNITATEA','PARAGRAFO_KOPURUA','GALDERAK_PARAGRAFOKO']
+];
+const promptValues=Object.fromEntries(promptFields.map(f=>[f.key,f.default]));
+const promptTopicSuffix='\n\nITURRIA: Aukeratutako maila, arloa eta gaia oinarri hartuta sortu materiala. Ez asmatu datu zalantzagarriak; egiaztatu kontzeptuak eta emaitzak. Aurreko formatua eta jokoaren baldintzak zorrotz errespetatu.';
+const promptDocumentSuffix='\n\nITURRI-DOKUMENTUAREN ARAUAK (LEHENTASUN HANDIA):\nIrakasleak ChatGPTko elkarrizketa honetan erantsiko duen argazkia, PDFa, Word dokumentua edo beste fitxategia erabili iturri nagusi gisa. Lehenengo, irakurri eta aztertu eranskinaren benetako edukia; ezin baduzu eranskina ireki, esan eta eskatu berriro igotzeko. Ez sortu materialik iturria eskuratu gabe. Mantendu testuko terminologia, kontzeptuak eta maila. EZ asmatu dokumentuan ez dagoen informaziorik edo erantzunik. Iturrian kopuru edo kategoria guztiak osatzeko informazio nahikorik ez badago, esan zein den muga eta eskatu beste orri batzuk; ez bete falta dena asmatuz. Erabili aurreko jokoa eta fitxategi-formatua berdin-berdin. Dokumentuan ageri ez diren beste adibideak nahi badira, aurrez berariazko baimena eskatu.\nIRAKASLEA: Itsatsi prompt hau ChatGPTn eta erantsi dokumentua edo irudia mezu BEREAN. Ez bidali ikasleen datu pertsonalik.';
 function renderTeacherPromptButtons(){
- const root=document.getElementById('promptPicker');
- root.innerHTML='';
+ const root=document.getElementById('promptPicker');root.innerHTML='';
  teacherPrompts.forEach((item,i)=>{const b=document.createElement('button');b.type='button';b.textContent=item.name;b.dataset.promptIndex=i;b.setAttribute('aria-pressed',String(i===activeTeacherPrompt));b.onclick=()=>selectTeacherPrompt(i);root.appendChild(b)});
+}
+function fieldForKey(k){return promptFields.find(f=>f.key===k)}
+function renderPromptForm(){
+ const root=document.getElementById('promptForm');root.innerHTML='';
+ for(const key of gameFieldKeys[activeTeacherPrompt]){
+  const f=fieldForKey(key),label=document.createElement('label');label.textContent=f.label;
+  let el;
+  if(f.type==='select'){
+   el=document.createElement('select');for(const option of f.options){const opt=document.createElement('option');opt.value=option;opt.textContent=option;el.appendChild(opt)}
+  }else{
+   el=document.createElement('input');el.type=f.type==='number'?'number':'text';if(f.placeholder)el.placeholder=f.placeholder;
+   if(f.min)el.min=f.min;if(f.max)el.max=f.max;
+  }
+  el.value=promptValues[key];el.dataset.field=key;el.autocomplete='off';el.addEventListener('input',()=>{promptValues[key]=el.value;generateTeacherPrompt()});el.addEventListener('change',()=>{promptValues[key]=el.value;generateTeacherPrompt()});
+  label.appendChild(el);root.appendChild(label);
+ }
+}
+function getPromptReplacement(key){return String(promptValues[key]||('['+key+']')).trim()}
+function generateTeacherPrompt(){
+ const i=activeTeacherPrompt;
+ let prompt=teacherPrompts[i].prompt;
+ // The canonical prompt text remains the original source of CSV/XLSX schema requirements.
+ const values={...promptValues,GAIA:promptValues.UNITATEA,ARLOAK:promptValues.ARLOA};
+ for(const [key,val] of Object.entries(values)){
+  prompt=prompt.split('['+key+']').join(String(val||'['+key+']').trim());
+ }
+ if(i===5)prompt=prompt.replace('[1 / 2 / 3]',promptValues.GALDERAK_PARAGRAFOKO);
+ // ARLOAK, GAIA and UNITATEA are distinct placeholders in some of the existing six prompts.
+ prompt=prompt.replace(/\[[A-Z_]+\]/g,match=>match);
+ prompt+=(activePromptMode==='source'?promptDocumentSuffix:promptTopicSuffix);
+ document.getElementById('promptContent').value=prompt;
+ const status=document.getElementById('copyPromptStatus');status.textContent='Prompta prest. Begiratu edukia eta kopiatu ChatGPTra.';status.classList.remove('success');
 }
 function selectTeacherPrompt(i){
  activeTeacherPrompt=i;
  document.getElementById('promptTitle').textContent=teacherPrompts[i].title;
- document.getElementById('promptContent').value=teacherPrompts[i].prompt;
  document.querySelectorAll('#promptPicker button').forEach((b,j)=>{b.classList.toggle('active',i===j);b.setAttribute('aria-pressed',String(i===j))});
- const status=document.getElementById('copyPromptStatus');status.textContent='Aldatu [MAILA], [GAIA] eta gainerako eremuak; ondoren kopiatu.';status.classList.remove('success');
+ renderPromptForm();generateTeacherPrompt();
+}
+function setPromptMode(mode){
+ activePromptMode=mode;
+ for(const [id,m] of [['modeTopic','topic'],['modeSource','source']]){
+  const b=document.getElementById(id);b.classList.toggle('active',mode===m);b.setAttribute('aria-pressed',String(mode===m));
+ }
+ document.getElementById('promptSourceHint').innerHTML=mode==='source'
+ ?'<strong>DOKUMENTUA ERABILI:</strong> kopiatu prompta eta erantsi argazkia/PDFa/Word fitxategia <strong>ChatGPTko mezu berean</strong>. Webgune honek ez du dokumentua igotzen edo aztertzen. Iturri nahikorik ez badago, IAri ez asmatzeko aginduko diogu.'
+ :'<strong>GAIA ADIERAZI:</strong> bete ikasmaila, arloa eta gaia; ChatGPTk gaian oinarrituta sortuko ditu ariketak. Berrikusi erantzunak erabili aurretik.';
+ generateTeacherPrompt();
 }
 async function copyTeacherPrompt(){
  const el=document.getElementById('promptContent'),status=document.getElementById('copyPromptStatus');let ok=false;
  try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(el.value);ok=true}}catch(e){}
  if(!ok){try{el.focus();el.select();ok=document.execCommand('copy')}catch(e){}}
- status.textContent=ok?'✓ Prompta kopiatu da. Itsatsi ChatGPTn.':'Ezin izan da automatikoki kopiatu. Hautatu testua eta sakatu Ctrl+C.';status.classList.toggle('success',ok);
+ status.textContent=ok?'✓ Prompta kopiatu da. Itsatsi ChatGPTn.'+(activePromptMode==='source'?' Gero erantsi iturri-dokumentua.':''):'Ezin izan da automatikoki kopiatu. Hautatu testua eta sakatu Ctrl+C.';
+ status.classList.toggle('success',ok);
 }
-renderTeacherPromptButtons();selectTeacherPrompt(0);
+renderTeacherPromptButtons();
+document.getElementById('modeTopic').addEventListener('click',()=>setPromptMode('topic'));
+document.getElementById('modeSource').addEventListener('click',()=>setPromptMode('source'));
+selectTeacherPrompt(0);setPromptMode('topic');
 document.getElementById('copyPrompt').addEventListener('click',copyTeacherPrompt);
-document.getElementById('resetPrompt').addEventListener('click',()=>selectTeacherPrompt(activeTeacherPrompt));
+document.getElementById('resetPrompt').addEventListener('click',()=>generateTeacherPrompt());
 </script></body></html>
