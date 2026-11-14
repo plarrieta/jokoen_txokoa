@@ -1,0 +1,381 @@
+{
+  "id": "PR01",
+  "izenburua": "Zenbaki osoak — PROBAKO UNITATEA",
+  "iturriaren_izaera": "ARGIren formatu teknikoa erakusteko sortutako jatorrizko ariketak (ez da curriculumaren unitate ofiziala)",
+  "erronkak": [
+    {
+      "id": "PR01-01",
+      "solairua": 1,
+      "izenburua": "Batuketa tenperaturan",
+      "mota": "aukeratu",
+      "irakurgaia": "Tenperatura igoerak zeinu positiboz adierazten dira; jaitsierak negatiboz.",
+      "galdera": "Goizean −3 °C eta eguerdian 2 °C badira, zenbat igo da?",
+      "atazak": {
+        "aukerak": [
+          "5 °C",
+          "1 °C",
+          "−1 °C",
+          "−5 °C"
+        ],
+        "zuzena": 0
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-02",
+      "solairua": 1,
+      "izenburua": "Aurkako zenbakiak",
+      "mota": "lotu",
+      "irakurgaia": "Zenbaki baten aurkakoak zeinu kontrakoa eta balio absolutu bera dauka.",
+      "galdera": "Lotu zenbakiak aurkakoekin.",
+      "atazak": {
+        "bikoteak": [
+          [
+            "−4",
+            "4"
+          ],
+          [
+            "7",
+            "−7"
+          ],
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-03",
+      "solairua": 2,
+      "izenburua": "Zuzenaren noranzkoa",
+      "mota": "aukeratu",
+      "irakurgaia": "Zenbaki-zuzen batean eskuinerantz joanez gero, zenbaki handiagoetara heltzen gara.",
+      "galdera": "Zein da handiena?",
+      "atazak": {
+        "aukerak": [
+          "−8",
+          "−2",
+          "0",
+          "−1"
+        ],
+        "zuzena": 2
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-04",
+      "solairua": 2,
+      "izenburua": "Distantzia zerotik",
+      "mota": "aukeratu",
+      "irakurgaia": "Balio absolutua zenbaki batetik zerora dagoen distantzia da.",
+      "galdera": "Zenbat da |−6|?",
+      "atazak": {
+        "aukerak": [
+          "−6",
+          "0",
+          "6",
+          "12"
+        ],
+        "zuzena": 2
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-05",
+      "solairua": 3,
+      "izenburua": "Batuketak I",
+      "mota": "aukeratu",
+      "irakurgaia": "Zeinu bereko zenbakiak batzean balio absolutuak batzen dira eta zeinua mantentzen da.",
+      "galdera": "Kalkulatu: −4 + (−3).",
+      "atazak": {
+        "aukerak": [
+          "−7",
+          "−1",
+          "1",
+          "7"
+        ],
+        "zuzena": 0
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-06",
+      "solairua": 3,
+      "izenburua": "Batuketak II",
+      "mota": "lotu",
+      "irakurgaia": "Zeinu desberdineko zenbakiak batzean balio absolutuen aldea kalkulatu.",
+      "galdera": "Lotu eragiketa bakoitza emaitzarekin.",
+      "atazak": {
+        "bikoteak": [
+          [
+            "−5 + 8",
+            "3"
+          ],
+          [
+            "7 + (−9)",
+            "−2"
+          ],
+          [
+            "−2 + 2",
+            "0"
+          ]
+        ]
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-07",
+      "solairua": 4,
+      "izenburua": "Kenketa",
+      "mota": "aukeratu",
+      "irakurgaia": "Zenbaki bat kentzea haren aurkakoa gehitzea da.",
+      "galdera": "Kalkulatu: 3 − (−4).",
+      "atazak": {
+        "aukerak": [
+          "−1",
+          "1",
+          "7",
+          "−7"
+        ],
+        "zuzena": 2
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-08",
+      "solairua": 4,
+      "izenburua": "Parentesiak",
+      "mota": "aukeratu",
+      "irakurgaia": "Parentesiaren aurreko minusak barruko zeinua aldatzen du.",
+      "galdera": "Sinplifikatu: −(−6).",
+      "atazak": {
+        "aukerak": [
+          "−6",
+          "0",
+          "6",
+          "12"
+        ],
+        "zuzena": 2
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-09",
+      "solairua": 5,
+      "izenburua": "Biderketaren zeinua",
+      "mota": "aukeratu",
+      "irakurgaia": "Bi zeinu negatiboren biderkadura positiboa da.",
+      "galdera": "Kalkulatu: (−3) × (−4).",
+      "atazak": {
+        "aukerak": [
+          "−12",
+          "12",
+          "7",
+          "−7"
+        ],
+        "zuzena": 1
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-10",
+      "solairua": 5,
+      "izenburua": "Biderketak lotu",
+      "mota": "lotu",
+      "irakurgaia": "Biderkadura baten zeinua faktoreen zeinuek zehazten dute.",
+      "galdera": "Lotu biderketak emaitzekin.",
+      "atazak": {
+        "bikoteak": [
+          [
+            "−2 × 5",
+            "−10"
+          ],
+          [
+            "−4 × −3",
+            "12"
+          ],
+          [
+            "6 × 0",
+            "0"
+          ]
+        ]
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-11",
+      "solairua": 6,
+      "izenburua": "Zatiketa",
+      "mota": "aukeratu",
+      "irakurgaia": "Zatiketa batean zeinu desberdinekin emaitza negatiboa da.",
+      "galdera": "Kalkulatu: −24 ÷ 6.",
+      "atazak": {
+        "aukerak": [
+          "4",
+          "−4",
+          "−6",
+          "6"
+        ],
+        "zuzena": 1
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-12",
+      "solairua": 6,
+      "izenburua": "Eragiketen lehentasuna",
+      "mota": "aukeratu",
+      "irakurgaia": "Biderketa eta zatiketa batuketa eta kenketa baino lehen egiten dira.",
+      "galdera": "Kalkulatu: −2 + 3 × 4.",
+      "atazak": {
+        "aukerak": [
+          "4",
+          "10",
+          "−20",
+          "−8"
+        ],
+        "zuzena": 1
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-13",
+      "solairua": 7,
+      "izenburua": "Egoera errealak",
+      "mota": "aukeratu",
+      "irakurgaia": "Saldo positiboa dirua alde izatea da; negatiboa zorra izatea.",
+      "galdera": "−12 €-ko saldoari 20 € gehituz gero, zenbat geratzen da?",
+      "atazak": {
+        "aukerak": [
+          "−32 €",
+          "−8 €",
+          "8 €",
+          "32 €"
+        ],
+        "zuzena": 2
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-14",
+      "solairua": 7,
+      "izenburua": "Altuera",
+      "mota": "lotu",
+      "irakurgaia": "Itsas maila 0 m da; gainetik positiboa eta azpitik negatiboa.",
+      "galdera": "Lotu egoera bakoitza zenbakiari.",
+      "atazak": {
+        "bikoteak": [
+          [
+            "Itsas mailatik 5 m gora",
+            "+5"
+          ],
+          [
+            "Itsas mailatik 3 m behera",
+            "−3"
+          ],
+          [
+            "Itsas mailan",
+            "0"
+          ]
+        ]
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-15",
+      "solairua": 8,
+      "izenburua": "Azken erronka",
+      "mota": "aukeratu",
+      "irakurgaia": "Aurreko arauak batera erabil daitezke problema bakarrean.",
+      "galdera": "Kalkulatu: (−8) + 2 × (−3).",
+      "atazak": {
+        "aukerak": [
+          "−14",
+          "−18",
+          "−2",
+          "14"
+        ],
+        "zuzena": 0
+      },
+      "azalpena": "Berrikusi azalpena eta egiaztatu emaitza.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    },
+    {
+      "id": "PR01-16",
+      "solairua": 8,
+      "izenburua": "Memoria giltza",
+      "mota": "memoria",
+      "irakurgaia": "Irakurri esaldia; idazten hastean ezkutatuko da eta berriro ikusteko idatzitakoa ezabatu beharko duzu.",
+      "galdera": "Idatzi esaldia buruz.",
+      "atazak": {
+        "esaldia": "Zenbaki osoak zenbaki positiboak, negatiboak eta zero dira."
+      },
+      "azalpena": "Esaldia osorik gogoratu.",
+      "iturria": {
+        "fitxategia": "ARGIren eredurako sortutako adibidea",
+        "pdf_orrialdea": null
+      }
+    }
+  ]
+}
