@@ -491,7 +491,7 @@ body{background:#080f22;color:#eaf6ff}
  const params=new URLSearchParams(location.search);
  const code=(params.get('unit')||'').trim().toUpperCase();
  const known=["MA01", "MA02", "MA03", "MA04", "MA05", "MA06", "MA07", "MA08", "MA09", "MA10", "MA11", "MA12", "MA13", "MA14", "MA15", "FK01", "FK02", "FK03", "FK04", "FK05", "FK06", "FK07", "FK08", "FK09", "FK10", "BG01", "BG02", "BG03", "BG04", "BG05", "BG06", "BG07", "BG08", "BG09", "BG10", "BG11", "BG12", "BG13", "BG14", "TE01", "TE02", "TE03", "TE04", "TE05", "TE06", "TE07", "TE08", "TE09", "TE10", "TE11"];
- if(!params.has('ikasle')||!known.includes(code))return;
+ if(!known.includes(code)||params.has('xlsx'))return;
  try{
    sessionStorage.setItem('ezd-unit-selected',code);
    sessionStorage.removeItem('ezd-custom-dataset-v1');
@@ -2363,7 +2363,7 @@ g.JTPixel={glyphs,svgText,render};})(window);
   // Do not force integrated student links to upload an Excel file.
   const args=new URLSearchParams(location.search);
   const integratedCodes=new Set(['MA01','MA02','MA03','MA04','MA05','MA06','MA07','MA08','MA09','MA10','MA11','MA12','MA13','MA14','MA15','FK01','FK02','FK03','FK04','FK05','FK06','FK07','FK08','FK09','FK10','BG01','BG02','BG03','BG04','BG05','BG06','BG07','BG08','BG09','BG10','BG11','BG12','BG13','BG14','TE01','TE02','TE03','TE04','TE05','TE06','TE07','TE08','TE09','TE10','TE11']);
-  const directIntegrated=()=>args.has('ikasle')&&integratedCodes.has((args.get('unit')||'').toUpperCase())&&!args.has('xlsx');
+  const directIntegrated=()=>integratedCodes.has((args.get('unit')||'').trim().toUpperCase())&&!args.has('xlsx');
   const nativeFK06=()=>args.get('argi_native_fk06')==='1';
   const ready=()=>!!saved()||directIntegrated()||nativeFK06();
   const refresh=()=>{
