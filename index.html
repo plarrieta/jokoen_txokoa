@@ -1,240 +1,54 @@
-<!DOCTYPE html><html lang="eu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JOKOEN TXOKOA · V0.4.3</title><style>
-:root{--bg:#071225;--panel:#122744;--edge:#4fb5d3;--text:#f2f6ff;--muted:#c6d8ed;--yellow:#ffe67a;--green:#8ed47f}*{box-sizing:border-box}body{margin:0;font:16px system-ui,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 50% -10%,#203b69,#071225 60%)}button,select{font:inherit}button{cursor:pointer}header{padding:24px 20px;text-align:center;background:#08162d;border-bottom:3px solid #3baad5}h1{margin:0;color:var(--yellow);font-size:clamp(26px,5vw,45px);letter-spacing:2px;text-shadow:0 3px #17344f}header p{margin:4px;color:#a9e6fb;letter-spacing:2px;font-weight:700}.shell{max-width:1260px;margin:auto;padding:20px}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}.tabs button,.filter button{border:1px solid #599ac4;border-radius:11px;color:var(--text);padding:12px 16px;background:#182e4d;font-weight:750}.tabs button.active,.filter button.active{background:var(--yellow);color:#172642;border-color:var(--yellow)}section.page{display:none}section.page.active{display:block}.intro{color:var(--muted);line-height:1.6;margin:4px 0 20px}.filter{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 16px}.filter button{padding:8px 12px;font-size:14px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px}.card,.panel{background:linear-gradient(145deg,#142d4c,#0e2039);border:1px solid #477ca4;border-radius:17px;padding:20px;box-shadow:0 8px 20px #0004}.card{min-height:230px;display:flex;flex-direction:column}.card h3{margin:8px 0;color:#ffeb9e;font-size:21px}.card p{color:var(--muted);line-height:1.4;margin:4px 0 15px;flex:1}.tag{font-size:12px;border:1px solid #7c98b2;border-radius:20px;padding:4px 9px;color:#ddeaff;display:inline-block;align-self:flex-start}.card button,.primary{background:linear-gradient(135deg,#56b8ec,#a58cfa);color:#06162c;border:0;border-radius:9px;padding:10px;font-weight:800}.muted{color:var(--muted)}h2{color:var(--yellow);margin-top:5px}.panel{margin:13px 0}.panel h3{color:#94ddf3;margin:0 0 10px}.panel p{line-height:1.5;color:var(--muted)}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:600px}th,td{text-align:left;padding:11px;border-bottom:1px solid #55718a}th{color:var(--yellow)}.template{margin-top:15px}.template button{margin:6px 6px 0 0}.note{border-left:3px solid var(--green);padding:12px;background:#1a3853;border-radius:4px;color:#e1f6e6}footer{padding:30px;text-align:center;font-size:13px;color:#a9bbd6}.chip{display:inline-block;margin:3px 5px 3px 0;padding:5px 8px;border-radius:9px;background:#254763;color:#cceaff}.hidden{display:none!important}@media(max-width:640px){.shell{padding:12px}.card{min-height:180px}}
-
-/* IRAKASLEAREN TXOKOA v0.2.8 */
-.teacher-jumps,.teacher-links,.prompt-actions{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0 16px}.jump-link,.secondary-btn{display:inline-block;border:1px solid #599ac4;border-radius:9px;padding:10px 13px;background:#1a3656;color:#f2f6ff;text-decoration:none;font-weight:750;font-size:14px;cursor:pointer}.teacher-links .primary{display:inline-flex;align-items:center;text-decoration:none;font-size:14px}.teacher-steps{line-height:1.6;padding-left:23px}.teacher-steps li{margin:8px 0}.teacher-info{border-left:3px solid #8ed47f;background:#1a3853;border-radius:5px;padding:12px;margin-top:12px;line-height:1.55;color:#e1f6e6}.inline-link{display:inline;border:none;background:none;color:#ffe67a;text-decoration:underline;font-size:inherit;cursor:pointer;padding:0}.prompt-layout{display:grid;grid-template-columns:minmax(175px,0.8fr) minmax(0,2.3fr);gap:16px;margin-top:14px}.prompt-picker{display:flex;flex-direction:column;gap:7px}.prompt-picker button{width:100%;border:1px solid #599ac4;border-radius:9px;padding:11px;background:#192f4d;color:#ecf6ff;text-align:left;font-weight:700;cursor:pointer}.prompt-picker button.active{background:#ffe67a;color:#132238;border-color:#ffe67a}.prompt-editor{min-width:0}.prompt-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px}.prompt-editor textarea{width:100%;min-height:420px;resize:vertical;background:#081b2b;color:#eff8ff;border:1px solid #6cabc4;border-radius:10px;padding:14px;font:14px/1.5 ui-monospace,Consolas,monospace}.prompt-actions button{font-size:14px}.prompt-status{color:#b3deec;font-size:13px;min-height:20px}.prompt-status.success{color:#8ed47f}@media(max-width:720px){.prompt-layout{grid-template-columns:1fr}.prompt-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.prompt-picker button{font-size:12px;padding:9px}.prompt-editor textarea{min-height:360px}.teacher-links .primary{width:100%;justify-content:center}}
-
-/* IRAKASLEAREN TXOKOA V0.2.9: formulario bidezko prompt-sorgailua */
-.prompt-mode{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
-.prompt-mode button{background:#183758;border:1px solid #71b9d8;color:#eef8ff;padding:12px 15px;border-radius:9px;font-weight:800;cursor:pointer}
-.prompt-mode button.active{background:#ffe67a;border-color:#ffe67a;color:#172642}
-.prompt-form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin:14px 0}
-.prompt-form-grid label{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:800;color:#d4eaff}
-.prompt-form-grid input,.prompt-form-grid select{background:#081e32;color:#fff;border:1px solid #70aacc;border-radius:8px;padding:10px;width:100%;min-width:0;font:inherit}
-.prompt-form-grid input:focus,.prompt-form-grid select:focus{outline:2px solid #ffe67a;outline-offset:1px}
-.prompt-source-hint{border-left:3px solid #ffe67a;padding:12px;background:#213950;color:#e7f3ff;border-radius:5px;font-size:14px;line-height:1.55}
-.prompt-editor textarea{min-height:280px}
-.prompt-form-caption{color:#c6d8ed;font-size:13px;line-height:1.5}
-@media(max-width:700px){.prompt-layout{grid-template-columns:1fr}.prompt-form-grid{grid-template-columns:1fr}}
-.bank-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin:12px 0}.bank-card{border:1px solid #477ca4;border-radius:12px;padding:17px;background:#0d2743;display:flex;flex-direction:column;align-items:flex-start;gap:9px}.bank-card h4{color:#ffe67a;margin:0;font-size:18px}.bank-card p{margin:0 0 8px;flex:1}.bank-card a{margin:0 6px 6px 0}.teacher-jumps{position:relative}
-
-/* V0.4.0 — JOKO BAKOITZAK BERE TXOKOA */
-[hidden]{display:none!important}
-header{padding:20px 16px 18px}
-.back-btn{display:inline-flex;align-items:center;background:#173451;color:#ecf7ff;border:1px solid #62aacf;border-radius:10px;padding:10px 16px;margin-bottom:18px;font-weight:800}
-.detail-heading{border-bottom:2px solid #345d79;margin-bottom:18px}
-.detail-heading h2{font-size:clamp(24px,3.4vw,35px);margin:10px 0}
-.detail-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:21px}
-.detail-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:850;padding:15px 19px;border-radius:11px;background:linear-gradient(135deg,#56b8ec,#a58cfa);color:#07162a;min-height:50px;box-shadow:0 4px 0 #0b1b2f}
-.detail-actions a.student-entry{background:linear-gradient(135deg,#ffe67a,#f3b960)}
-.detail-actions a:focus-visible,.card button:focus-visible,.back-btn:focus-visible{outline:3px solid #ffe67a;outline-offset:3px}
-.detail-sections{display:grid;grid-template-columns:1fr;gap:12px}
-.detail-panel{background:linear-gradient(135deg,#142d4c,#0e2039);border:1px solid #477ca4;border-radius:15px;overflow:hidden}
-.detail-panel summary{cursor:pointer;padding:17px 20px;color:#ffeb9e;font-weight:850;list-style-position:inside;font-size:17px}
-.detail-panel[open] summary{border-bottom:1px solid #365b7b}
-.detail-panel summary:hover{background:#1b3a59}
-.detail-inner{padding:15px 20px;color:#d7e8f8;line-height:1.55}
-.detail-inner p{margin:4px 0 12px}
-.detail-inner .panel{margin:6px 0 16px}
-.detail-inner .template{margin:0}
-.detail-inner .tablewrap{max-width:100%}
-.detail-inner .prompt-layout{grid-template-columns:1fr;margin-top:3px}
-.detail-inner .prompt-editor{width:100%}
-.detail-inner .prompt-editor textarea{min-height:285px}
-.detail-inner .primary,.detail-inner .secondary-btn{display:inline-flex;align-items:center;text-decoration:none}
-.material-item{padding:14px;background:#102b45;border:1px solid #3d789e;border-radius:10px;margin:8px 0}
-.material-item strong{display:block;color:#ffe67a;margin-bottom:6px}
-.material-item a{display:inline-block;margin-top:7px}
-.card button{margin-top:auto;min-height:45px}
-@media(max-width:700px){.detail-actions{flex-direction:column}.detail-actions a{width:100%}.detail-inner{padding:12px}.detail-panel summary{padding:13px}.detail-inner .prompt-form-grid{grid-template-columns:1fr}}
-</style></head><body><header><h1>🎮 JOKOEN TXOKOA</h1><p>GELA JOKO INTERAKTIBOAK</p></header><div class="shell">
-<section id="homeView" aria-label="Jokoen katalogoa">
-  <h2>GURE JOKOAK</h2>
-  <p class="intro">Aukeratu joko bat. Barruan aurkituko dituzu jolasteko sarbidea, jarraibideak eta joko horri dagozkion materialak.</p>
-  <div class="filter" aria-label="Jokoen iragazkia"><button class="active" data-filter="all">GUZTIAK</button><button data-filter="banaka">BANAKA</button><button data-filter="gela">GELAN</button><button data-filter="taldeka">TALDEKA</button></div>
-  <div class="cards" id="games"></div>
-</section>
-<section id="detailView" hidden aria-label="Aukeratutako jokoaren txokoa">
-  <button class="back-btn" type="button" id="backToGames">← JOKO GUZTIAK</button>
-  <div class="detail-heading"><div><span class="tag" id="detailTag">JOKOA</span><h2 id="detailTitle"></h2><p class="intro" id="detailDescription"></p></div></div>
-  <div class="detail-actions" id="detailActions"></div>
-  <div class="detail-sections">
-    <details class="detail-panel" open><summary>📋 JARRAIBIDEAK</summary><div id="detailGuide" class="detail-inner"></div></details>
-    <details class="detail-panel" id="detailBankSection"><summary>📚 MATERIALEN BANKUA</summary><div class="detail-inner" id="detailBank"></div></details>
-    <details class="detail-panel" id="detailTemplateSection"><summary>📄 TXANTILOIAK ETA DESKARGAK</summary><div class="detail-inner" id="detailTemplateText"></div><div class="detail-inner" id="templates"></div><div class="detail-inner" id="detailTemplateExtra"></div></details>
-    <details class="detail-panel" id="detailPromptSection"><summary>🤖 SORTU MATERIALA IA-REKIN</summary><div class="detail-inner">
-      <p>Joko honentzako prompta dago. Aukeratu iturria, bete datuak eta kopiatu ChatGPTra. Materiala berrikusi jokatu aurretik.</p>
-      <div class="prompt-layout single-prompt"><div class="prompt-editor"><div class="prompt-header"><strong id="promptTitle">Prompta</strong><span class="tag">PROMPT KOPIAGARRIA</span></div>
-      <div class="prompt-mode" role="group" aria-label="Materialaren jatorria"><button type="button" class="active" id="modeTopic" aria-pressed="true">✎ GAIA ADIERAZI</button><button type="button" id="modeSource" aria-pressed="false">▣ DOKUMENTUA ERABILI</button></div>
-      <div class="prompt-form-grid" id="promptForm"></div><p class="prompt-source-hint" id="promptSourceHint" role="status"></p>
-      <p class="prompt-form-caption">Beheko testua eskuz ere zuzendu dezakezu kopiatu aurretik.</p>
-      <textarea id="promptContent" aria-label="Editatu eta kopiatu prompta" spellcheck="false"></textarea>
-      <div class="prompt-actions"><button type="button" class="primary" id="copyPrompt">⧉ KOPIATU PROMPTA</button><button type="button" class="secondary-btn" id="resetPrompt">↺ JATORRIZKOA</button><a class="secondary-btn" href="https://chatgpt.com/" target="_blank" rel="noopener">IREKI CHATGPT</a></div>
-      <p id="copyPromptStatus" class="prompt-status" role="status" aria-live="polite"></p></div></div>
-    </div></details>
-  </div>
-</section>
-</div><footer>JOKOEN TXOKOA · V0.4.3 · 8 joko · Joko bakoitzak bere txokoa · 0 €</footer><script>
-const games=[
- ['EZAGUTZAREN DORREA','banaka','Banakako arcade-erronkak: 50 unitate integratu, JSON bidez norberaren unitatea eta ikasleentzako esteka zuzenak.','50 UNITATE + JSON'],
- ['PANEL EZKUTUAK','gela taldeka','50 unitateetako 1.000 panel edo CSV bidezko norberaren panelak, irudi-pistekin.','1.000 PANEL + CSV'],
- ['DEFINIZIOAK','gela','Definizioak idatzi, 4 → 2 → 1 bozkatu, hobetu eta azken irabazlea aukeratu.','IRAKASLEA + PIN'],
- ['IRAKURKETA PARTEKATUA','gela','Irakaslearen gidaritzapean: irakurlearen zozketa, laburpena eta galderak.','IRAKASLEA + PIN'],
- ['TRIVIAL PURSUIT','gela taldeka','Irakasleak zuzendutako sei kategoriako mahai-jokoa.','CSV'],
- ['LETREN ERAZTUNAK','gela taldeka','Bi talderentzako 18 letrako bi eraztun.','CSV'],
- ['BINGOA','gela','Ekuazioen zozketa eta A4 kartoiak.','CSV'],
- ['NOR DA NOR?','gela','Kontzeptu sekretua asmatu BAI/EZ galderekin.','CSV']
-];
-const routes=['ARGI_BATERATUA.html','V02_JOKOAK/PANEL_EZKUTUAK_V2_BATERATUA.html','V02_JOKOAK/DEFINIZIOAK_V47_IKASLEEN_PANTAILA_PROBA.html','V02_JOKOAK/IRAKURKETA_PARTEKATUA/irakaslea.html','V02_JOKOAK/TRIVIAL_TXOKO_V02.html','V02_JOKOAK/LETREN_ERAZTUNA_TXOKO_V02.html','V02_JOKOAK/EKUAZIOEN_BINGOA_TXOKO_V02.html','V02_JOKOAK/NOR_DA_NOR_V7.html'];
-const studentRoutes={2:routes[2],3:'V02_JOKOAK/IRAKURKETA_PARTEKATUA/index.html'};
-// Indices are the canonical order of the five CSV template blocks and six existing prompts.
-const templateMap={1:0,4:1,5:2,6:3,7:4};
-const promptMap={0:6,1:0,4:1,5:2,6:3,7:4,3:5};
-const guides=[
- 'JOKO BATERATUA: aukeratu lehendik dagoen 50 unitateetako bat, edo kargatu zure unitatea JSON fitxategitik. Ikasleentzat esteka zuzena prestatzeko, erabili ESTEKA SORTZAILEA: ikasleek izena edo ezizena baino ez dute idatziko. Jokoak 8 solairu, zuzenketa automatikoa eta memoria-probak mantentzen ditu. Jatorrizko ARGI bereizita gordeta dago.',
- 'Aukeratu integratutako panelen bilduma edo kargatu zeure CSV fitxategia. Irakasleak jokoaren prestaketa eta txandak kontrolatzen ditu. Irudi-pistak ere erabil daitezke.',
- 'Irakaslea: saioa sortu eta sei digituko PINa eman. Ikasleak PINarekin eta ezizenarekin sartzen dira. Definizioak idatzi, hiru bozketak egin, hobekuntzak proposatu eta azken bozketa egin. Txostena amaieran deskarga daiteke. Irakasleak Firebaseko baimendutako kontua behar du.',
- 'Irakaslea: saioa ireki, XLSX irakurgaia kargatu, eta PINa eman. Ikasleek irakurri, laburtu eta galderak erantzuten dituzte. Irakurgaiak lau fitxako XLSX ereduan prestatu behar dira. Irakasleak Firebaseko baimendutako kontua behar du.',
- 'Irakasleak sei kategoriako galderak CSV bidez kargatu ditzake. Taularen mugimendua eta erantzun zuzen/oker botoiak irakasleak eskuz kontrolatzen ditu.',
- 'Bi talderen eraztunak prestatu eta CSV bilduma kargatu. 18 letrako eraztunak dira; kargatutako galderak berrikusi jokatu aurretik.',
- 'CSV fitxategiko ekuazioak kargatu eta zozketa hasi. Jatorrizko kartoiek −25etik −1era eta 1etik 25era arteko emaitzak erabiltzen dituzte (0 gabe). Kartoiak aparte sortu eta inprima daitezke.',
- 'Aukeratu kontzeptuak eta ezaugarriak, edo kargatu zure CSV fitxategia. Irakasleak taldeari BAI/EZ galderekin kontzeptu sekretua asmatzen laguntzen dio.'
-];
-const banks=[
- '<div class="material-item"><strong>50 UNITATE INTEGRATU</strong>Zure jatorrizko materialak joko bateratuan daude erabilgarri, lau arlotan banatuta.<p><a class="secondary-btn" href="ARGI_BATERATUA.html" target="_blank" rel="noopener">JOKOA IREKI</a></p></div><div class="material-item"><strong>NORBERAREN UNITATEA (JSON)</strong>Joko berean aukeratu JSON fitxategia. Fitxategia nabigatzailean irakurtzen da, ez da zerbitzarira igotzen.<p><a class="secondary-btn" href="ARGI_BATERATUA.html" target="_blank" rel="noopener">NIRE UNITATEA KARGATU</a></p></div><div class="material-item"><strong>IKASLEENTZAKO ESTEKAK</strong>50 unitate integratuetako bat aukeratu eta ikasleei emateko esteka zuzena kopiatu.<p><a class="secondary-btn" href="ARGI_IKASLEENTZAKO_ESTEKA_SORTZAILEA_V2.html" target="_blank" rel="noopener">ESTEKA SORTZAILEA IREKI</a></p></div>', 
- '<div class="material-item"><strong>1.000 PANEL INTEGRATU</strong>50 unitatetako panelak jokoan bertan daude. Horiez gain, zeure panelak CSV bidez kargatu ditzakezu.<p><a class="secondary-btn" href="V02_JOKOAK/PANEL_EZKUTUAK_V2_BATERATUA.html" target="_blank" rel="noopener">PANELAK IKUSI</a></p></div>',
- '',
- '<p>Irakurgaien banku partekatua osatzeko dago. Oraingoz, zure irakurgaia XLSX ereduan prestatu eta jokoan kargatu.</p>',
- '<p>Galdera-banku partekatua osatzeko dago. Zure Trivialeko sei kategoriak CSV ereduan prestatu eta kargatu.</p>',
- '<p>Bilduma partekatuen katalogoa osatzeko dago. Zure 18 definizioak CSV ereduan prestatu.</p>',
- '<p>Ekuazio-bildumen katalogoa osatzeko dago. Beheko CSV eredua erabil dezakezu.</p>',
- '<p>Kontzeptu-bildumen katalogoa osatzeko dago. Beheko CSV eredua erabil dezakezu.</p>'
-];
-let selectedGame=-1;
-const holder=document.getElementById('games');
-holder.innerHTML=games.map((g,i)=>`<article class="card" data-types="${g[1]}"><span class="tag">${g[3]}</span><h3>${g[0]}</h3><p>${g[2]}</p><button type="button" data-game="${i}">▶ JOKOAREN TXOKOA</button></article>`).join('');
-holder.querySelectorAll('button[data-game]').forEach(b=>b.addEventListener('click',()=>showGame(Number(b.dataset.game))));
-document.querySelectorAll('[data-filter]').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.card').forEach(c=>c.classList.toggle('hidden',btn.dataset.filter!=='all'&&!c.dataset.types.includes(btn.dataset.filter)))});
-function showGame(i){
- selectedGame=i;
- document.getElementById('homeView').hidden=true;
- document.getElementById('detailView').hidden=false;
- document.getElementById('detailTitle').textContent=games[i][0];
- document.getElementById('detailDescription').textContent=games[i][2];
- document.getElementById('detailTag').textContent=games[i][3];
- document.getElementById('detailGuide').textContent=guides[i];
- document.getElementById('detailBank').innerHTML=banks[i]||'<p>Joko hau zuzenean gelan erabiltzen da: ikasleek sortzen dituzte definizioak, eta ez da galdera-bankurik behar.</p>';
- document.getElementById('detailBankSection').hidden=(i===2);
- const t=document.getElementById('detailTemplateSection');t.hidden=!(i in templateMap)&&i!==3&&i!==0;
- document.querySelectorAll('[data-template-game]').forEach(el=>el.hidden=Number(el.dataset.templateGame)!==templateMap[i]);
- document.getElementById('detailTemplateText').textContent=i===0?'ARGIren 8 solairuko unitatea JSON formatuan prestatzen da. Deskargatu adibidea eta kargatu unitate-sortzailean egiaztatzeko; gero ireki ARGI bateratua eta aukeratu JSON bera.':i===3?'Irakurgaiaren lau fitxako XLSX eredua erabili: JARRAIBIDEAK, IRAKURKETA, PARAGRAFOAK eta GALDERAK.':'CSV eredua deskargatu eta zure materialak horren arabera prestatu.';
- document.getElementById('detailTemplateExtra').innerHTML=i===0?'<p><a class="primary" href="ARGI_UNITATEA_EREDUA.json" download>⬇ JSON UNITATE EREDUA</a> <a class="secondary-btn" href="ARGI_UNITATE_SORTZAILEA.html" target="_blank" rel="noopener">UNITATE SORTZAILEA IREKI</a></p><p>IAk sortutako JSONa berrikusi eta egiaztatu. 8 solairu, 16–24 erronka eta gutxienez memoria-proba bat behar ditu.</p>':i===3?'<a class="primary" href="V02_JOKOAK/IRAKURKETA_PARTEKATUA/IRAKURKETA_PARTEKATUA_ADIBIDEA.xlsx" download>⬇ XLSX EREDUA DESKARGATU</a>':i===6?'<a class="secondary-btn" href="V02_JOKOAK/BINGO_KARTOIEN_SORTZAILEA_ORIGINAL.html" target="_blank" rel="noopener">BINGO KARTOIAK SORTU</a>':'';
- const p=document.getElementById('detailPromptSection');p.hidden=!(i in promptMap);
- if(i in promptMap)selectTeacherPrompt(promptMap[i]);
- const a=document.getElementById('detailActions');const teacherLabel=(i===2||i===3)?'🎓 IRAKASLEA · SAIOA SORTU':'▶ JOKOA IREKI';
- a.innerHTML=i===0?`<a href="${routes[0]}" target="_blank" rel="noopener">▶ JOKOA IREKI · 50 UNITATE + JSON</a><a class="student-entry" href="ARGI_IKASLEENTZAKO_ESTEKA_SORTZAILEA_V2.html" target="_blank" rel="noopener">🎒 IKASLEENTZAKO ESTEKA SORTU</a>`:`<a href="${routes[i]}" target="_blank" rel="noopener">${teacherLabel}</a>`+(i in studentRoutes?`<a class="student-entry" href="${studentRoutes[i]}" target="_blank" rel="noopener">🎒 IKASLEA · PINAREKIN SARTU</a>`:'');
- document.querySelectorAll('#detailView details').forEach(el=>{if(!el.hidden)el.open=el.querySelector('summary').textContent.includes('JARRAIBIDEAK')});
- window.scrollTo(0,0);
-}
-function showGames(){selectedGame=-1;document.getElementById('detailView').hidden=true;document.getElementById('homeView').hidden=false;window.scrollTo(0,0)}
-document.getElementById('backToGames').addEventListener('click',showGames);
-const templates=[{title:'PANEL EZKUTUAK',desc:'Zure panelak eta aukerako irudi-pistak kargatzeko. IRUDIA: HTTPS esteka publikoa edo Google Drive-ko fitxategiaren esteka.',head:['ID','ARLOA','GAIA','PISTA','PANELA','IRUDIA'],rows:[['LH01','Natura','Animaliak','Hegan egiten du','TXORIA',''],['LH02','Natura','Landareak','Koloretako petaloak ditu','LOREA',''],['MA01','Matematika','Geometria','Lau alde berdin','KARRATUA','']]},{title:'TRIVIAL',desc:'JOKOA bereko sei GAIA desberdin; CSV honek sei adibide ditu, proba egiteko.',head:["JOKOA", "IZENA", "GAIA", "GALDERA", "A", "B", "C", "D", "ZUZENA"],rows:[["MAT01", "Matematika DBH1", "Zatikiak", "Zenbat da 1/2 + 1/4?", "1/4", "3/4", "2/4", "1", "B"], ["MAT01", "Matematika DBH1", "Zenbaki osoak", "Zenbat da -5+3?", "-8", "-2", "2", "-3", "B"], ["MAT01", "Matematika DBH1", "Algebra", "x + 3 = 7 bada, zenbat da x?", "2", "3", "4", "5", "C"], ["MAT01", "Matematika DBH1", "Geometria", "Triangelu baten angeluen batura?", "90", "360", "180", "270", "C"], ["MAT01", "Matematika DBH1", "Potentziak", "Zenbat da 2³?", "6", "8", "9", "4", "B"], ["MAT01", "Matematika DBH1", "Proportzionaltasuna", "2 ogi = 4€. 4 ogi?", "6", "8", "10", "12", "B"]]},{title:'LETREN ERAZTUNA',desc:'18 letra bilduma bakoitzeko. BILDUMA balio bera erabili 18 lerroetan; MOTA HASTEN edo DAUKA.',head:['BILDUMA','LETRA','MOTA','GALDERA','ERANTZUNA'],rows:[["OSASUNA_1", "A", "HASTEN", "Neurona asko hiltzean sortzen den gaixotasun endekapenezkoa.", "ALZHEIMERRA"], ["OSASUNA_1", "B", "HASTEN", "Odola gorputz osora ponpatzen duen organoa.", "BIHOTZA"], ["OSASUNA_1", "D", "HASTEN", "Elikagaiak mantenugai bihurtzeko prozesua.", "DIGESTIOA"], ["OSASUNA_1", "E", "HASTEN", "Onddo batek eragin dezakeen gaixotasun infekziosoa.", "EZKABIA"], ["OSASUNA_1", "G", "HASTEN", "Osasun-arazo bat dagoenean sortzen den egoera.", "GAIXOTASUNA"], ["OSASUNA_1", "H", "HASTEN", "Birus batek eragindako gaixotasun infekzioso ezaguna.", "HIESA"], ["OSASUNA_1", "I", "HASTEN", "Agente patogenoek eragindako gaixotasun mota.", "INFEKZIOSOA"], ["OSASUNA_1", "K", "HASTEN", "Motorrean ibiltzean burua babesteko erabiltzen den elementua.", "KASKOA"], ["OSASUNA_1", "L", "HASTEN", "Gure gorputza kanpotik estaltzen duen ehuna.", "LARRUAZALA"], ["OSASUNA_1", "M", "HASTEN", "Protozoo batek eragindako gaixotasun tropikala.", "MALARIA"], ["OSASUNA_1", "N", "HASTEN", "Alzheimerra bezalako gaixotasunetan kaltetzen den nerbio-sistemako zelula.", "NEURONA"], ["OSASUNA_1", "O", "HASTEN", "MOEren arabera osasunaren oinarria den egoera.", "ONGIZATEA"], ["OSASUNA_1", "P", "HASTEN", "Beste organismo baten bizkar bizi den izakia.", "PARASITOA"], ["OSASUNA_1", "R", "DAUKA", "Immunitate-sistemak sortzen duen defentsa espezifikoa.", "ANTIGORPUTZA"], ["OSASUNA_1", "S", "HASTEN", "Gaixotasunak sendatzeko edo kontrolatzeko erabiltzen den produktua.", "SENDAGAIA"], ["OSASUNA_1", "T", "HASTEN", "Bakterio batek eragindako gaixotasuna; txerto bidez prebeni daiteke.", "TETANOSA"], ["OSASUNA_1", "U", "HASTEN", "Gaixotasun batzuk kutsatzeko bide nagusietako bat: pertsonen arteko zuzeneko...", "UKIPENA"], ["OSASUNA_1", "Z", "HASTEN", "Gorputzaren oinarrizko unitatea.", "ZELULA"]]},{title:'EKUAZIOEN BINGOA',desc:'50 ekuazio jatorrizko kartoiekin bateragarriak (-25..-1, 1..25). Bestelako emaitzek kartoi berriak eskatzen dituzte.',head:['EKUAZIOA','EMAITZA'],rows:[["3x+40=x-10", "-25"], ["2(x+6)=x-12", "-24"], ["5x-4=2x-73", "-23"], ["4(x+3)=2x-32", "-22"], ["7x+10=3x-74", "-21"], ["2(x-5)=x-30", "-20"], ["6x+7=4x-31", "-19"], ["5(x+2)=3x-26", "-18"], ["4x-9=2x-43", "-17"], ["3(x+8)=x-8", "-16"], ["6x+5=2x-55", "-15"], ["5(x-2)=3x-38", "-14"], ["4x+11=x-28", "-13"], ["7x-6=5x-30", "-12"], ["2(x+9)=x+7", "-11"], ["5x+20=2x-10", "-10"], ["3(x-4)=x-30", "-9"], ["6x+2=4x-14", "-8"], ["5(x+1)=3x-9", "-7"], ["4x-7=2x-19", "-6"], ["3(x+2)=x-4", "-5"], ["7x+12=3x-4", "-4"], ["5(x-1)=2x-14", "-3"], ["4x+6=2x+2", "-2"], ["3(x+5)=2x+14", "-1"], ["4x-7=2x-5", "1"], ["5(x-1)=3x-1", "2"], ["6x+4=4x+10", "3"], ["3(x+2)=x+14", "4"], ["7x-9=5x+1", "5"], ["4(x-3)=2x", "6"], ["5x+8=3x+22", "7"], ["6(x+1)=4x+22", "8"], ["3x-5=x+13", "9"], ["7x+2=5x+22", "10"], ["4(x-2)=2x+14", "11"], ["5x-6=3x+18", "12"], ["6(x+2)=4x+38", "13"], ["3x+7=x+35", "14"], ["8x-4=6x+26", "15"], ["5(x-3)=3x+17", "16"], ["4x+9=2x+43", "17"], ["7(x-1)=5x+29", "18"], ["6x-8=4x+30", "19"], ["3(x+4)=x+52", "20"], ["5x+11=3x+53", "21"], ["4(x-5)=2x+24", "22"], ["6x+3=4x+49", "23"], ["7(x+2)=5x+62", "24"], ["5x-10=3x+40", "25"]]},{"title":"NOR DA NOR?","desc":"Gelako pantaila handian jokatzeko. Lehen hiru zutabeak id, izena, formula; gainerakoak BAI/EZ ezaugarriak (1/0 ere onartzen ditu). 12 adibide kimikan; Geometriako beste adibide bat behean.","head":["id","izena","formula","gas","elementua","oxigenoa","metala","hidrogenoa","magnesioa","burdina","karbonoa","nitrogenoa","kloroa","zinka"],"rows":[["K01","Oxigenoa","O₂","1","1","1","0","0","0","0","0","0","0","0"],["K02","Hidrogenoa","H₂","1","1","0","0","1","0","0","0","0","0","0"],["K03","Karbono dioxidoa","CO₂","1","0","1","0","0","0","0","1","0","0","0"],["K04","Ura","H₂O","0","0","1","0","1","0","0","0","0","0","0"],["K05","Magnesioa","Mg","0","1","0","1","0","1","0","0","0","0","0"],["K06","Magnesio oxidoa","MgO","0","0","1","0","0","1","0","0","0","0","0"],["K07","Burdina","Fe","0","1","0","1","0","0","1","0","0","0","0"],["K08","Burdina(III) oxidoa","Fe₂O₃","0","0","1","0","0","0","1","0","0","0","0"],["K09","Zinka","Zn","0","1","0","1","0","0","0","0","0","0","1"],["K10","Hidrogeno kloruroa","HCl","1","0","0","0","1","0","0","0","0","1","0"],["K11","Nitrogenoa","N₂","1","1","0","0","0","0","0","0","1","0","0"],["K12","Amoniakoa","NH₃","1","0","0","0","1","0","0","0","1","0","0"]]}];
-function csvEscape(v){v=String(v);return /[",\n]/.test(v)?'"'+v.replaceAll('"','""')+'"':v}function downloadCSV(i){const t=templates[i], csv='\uFEFF'+[t.head,...t.rows].map(row=>row.map(csvEscape).join(',')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=t.title.replaceAll(' ','_')+'_TXANTILOIA.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-document.getElementById('templates').innerHTML=templates.map((t,i)=>`<article class="panel template" data-template-game="${i}" hidden><h3>${t.title}</h3><p>${t.desc}</p><div class="tablewrap"><table><thead><tr>${t.head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${t.rows.map(r=>`<tr>${r.map(v=>`<td>${v}</td>`).join('')}</tr>`).join('')}</tbody></table></div><button class="primary" onclick="downloadCSV(${i})">⬇ CSV TXANTILOIA DESKARGATU</button>${t.title==='NOR DA NOR?'?'<a class="primary" style="display:inline-block;margin:6px 6px 0 0;text-decoration:none" href="V02_JOKOAK/TXANTILOIAK/NOR_DA_NOR_GEOMETRIA_12_TXARTEL.csv" download>⬇ GEOMETRIAKO ADIBIDEA</a><p class="small muted">CSV fitxategia deskargatu, eta jokoan «Unitatearen CSV fitxategia» aukerarekin kargatu.</p>':''}</article>`).join('');
-
-// IRAKASLEAREN TXOKOA — prompt katalogoa. Datuak orrialdean bertan gordeta, konexiorik gabe ere.
-const teacherPrompts = [{"name": "PANEL EZKUTUAK", "title": "4. PANEL EZKUTUAK — CSV", "prompt": "JOKOEN TXOKOAko PANEL EZKUTUAK jokorako materiala sortu nahi dut.\nMaila: [MAILA]. Arloa: [ARLOA]. Gaia: [GAIA]. Hizkuntza: euskara.\nSortu [KOPURUA] panel, pista argi eta pedagogikoki egokiekin. Panelaren erantzunak nahikoa laburra izan behar du erruletako laukietan sartzeko; saihestu erantzun anbiguoak.\nItzuli UTF-8 CSV testu hutsa, zehazki goiburu honekin eta ordena honetan:\nID,ARLOA,GAIA,PISTA,PANELA,IRUDIA\nID guztiak desberdinak izan daitezela. PANELAk letra larriz idatzi, eta PISTA ez dadila erantzunaren kopia izan.\nIRUDIA zutabea hutsik utzi, irudi publikoen HTTPS esteka zuzena ematen ez badizut. Ez asmatu irudien URLrik.\nKoma edo komatxoak dituzten eremuak behar bezala ihes egin CSV estandarraren arabera. Ez gehitu azalpenik, markdownik edo bestelako testurik."}, {"name": "TRIVIAL PURSUIT", "title": "5. TRIVIAL PURSUIT — CSV", "prompt": "JOKOEN TXOKOAko TRIVIAL PURSUIT jokorako galdera-banku bat sortu nahi dut.\nMaila: [MAILA]. Arloa/arloak: [ARLOAK]. Unitatea: [UNITATEA]. Hizkuntza: euskara.\nJoko-identifikatzaile bakarra: [JOKOA_ID]. Jokoaren izena: [JOKOAREN_IZENA].\nSortu sei GAIA desberdin (sei kategoriak), eta gutxienez [GALDERA_KOPURUA] galdera GAIA bakoitzeko.\nGaldera bakoitzak lau aukera izan behar ditu (A, B, C, D), eta erantzun zuzen bakarra. Aldatu aukera zuzenaren kokapena galderaz galdera.\nItzuli UTF-8 CSV testu hutsa, zehazki:\nJOKOA,IZENA,GAIA,GALDERA,A,B,C,D,ZUZENA\nZUZENA zutabean A, B, C edo D bakarrik erabili. JOKOA berdina izan dadila lerro guztietan; GAIA seiren artean banatu. Egiaztatu erantzun guztiak. Ez gehitu markdownik edo beste azalpenik."}, {"name": "LETREN ERAZTUNA", "title": "6. LETREN ERAZTUNA — CSV", "prompt": "JOKOEN TXOKOAko LETREN ERAZTUNA jokorako 18 definizioko bilduma bat sortu nahi dut.\nMaila: [MAILA]. Arloa: [ARLOA]. Unitatea: [UNITATEA]. Hizkuntza: euskara.\nBILDUMA kodea: [BILDUMA_ID].\nErabili jokoaren 18 letra hauetarako lerro bana, zehazki: A, B, D, E, G, H, I, K, L, M, N, O, P, R, S, T, U, Z.\nZutabeak eta ordena:\nBILDUMA,LETRA,MOTA,GALDERA,ERANTZUNA\nMOTA balioak HASTEN edo DAUKA soilik izan daitezke. HASTEN erabiltzen baduzu, ERANTZUNA dagokion letraz hasi behar da; DAUKA erabiltzen baduzu, letra hori ERANTZUNAn egon behar da.\nSortu definizio zuzen, labur eta argiak; ez erabili hitz bera bi aldiz. Idatzi ERANTZUNA letra larriz. Begiratu euskarazko ortografia eta letra-baldintza bakoitza, eta sortu UTF-8 CSV hutsa azalpen gehigarririk gabe."}, {"name": "EKUAZIOEN BINGOA", "title": "7. EKUAZIOEN BINGOA — CSV", "prompt": "JOKOEN TXOKOAko EKUAZIOEN BINGOA jokorako 50 ekuazio sortu nahi ditut.\nMaila: [MAILA]. Edukia: [EKUAZIO_MOTA]. Hizkuntza: euskara.\nEzinbesteko baldintza: jatorrizko kartoiak erabiltzeko EMAITZA balioek zehazki hauek izan behar dute, bakoitza behin: -25etik -1era eta 1etik 25era (0 ez).\nSortu emaitza bakoitzerako ekuazio bat, x ezezagunarekin, eta emaitza hori bakarra izan dadila. Ekuazioen zailtasuna progresiboa izan dadila.\nItzuli UTF-8 CSV testu hutsa, bi zutaberekin:\nEKUAZIOA,EMAITZA\nEkuazioak matematika aldetik egiaztatu, soluzioak ordezkatuz. 50 lerro egon behar dira eta EMAITZA guztiek desberdinak izan behar dute. Ez jarri azalpenik edo markdownik."}, {"name": "NOR DA NOR?", "title": "8. NOR DA NOR? — CSV", "prompt": "JOKOEN TXOKOAko NOR DA NOR? — EZAGUTZAREN DETEKTIBEAK jokorako 12 kontzeptuko bilduma sortu nahi dut.\nMaila: [MAILA]. Arloa: [ARLOA]. Unitatea: [UNITATEA]. Hizkuntza: euskara.\nGorde lehen hiru zutabe hauek zehazki: id,izena,formula\nOndoren, sortu gaiari dagozkion 10–12 BAI/EZ ezaugarri argi, zutabe bana bakoitzeko; izenak laburrak eta deskribatzaileak izan daitezela.\nSortu 12 kontzeptu, bakoitza lerro batean, eta erabili 1 = BAI, 0 = EZ balioak ezaugarrien zutabeetan. 'formula' zutabean ikur labur bat edo deskribapen oso laburra jar dezakezu, behar denean; bestela hutsik.\nEgiaztatu kontzeptuak ez direla berdin-berdinak ezaugarri guztietan: ahal den neurrian, 12 txartelek konbinazio bereizgarriak izan ditzatela. Ezin da erantzun anbiguorik egon; ezaugarri guztiak egiaztagarriak izan behar dira.\nItzuli UTF-8 CSV testu hutsa (goiburukoa + 12 lerro), azalpenik eta markdownik gabe."}, {"name": "IRAKURKETA PARTEKATUA", "title": "9. IRAKURKETA PARTEKATUA — XLSX", "prompt": "IRAKURKETA PARTEKATUA V24rako irakurgai didaktikoa eta galderak prestatu nahi ditut.\nMaila: [MAILA]. Arloa: [ARLOA]. Gaia: [GAIA]. Hizkuntza: euskara.\nSortu [PARAGRAFO_KOPURUA] paragrafo (ikasleek ozen irakurtzeko neurri egokian). Paragrafo bakoitzak ideia nagusi bat izan dezala.\nSortu paragrafo bakoitzerako [1 / 2 / 3] galdera: aukera anitzekoak (AUKERAK), egia/gezurra (EGIA_GE_ZURRA) edo erantzun laburrekoak (LABURRA). Galderaren erantzuna paragrafoan oinarrituta egon dadila.\nErabili nire IRAKURKETA_PARTEKATUA_ADIBIDEA.xlsx fitxategia EGITURA-EREDU GISA. Ez aldatu fitxen izenak, goiburukoak edo antolaketa:\n1) JARRAIBIDEAK: mantendu jatorrizkoa.\n2) IRAKURKETA: bete IZENBURUA, HIZKUNTZA='eu', DESKRIBAPENA eta BERTSIOA.\n3) PARAGRAFOAK: PARAGRAFO_ID, PARAGRAFOAREN TESTUA, OHARRAK (AUKERAKOA).\n4) GALDERAK: PARAGRAFO_ID, GALDERA_ZK, MOTA, GALDERA, A, B, C, D, ERANTZUN_ZUZENA, ONARTUTAKO_ERANTZUNAK, AZALPENA.\nAUKERAK motan, jarri 2–4 erantzun-aukera eta ERANTZUN_ZUZENA zutabean aukera zuzenaren letra (A/B/C/D). EGIA_GE_ZURRA motan erabili EGIA edo GEZURRA. LABURRA motan erabili ONARTUTAKO_ERANTZUNAK zutabea, erantzun baliokideak ' | ' bereizita.\nEman .xlsx fitxategi editagarri eta deskargagarria, aurkeztu aurretik datuak egiaztatuta. Jatorrizko eredu-fitxategia ezin baduzu ireki edo editatu, ez asmatu egiturarik: eskatu eredua igotzeko."}, {"name": "EZAGUTZAREN DORREA", "title": "7. EZAGUTZAREN DORREA — JSON", "prompt": "ARGI — EZAGUTZAREN DORREA joko interaktiborako unitate berri baten datuak sortu nahi ditut.\n\nDATUAK:\n- Ikasmaila: [MAILA]\n- Arloa: [ARLOA]\n- Unitatea/Gaia: [UNITATEA]\n- Oinarrizko edukia: aukeratu gaia edo erantsi dokumentua ChatGPTn, behar denean.\n\nJOKOAREN EGITURA ETA ARAUAK:\n1. Eman JSON objektu bakarra, inolako azalpenik edo Markdown kode-hesirik gabe.\n2. Goiko eremuak: id (adibidez [UNITATE_KODEA]), izenburua, iturriaren_izaera, erronkak.\n3. Erronkak: 8 solairu, solairu bakoitzean 2 edo 3 erronka (gutxienez 16).\n4. Gutxienez erronka bat mota «memoria» izango da, eta besteak «aukeratu» edo «lotu».\n5. Erronka bakoitzaren eremuak: id (bakarra; adibidez [UNITATE_KODEA]-01), solairua (1-8), izenburua, mota, irakurgaia, galdera, atazak, azalpena eta iturria.\n6. «aukeratu» motako atazak: {\"aukerak\":[\"...\",\"...\",\"...\",\"...\"], \"zuzena\":0} (zuzena 0, 1, 2 edo 3 da; aukera-indizea, ez erantzunaren letra). Aukera zuzenen kokapena alda ezazu erronken artean.\n7. «lotu» motako atazak: {\"bikoteak\":[[\"ezkerrekoa\",\"eskuinekoa\"], ...]}, gutxienez 3 bikoterekin, eskuineko balio guztiak desberdinak izanik.\n8. «memoria» motako atazak: {\"esaldia\":\"...\"}. Esaldia ikasleak buruz idatzi beharko du; 8-20 hitz ingurukoa eta edukiz garrantzitsua.\n9. iturria eremuan {\"fitxategia\":\"...\",\"pdf_orrialdea\":null} erabil dezakezu, orrialde erreala ez badakizu. EZ ASMATU orrialderik.\n10. Euskara garbia erabili, adinari egokitua. Edukiaren zuzentasuna egiaztatu, kontzeptuak oinarrizko testuari lotu eta akatsak saihestu.\n11. Irakurgaia jarri erronka bakoitzaren aurretik ulermena lantzeko; «azalpena» erabiliko da irakasleak zuzentasuna berrikusteko.\n12. Ez sortu datu pertsonalik, ezta kanpoko zerbitzuen estekarik ere.\n\nEmaitza JSON gisa gorde ahal izateko prest egon behar da. Ondoren JSONa .json fitxategi gisa gorde, ARGI UNITATE SORTZAILEArekin egiaztatu, eta ARGIren JSON PROBA jokoan zuzenean kargatuko dut. Ez da JS bihurtu behar."}];
-let activeTeacherPrompt=0;
-let activePromptMode='topic';
-const promptFields=[
- {key:'MAILA', label:'Ikasmaila', placeholder:'DBH 1', default:'DBH 1'},
- {key:'ARLOA', label:'Arloa', placeholder:'Matematika', default:'Matematika'},
- {key:'UNITATEA',label:'Unitatea / gaia',placeholder:'Zenbaki osoak',default:'Zenbaki osoak'},
- {key:'KOPURUA',label:'Panel kopurua',type:'number',min:1,max:100,default:'12'},
- {key:'JOKOA_ID',label:'Jokoaren kodea',placeholder:'MAT01',default:'MAT01'},
- {key:'JOKOAREN_IZENA',label:'Jokoaren izena',placeholder:'Matematika Trivial',default:'Matematika Trivial'},
- {key:'GALDERA_KOPURUA',label:'Galdera kopurua kategoria bakoitzeko',type:'number',min:1,max:100,default:'10'},
- {key:'BILDUMA_ID',label:'Bildumaren kodea',placeholder:'OSASUNA_1',default:'OSASUNA_1'},
- {key:'EKUAZIO_MOTA',label:'Ekuazio mota',placeholder:'Lehen mailako ekuazioak',default:'Lehen mailako ekuazioak'},
- {key:'PARAGRAFO_KOPURUA',label:'Paragrafo kopurua',type:'number',min:1,max:40,default:'4'},
- {key:'GALDERAK_PARAGRAFOKO',label:'Galderak paragrafo bakoitzeko',type:'select',options:['1','2','3'],default:'2'},
- {key:'UNITATE_KODEA',label:'Unitate berriaren kodea (2 letra + 2 zenbaki; ez MA/FK/BG/TE)',placeholder:'PR01',default:'PR01'}
-];
-const gameFieldKeys=[
- ['MAILA','ARLOA','UNITATEA','KOPURUA'],
- ['MAILA','ARLOA','UNITATEA','JOKOA_ID','JOKOAREN_IZENA','GALDERA_KOPURUA'],
- ['MAILA','ARLOA','UNITATEA','BILDUMA_ID'],
- ['MAILA','ARLOA','UNITATEA','EKUAZIO_MOTA'],
- ['MAILA','ARLOA','UNITATEA'],
- ['MAILA','ARLOA','UNITATEA','PARAGRAFO_KOPURUA','GALDERAK_PARAGRAFOKO'],
- ['MAILA','ARLOA','UNITATEA','UNITATE_KODEA']
-];
-const promptValues=Object.fromEntries(promptFields.map(f=>[f.key,f.default]));
-const promptTopicSuffix='\n\nITURRIA: Aukeratutako maila, arloa eta gaia oinarri hartuta sortu materiala. Ez asmatu datu zalantzagarriak; egiaztatu kontzeptuak eta emaitzak. Aurreko formatua eta jokoaren baldintzak zorrotz errespetatu.';
-const promptDocumentSuffix='\n\nITURRI-DOKUMENTUAREN ARAUAK (LEHENTASUN HANDIA):\nIrakasleak ChatGPTko elkarrizketa honetan erantsiko duen argazkia, PDFa, Word dokumentua edo beste fitxategia erabili iturri nagusi gisa. Lehenengo, irakurri eta aztertu eranskinaren benetako edukia; ezin baduzu eranskina ireki, esan eta eskatu berriro igotzeko. Ez sortu materialik iturria eskuratu gabe. Mantendu testuko terminologia, kontzeptuak eta maila. EZ asmatu dokumentuan ez dagoen informaziorik edo erantzunik. Iturrian kopuru edo kategoria guztiak osatzeko informazio nahikorik ez badago, esan zein den muga eta eskatu beste orri batzuk; ez bete falta dena asmatuz. Erabili aurreko jokoa eta fitxategi-formatua berdin-berdin. Dokumentuan ageri ez diren beste adibideak nahi badira, aurrez berariazko baimena eskatu.\nIRAKASLEA: Itsatsi prompt hau ChatGPTn eta erantsi dokumentua edo irudia mezu BEREAN. Ez bidali ikasleen datu pertsonalik.';
-function renderTeacherPromptButtons(){
- const root=document.getElementById('promptPicker');if(!root)return;root.innerHTML='';
- teacherPrompts.forEach((item,i)=>{const b=document.createElement('button');b.type='button';b.textContent=item.name;b.dataset.promptIndex=i;b.setAttribute('aria-pressed',String(i===activeTeacherPrompt));b.onclick=()=>selectTeacherPrompt(i);root.appendChild(b)});
-}
-function fieldForKey(k){return promptFields.find(f=>f.key===k)}
-function renderPromptForm(){
- const root=document.getElementById('promptForm');root.innerHTML='';
- for(const key of gameFieldKeys[activeTeacherPrompt]){
-  const f=fieldForKey(key),label=document.createElement('label');label.textContent=f.label;
-  let el;
-  if(f.type==='select'){
-   el=document.createElement('select');for(const option of f.options){const opt=document.createElement('option');opt.value=option;opt.textContent=option;el.appendChild(opt)}
-  }else{
-   el=document.createElement('input');el.type=f.type==='number'?'number':'text';if(f.placeholder)el.placeholder=f.placeholder;
-   if(f.min)el.min=f.min;if(f.max)el.max=f.max;
-  }
-  el.value=promptValues[key];el.dataset.field=key;el.autocomplete='off';el.addEventListener('input',()=>{promptValues[key]=el.value;generateTeacherPrompt()});el.addEventListener('change',()=>{promptValues[key]=el.value;generateTeacherPrompt()});
-  label.appendChild(el);root.appendChild(label);
- }
-}
-function getPromptReplacement(key){return String(promptValues[key]||('['+key+']')).trim()}
-function generateTeacherPrompt(){
- const i=activeTeacherPrompt;
- let prompt=teacherPrompts[i].prompt;
- // The canonical prompt text remains the original source of CSV/XLSX schema requirements.
- const values={...promptValues,GAIA:promptValues.UNITATEA,ARLOAK:promptValues.ARLOA};
- for(const [key,val] of Object.entries(values)){
-  prompt=prompt.split('['+key+']').join(String(val||'['+key+']').trim());
- }
- if(i===5)prompt=prompt.replace('[1 / 2 / 3]',promptValues.GALDERAK_PARAGRAFOKO);
- // ARLOAK, GAIA and UNITATEA are distinct placeholders in some of the existing six prompts.
- prompt=prompt.replace(/\[[A-Z_]+\]/g,match=>match);
- prompt+=(activePromptMode==='source'?promptDocumentSuffix:promptTopicSuffix);
- document.getElementById('promptContent').value=prompt;
- const status=document.getElementById('copyPromptStatus');status.textContent='Prompta prest. Begiratu edukia eta kopiatu ChatGPTra.';status.classList.remove('success');
-}
-function selectTeacherPrompt(i){
- activeTeacherPrompt=i;
- document.getElementById('promptTitle').textContent=teacherPrompts[i].title;
- document.querySelectorAll('#promptPicker button').forEach((b,j)=>{b.classList.toggle('active',i===j);b.setAttribute('aria-pressed',String(i===j))});
- renderPromptForm();generateTeacherPrompt();
-}
-function setPromptMode(mode){
- activePromptMode=mode;
- for(const [id,m] of [['modeTopic','topic'],['modeSource','source']]){
-  const b=document.getElementById(id);b.classList.toggle('active',mode===m);b.setAttribute('aria-pressed',String(mode===m));
- }
- document.getElementById('promptSourceHint').innerHTML=mode==='source'
- ?'<strong>DOKUMENTUA ERABILI:</strong> kopiatu prompta eta erantsi argazkia/PDFa/Word fitxategia <strong>ChatGPTko mezu berean</strong>. Webgune honek ez du dokumentua igotzen edo aztertzen. Iturri nahikorik ez badago, IAri ez asmatzeko aginduko diogu.'
- :'<strong>GAIA ADIERAZI:</strong> bete ikasmaila, arloa eta gaia; ChatGPTk gaian oinarrituta sortuko ditu ariketak. Berrikusi erantzunak erabili aurretik.';
- generateTeacherPrompt();
-}
-async function copyTeacherPrompt(){
- const el=document.getElementById('promptContent'),status=document.getElementById('copyPromptStatus');let ok=false;
- try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(el.value);ok=true}}catch(e){}
- if(!ok){try{el.focus();el.select();ok=document.execCommand('copy')}catch(e){}}
- status.textContent=ok?'✓ Prompta kopiatu da. Itsatsi ChatGPTn.'+(activePromptMode==='source'?' Gero erantsi iturri-dokumentua.':''):'Ezin izan da automatikoki kopiatu. Hautatu testua eta sakatu Ctrl+C.';
- status.classList.toggle('success',ok);
-}
-renderTeacherPromptButtons();
-document.getElementById('modeTopic').addEventListener('click',()=>setPromptMode('topic'));
-document.getElementById('modeSource').addEventListener('click',()=>setPromptMode('source'));
-selectTeacherPrompt(0);setPromptMode('topic');
-document.getElementById('copyPrompt').addEventListener('click',copyTeacherPrompt);
-document.getElementById('resetPrompt').addEventListener('click',()=>generateTeacherPrompt());
-</script></body></html>
+<!doctype html><html lang="eu"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080f23"><title>JOKOEN TXOKOA · Jokoen menua</title><style>
+:root{--bg:#080e20;--panel:#121d35;--line:#4476af;--bright:#64d5ff;--gold:#ffcc54;--text:#e5f1ff}*{box-sizing:border-box}
+html{height:100%}body{margin:0;min-height:100%;font:15px system-ui,Arial,sans-serif;background:radial-gradient(ellipse at 50% -10%,#22345c 0%,#0d1530 49%,#080b17 90%);color:var(--text)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background:repeating-linear-gradient(0deg,transparent 0px,transparent 5px,#223652 6px)}
+.shell{position:relative;max-width:1440px;margin:auto;padding:13px 20px 18px}header{display:flex;align-items:center;justify-content:space-between;gap:12px;border:3px solid #5d8ab4;box-shadow:inset 0 0 0 3px #0c152b,0 5px 0 #030915;background:#142543;border-radius:14px;padding:11px 20px;margin-bottom:15px}
+h1{margin:0;color:var(--gold);font:bold clamp(22px,3vw,38px) ui-monospace,Consolas,monospace;letter-spacing:1.2px;text-shadow:3px 3px 0 #823749,0 0 14px #fcbd4b55}h1 span{color:#69d6f7}.tagline{margin:3px 0 0;color:#b6d5ef;font-size:12px;letter-spacing:1px} .status{color:#8df4c4;font:bold 12px ui-monospace,monospace;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.game{position:relative;text-decoration:none;color:inherit;display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-width:0;min-height:280px;padding:11px 10px 12px;border:3px solid #416d9f;border-radius:14px;background:linear-gradient(145deg,#1b3153,#101b34 75%);box-shadow:inset 0 0 0 2px #091227,0 5px 0 #070b1c;transition:transform .13s,border-color .13s;overflow:hidden}
+.game:focus-visible,.game:hover{transform:translateY(-3px);outline:none;border-color:#ffcf55;box-shadow:inset 0 0 0 2px #091227,0 4px 17px #2ca9f455}.art{height:160px;width:100%;display:flex;align-items:center;justify-content:center}.art img{height:100%;max-width:100%;object-fit:contain;filter:drop-shadow(0 4px 8px #02071399)}.details{text-align:center;min-width:0}.game-title{color:#ffe49b;font-size:clamp(13px,1.4vw,18px);font-weight:900;letter-spacing:.3px;text-shadow:2px 2px #5a263e}.game-sub{font-size:11px;color:#79d8fb;margin-top:3px;font-weight:700}.game-note{font-size:11px;color:#c7d5ea;margin-top:5px}.go{position:absolute;right:10px;top:9px;color:#a4ffc4;font-size:10px}
+footer{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#a4b8d2;margin-top:14px}footer strong{color:#ffdb7f}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.shell{padding:8px}.game{min-height:235px}.art{height:135px}header{padding:8px 11px}.status{display:none}footer{flex-wrap:wrap}}
+@media(max-width:460px){.game{min-height:205px;padding:6px}.art{height:116px}.grid{gap:9px}.game-title{font-size:12px}.game-note{font-size:10px}.game-sub{font-size:10px}}@media(min-width:801px) and (max-height:760px){.game{min-height:245px}.art{height:135px}.shell{padding-top:8px}.grid{gap:10px}}
+@media(prefers-reduced-motion:reduce){.game{transition:none}} 
+</style></head><body><main class="shell"><header><div><h1>✦ JOKOEN <span>TXOKOA</span> ✦</h1><p class="tagline">AUKERATU JOKOA · KARGATU MATERIALA · JOLASTU!</p></div><div class="status">● 8 JOKO · MAKETA01</div></header><section class="grid" aria-label="Jokoak">
+<a class="game" href="sarrerak.html?jokoa=0" aria-label="ARGI — Jokoa ireki">
+  <div class="art"><img src="irudiak/01_argi.png" alt="ARGI logotipoa" loading="eager"></div>
+  <div class="details"><div class="game-title">ARGI</div><div class="game-sub">EZAGUTZAREN DORREA</div><div class="game-note">Bakarka · 8 solairu</div></div>
+  <span class="go" aria-hidden="true">▶</span>
+</a>
+<a class="game" href="sarrerak.html?jokoa=1" aria-label="PANEL EZKUTUAK — Jokoa ireki">
+  <div class="art"><img src="irudiak/02_panel.png" alt="PANEL EZKUTUAK logotipoa" loading="eager"></div>
+  <div class="details"><div class="game-title">PANEL EZKUTUAK</div><div class="game-sub">EZKUTUKO HITZAK</div><div class="game-note">Taldeka · Asmatu panelak</div></div>
+  <span class="go" aria-hidden="true">▶</span>
+</a>
+<a class="game" href="sarrerak.html?jokoa=2" aria-label="NOR DA NOR? — Jokoa ireki">
+  <div class="art"><img src="irudiak/03_nor.png" alt="NOR DA NOR? logotipoa" loading="eager"></div>
+  <div class="details"><div class="game-title">NOR DA NOR?</div><div class="game-sub">EZAGUTZAREN DETEKTIBEAK</div><div class="game-note">Gelan · Makinaren kontra</div></div>
+  <span class="go" aria-hidden="true">▶</span>
+</a>
+<a class="game" href="sarrerak.html?jokoa=3" aria-label="GURE TRIVIAL PURSUIT — Jokoa ireki">
+  <div class="art"><img src="irudiak/04_trivial.png" alt="GURE TRIVIAL PURSUIT logotipoa" loading="eager"></div>
+  <div class="details"><div class="game-title">GURE TRIVIAL PURSUIT</div><div class="game-sub">GALDEREN JOKOA</div><div class="game-note">Gelan · Taldeak eta galderak</div></div>
+  <span class="go" aria-hidden="true">▶</span>
+</a>
+<a class="game" href="sarrerak.html?jokoa=4" aria-label="BINGO! — Jokoa ireki">
+  <div class="art"><img src="irudiak/05_bingo.png" alt="BINGO! logotipoa" loading="eager"></div>
+  <div class="details"><div class="game-title">BINGO!</div><div class="game-sub">JAKINTZAREN BINGOA</div><div class="game-note">Gelan · Kartoi inprimagarriak</div></div>
+  <span class="go" aria-hidden="true">▶</span>
+</a>
+<a class="game" href="sarrerak.html?jokoa=5" aria-label="LETREN ERAZTUNAK — Jokoa ireki">
+  <div class="art"><img src="irudiak/06_letren.png" alt="LETREN ERAZTUNAK logotipoa" loading="eager"></div>
+  <div class="details"><div class="game-title">LETREN ERAZTUNAK</div><div class="game-sub">HIZKIEN ERRONKA</div><div class="game-note">Taldeka · Letren jolasa</div></div>
+  <span class="go" aria-hidden="true">▶</span>
+</a>
+<a class="game" href="sarrerak.html?jokoa=6" aria-label="DEFINIZIOEN TXAPELKETA — Jokoa ireki">
+  <div class="art"><img src="irudiak/07_def.png" alt="DEFINIZIOEN TXAPELKETA logotipoa" loading="eager"></div>
+  <div class="details"><div class="game-title">DEFINIZIOEN TXAPELKETA</div><div class="game-sub">DEFINIZIOAK</div><div class="game-note">Gelan + Chromebookak · Bozketak</div></div>
+  <span class="go" aria-hidden="true">▶</span>
+</a>
+<a class="game" href="sarrerak.html?jokoa=7" aria-label="IRAKURKETA PARTEKATUA — Jokoa ireki">
+  <div class="art"><img src="irudiak/08_irak.png" alt="IRAKURKETA PARTEKATUA logotipoa" loading="eager"></div>
+  <div class="details"><div class="game-title">IRAKURKETA PARTEKATUA</div><div class="game-sub">IRAKUR · LABURTU · ERANTZUN</div><div class="game-note">Gelan + Chromebookak · Irakurketa</div></div>
+  <span class="go" aria-hidden="true">▶</span>
+</a>
+</section><footer><span><strong>JOKOEN TXOKOA</strong> · Menu nagusia · MAKETA01</span><span>Joko bakoitzak bere prestaketa-pantaila irekitzen du.</span></footer></main></body></html>

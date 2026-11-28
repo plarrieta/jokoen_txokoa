@@ -1,0 +1,74 @@
+
+:root{--bg:#0c1c26;--panel:#162b39;--text:#e7f6e7;--amber:#f6bd68;--green:#75e6aa;--edge:#66828c}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 40% 30%,#294959,#08131d 80%);color:var(--text);font:15px Arial,sans-serif}
+.shell{max-width:1440px;margin:12px auto;border:5px ridge #8ea5a6;border-radius:18px;background:linear-gradient(135deg,#203747,#0c1922);padding:14px;box-shadow:0 12px 35px #0008}
+h1{font:bold clamp(18px,2vw,29px) 'Courier New',monospace;color:var(--amber);margin:0}h2{font:bold 15px 'Courier New',monospace;color:var(--amber);margin:0 0 10px}
+header{display:flex;align-items:center;justify-content:space-between;padding:8px 5px 16px;border-bottom:2px solid #516a74;gap:10px}
+.status{color:var(--green);font:12px monospace}main{display:grid;grid-template-columns:minmax(220px,27%) minmax(0,1fr);gap:12px;padding-top:14px}
+.panel{background:linear-gradient(140deg,#18303c,#0a1821);border:3px ridge #6e8793;border-radius:12px;padding:14px;min-width:0}
+input,button{font:15px 'Courier New',monospace;padding:10px 12px;border-radius:6px}input{background:#091922;border:2px solid #6d8d95;color:#eaf8ee;width:100%;min-width:0}button{cursor:pointer;background:linear-gradient(#36596a,#1c3545);border:2px outset #84a0a8;color:#fff;font-weight:bold}button:disabled{opacity:.45;cursor:default}button:focus-visible,input:focus-visible{outline:2px solid #f6bd68}
+button.primary{color:#0e1d1c;background:linear-gradient(#fcdb91,#e2a34b);border-color:#e6bb72}
+.stack{display:grid;gap:10px}.line{border-top:1px solid #455968;margin:10px 0}label{color:#c3d4d8;font:12px monospace}
+.screen{background:#041414;border:3px inset #466969;border-radius:8px;box-shadow:inset 0 0 18px #000;min-height:102px;padding:24px 14px;color:#acffca;font:clamp(16px,2vw,24px) 'Courier New',monospace;text-align:center;display:grid;place-content:center;gap:6px}
+.screen small{color:#e9b774;font:12px monospace}.board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:14px 0}
+.student{min-height:80px;min-width:0;border-radius:9px;border:3px outset #596f7a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;background:linear-gradient(#203642,#13222a);color:#c2c9cc;font:bold clamp(11px,1.15vw,15px) 'Courier New',monospace;overflow:hidden}
+.student .bulb{height:15px;width:15px;border-radius:100%;background:#223b41;box-shadow:inset 0 0 5px #000;border:2px solid #4d6566}
+.student.on{background:linear-gradient(#375b53,#1b3b37);border-color:#7cd4ab;color:#e2fff0;box-shadow:0 0 8px #52e9a24a}.student.on .bulb{background:#68ffa5;box-shadow:0 0 12px #7affae}
+.nick{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px}.muted{font:12px/1.5 monospace;color:#adc0c8}.small-btns{display:flex;gap:8px;flex-wrap:wrap}
+.pincode{font:bold 40px 'Courier New',monospace;color:var(--amber);letter-spacing:6px}.joinlayout{max-width:500px;margin:35px auto}.success{color:var(--green)}.error{color:#ff9a91;white-space:pre-wrap}.notice{color:#c6d5d8;font:12px/1.6 monospace;overflow-wrap:anywhere}
+@media(max-width:800px){main{grid-template-columns:1fr}.board{gap:4px}.student{min-height:65px}.shell{margin:4px;padding:8px}.pincode{font-size:30px}.student .bulb{width:12px;height:12px}header{flex-wrap:wrap}}
+
+/* V15 responsive controls */
+#resumePin{font-size:15px} .small-btns button{font-size:12px} .joinlayout input{font-size:17px} 
+@media(max-width:550px){.joinlayout{margin:12px auto}.joinlayout .screen{font-size:20px}.joinlayout header h1{font-size:21px}.joinlayout .panel{padding:12px}}
+
+/* V16: irakaslearen aginte panela pantaila bakarrean (desktop) */
+@media (min-width: 801px) {
+  body.teacher-page {height:100dvh;overflow:hidden}
+  body.teacher-page .shell {height:calc(100dvh - 12px);display:flex;flex-direction:column;margin:6px auto;padding:10px 12px}
+  body.teacher-page header {padding:4px 5px 9px;flex:0 0 auto}
+  body.teacher-page main {min-height:0;flex:1;grid-template-columns:minmax(235px,29%) minmax(0,1fr);gap:9px;padding-top:9px}
+  body.teacher-page main>.panel {min-height:0;overflow:auto;padding:9px 11px}
+  body.teacher-page main>section.panel {display:flex;flex-direction:column;overflow:hidden;gap:4px}
+  body.teacher-page main>section.panel .screen {min-height:73px;flex:0 0 auto;padding:8px 6px}
+  body.teacher-page main>section.panel .board {flex:1;min-height:0;margin:4px 0;grid-template-rows:repeat(5,minmax(0,1fr));gap:5px}
+  body.teacher-page main>section.panel .student {min-height:0;gap:3px;border-width:2px}
+  body.teacher-page main>section.panel .student .bulb {height:11px;width:11px}
+  body.teacher-page main>section.panel .muted,body.teacher-page main>section.panel .notice{font-size:10px;line-height:1.3}
+  body.teacher-page main>section.panel .line{margin:3px 0}
+  body.teacher-page main>aside.panel.stack{gap:5px;align-content:start}
+  body.teacher-page main>aside.panel.stack input,body.teacher-page main>aside.panel.stack button{padding:6px 8px;font-size:12px}
+  body.teacher-page main>aside.panel.stack h2{margin:0 0 2px}
+  body.teacher-page main>aside.panel.stack label{font-size:10px}
+  body.teacher-page main>aside.panel.stack .pincode{font-size:28px;letter-spacing:5px}
+  body.teacher-page main>aside.panel.stack .muted,body.teacher-page main>aside.panel.stack .notice{font-size:10px;line-height:1.3}
+  body.teacher-page main>aside.panel.stack .line{margin:3px 0}
+}
+@media(max-width:800px) {body.teacher-page .shell{height:auto;min-height:100dvh}}
+
+/* V17 — Irakurketa kontrolak */
+[hidden]{display:none!important}
+.teacher-activity{border-top:1px solid #57737c;padding-top:8px;display:grid;gap:5px}
+.teacher-activity h2{margin:0}.teacher-activity input[type=file]{font-size:11px;padding:5px}
+.paragraph-picker{display:flex;flex-wrap:wrap;gap:4px;max-height:68px;overflow:auto}
+.paragraph-button{padding:4px 7px!important;font-size:11px!important}.paragraph-button.selected{background:#e9b664;color:#14232b}
+.student.selected-reader{border-color:#a7faff!important;background:linear-gradient(#69dbe7,#246e83)!important;color:#092432!important;box-shadow:0 0 16px #55f6ff}
+.reading-card{margin-top:12px;border:2px solid #8bc5bb;border-radius:8px;padding:14px;background:#041b1b}
+.reading-text{font:clamp(18px,3vw,26px)/1.5 Georgia,serif;color:#e8fff2;white-space:pre-wrap}
+.teacher-page main>section.panel .teacher-activity{flex:0 0 auto;max-height:180px;overflow:auto}
+@media(min-width:801px) and (max-height:750px){.teacher-page main>section.panel .teacher-activity{max-height:135px}.teacher-page main>section.panel .student{min-height:0}}
+
+/* V18: laburpenak */
+.summary-controls{border-top:1px solid #66828c;margin-top:7px;padding-top:8px;display:grid;gap:6px}
+.summary-choices{display:grid;gap:5px;max-height:180px;overflow:auto}
+.summary-option{padding:7px;border:1px solid #66828c;border-radius:6px;background:#0b232b;display:grid;gap:6px}
+.summary-option-text{font:13px/1.5 Georgia,serif;white-space:pre-wrap}
+.summary-option button{font-size:11px;padding:5px}
+.summary-form,.summary-show{margin-top:12px;border:2px solid #87baa8;border-radius:8px;padding:12px;background:#052121}
+.summary-form{display:grid;gap:8px}.summary-form textarea{width:100%;min-height:105px;resize:vertical;background:#091922;border:2px solid #6d8d95;border-radius:6px;color:white;padding:10px;font:16px/1.5 Georgia,serif}
+#summaryPublicText,#classSummaryText{white-space:pre-wrap;font:clamp(18px,2.5vw,27px)/1.5 Georgia,serif;color:#e8fff2}
+.teacher-page main>section.panel .teacher-activity{max-height:240px}
+@media(max-height:750px){.teacher-page main>section.panel .teacher-activity{max-height:190px}}
+
+/* V21 */
+#questionText{font:16px/1.45 Arial,sans-serif;margin:10px 0;white-space:pre-wrap}.answer-choice{display:block;padding:8px;margin:5px 0;border:1px solid #538b9a;border-radius:5px;cursor:pointer}#shortAnswer{width:100%;padding:9px;background:#081a26;color:#e5fff5;border:1px solid #6aa5a3;border-radius:5px;margin:7px 0}#questionForm .notice{white-space:pre-wrap}

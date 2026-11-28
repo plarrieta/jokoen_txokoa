@@ -1,0 +1,17 @@
+JOKOEN TXOKOA — ARGITALPENERAKO FITXATEGIAK (2026-11-28)
+
+Helburua: 8 jokoen MENU NAGUSIA index.html orrian, eta MAКETA02 sarrerak sarrerak.html orrian.
+
+KONTUZ:
+- EZ igo ZIPa bere horretan: deskonprimitu eta igo karpetaren BARRUKO fitxategiak eta azpikarpetak.
+- EZ ezabatu GitHubeko argi_ikaslea.html, ARGI_50_UNITATEEN_ESTEKAK_KATALOGOA.html, V02_JOKOAK edo gainerako fitxategiak.
+- ARGIk lehendik argitaratutako ikaslearen orria erabiltzen jarraitzen du; ez dugu ordezkatu.
+- Joko bakoitzaren konexioak eta Firestore segurtasun-arauak ez dira mutatu.
+- Hiru fitxategi nagusiak: index.html (8 jokoen menua), sarrerak.html (jokoen sarrerak), menua.html (atzera-bateragarritasuna).
+- Beharrezko baliabideak: irudiak/, estiloa/, JARDUEREN_BANKUA/, adibideak/, jokoak/08_irak/.
+- index.html GitHubeko bertsio zaharra ordeztuko du; egin backup/commit erreferentzia aldez aurretik.
+
+Publikazioa: GitHub repository root -> Add file / Upload files -> igo karpetaren barruko fitxategi eta karpetak -> Commit changes.
+Kontuz: GitHub webeko karpeta-igoerak bidea mantendu behar du.
+
+Egiaztapen estatikoa: index/sarrerak eta JS script guztien sintaxia egiaztatu da. Browserreko Firebase eta 8 jokoen erabilera zuzena ez dira hemendik frogatu.

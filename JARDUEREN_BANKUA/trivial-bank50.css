@@ -1,0 +1,17 @@
+#jtTrivialBank50{margin:0 0 14px;border:2px solid #5ac2ff;border-radius:13px;padding:12px;background:#061b3a;color:#e7f8ff}
+#jtTrivialBank50[hidden],#jtTrivialBank50 [hidden],#material label[hidden]{display:none!important}
+#jtTrivialBank50 h3{margin:0 0 10px;font-size:1rem;color:#ffe67a}
+#jtTrivialBank50 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+#jtTrivialBank50 button{cursor:pointer;background:#17417e;border:2px solid #5ac2ff;border-radius:7px;color:#fff;padding:8px 11px;font-family:inherit;font-weight:bold}
+#jtTrivialBank50 button[aria-pressed="true"]{background:#403eae;border-color:#ffe67a}
+#jtTrivialBank50 .tb-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#jtTrivialBank50 .tb-filters label{display:flex;flex-direction:column;gap:5px;color:#a7dfff;font-size:.78rem;font-weight:bold}
+#jtTrivialBank50 select{width:100%;min-width:0;padding:7px;background:#0a224c;color:white;border:1px solid #5ac2ff}
+#jtTrivialBank50 #tbCards{display:grid;gap:8px;max-height:320px;overflow:auto}
+#jtTrivialBank50 .tb-card{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:10px;border:1px solid #679bd2;border-radius:8px;background:#0a2446}
+#jtTrivialBank50 .tb-card div{flex:1;min-width:140px}
+#jtTrivialBank50 .tb-card strong,#jtTrivialBank50 .tb-card small{display:block}
+#jtTrivialBank50 .tb-card small{color:#a9d7ed}
+#jtTrivialBank50 p{font-size:.8rem}
+#jtTrivialBank50 #tbFeedback{color:#ffe67a;min-height:1em}
+@media(max-width:650px){#jtTrivialBank50 .tb-filters{grid-template-columns:1fr}}

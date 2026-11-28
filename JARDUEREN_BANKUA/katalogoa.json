@@ -1,0 +1,115 @@
+{
+  "version": 7,
+  "jarduerak": [
+    {
+      "id": "panel-bio-zelula-001",
+      "jokoa": "PANEL EZKUTUAK",
+      "arloa": "Biologia eta Geologia",
+      "maila": "DBH 3",
+      "gaia": "Zelula",
+      "izenburua": "Zelula: antolaketa eta egiturak",
+      "egilea": "Jokoen Txokoa · adibidea",
+      "fitxategia": "JARDUEREN_BANKUA/02_PANEL_EZKUTUAK/PANEL_EZKUTUAK_BIOLOGIA_ZELULA.xlsx",
+      "egoera": "ARGITARATUA"
+    },
+    {
+      "id": "panel-mat-osoak-002",
+      "jokoa": "PANEL EZKUTUAK",
+      "arloa": "Matematika",
+      "maila": "DBH 1",
+      "gaia": "Zenbaki osoak",
+      "izenburua": "Zenbaki osoak eta eragiketak",
+      "egilea": "Jokoen Txokoa · adibidea",
+      "fitxategia": "JARDUEREN_BANKUA/02_PANEL_EZKUTUAK/PANEL_EZKUTUAK_MATEMATIKA_OSOAK.xlsx",
+      "egoera": "ARGITARATUA"
+    },
+    {
+      "id": "panel-fk-elementuak-003",
+      "jokoa": "PANEL EZKUTUAK",
+      "arloa": "Fisika eta Kimika",
+      "maila": "DBH 3",
+      "gaia": "Elementu kimikoak",
+      "izenburua": "Elementu kimikoak eta atomoak",
+      "egilea": "Jokoen Txokoa · adibidea",
+      "fitxategia": "JARDUEREN_BANKUA/02_PANEL_EZKUTUAK/PANEL_EZKUTUAK_KIMIKA_ELEMENTUAK.xlsx",
+      "egoera": "ARGITARATUA"
+    },
+    {
+      "id": "panel-geo-plakak-004",
+      "jokoa": "PANEL EZKUTUAK",
+      "arloa": "Biologia eta Geologia",
+      "maila": "DBH 4",
+      "gaia": "Plaken tektonika",
+      "izenburua": "Litosferako plakak eta mugimenduak",
+      "egilea": "Jokoen Txokoa · adibidea",
+      "fitxategia": "JARDUEREN_BANKUA/02_PANEL_EZKUTUAK/PANEL_EZKUTUAK_GEOLOGIA_PLAKAK.xlsx",
+      "egoera": "ARGITARATUA"
+    },
+    {
+      "id": "letren-bio-osasuna-001",
+      "jokoa": "LETREN ERAZTUNAK",
+      "arloa": "Biologia eta Geologia",
+      "maila": "DBH 3",
+      "gaia": "Osasuna",
+      "izenburua": "Osasuna: bi eraztun",
+      "egilea": "Jokoen Txokoa · adibidea",
+      "fitxategia": "JARDUEREN_BANKUA/06_LETREN_ERAZTUNAK/LETREN_ERAZTUNAK_OSASUNA_ADIBIDEA.xlsx",
+      "egoera": "ARGITARATUA"
+    },
+    {
+      "id": "bingo-bio-zelula-001",
+      "jokoa": "BINGO!",
+      "arloa": "Biologia eta Geologia",
+      "maila": "DBH 3",
+      "gaia": "Zelula",
+      "izenburua": "Zelula: organuluak eta egiturak",
+      "egilea": "Jokoen Txokoa · adibidea",
+      "egoera": "ARGITARATUA",
+      "fitxategia": "JARDUEREN_BANKUA/05_BINGO/BINGO_BIOLOGIA_ZELULA_ADIBIDEA.xlsx"
+    },
+    {
+      "id": "bingo-mat-ekuazioak-001",
+      "jokoa": "BINGO!",
+      "arloa": "Matematika",
+      "maila": "DBH 3",
+      "gaia": "Ekuazioak",
+      "izenburua": "Lehen mailako ekuazioak",
+      "egilea": "Jokoen Txokoa · adibidea",
+      "egoera": "ARGITARATUA",
+      "fitxategia": "JARDUEREN_BANKUA/05_BINGO/BINGO_TXANTILOIA_XLSX_PROBA01.xlsx"
+    },
+    {
+      "id": "trivial-mat-dbh1-001",
+      "jokoa": "GURE TRIVIAL PURSUIT",
+      "arloa": "Matematika",
+      "maila": "DBH 1",
+      "gaia": "Matematika: galdera mistoak",
+      "izenburua": "Matematika DBH 1 · 6 galdera",
+      "egilea": "Jokoen Txokoa · adibidea",
+      "fitxategia": "JARDUEREN_BANKUA/04_TRIVIAL_PURSUIT/TRIVIAL_MATEMATIKA_DBH1_GALDERAK.xlsx",
+      "egoera": "ARGITARATUA"
+    },
+    {
+      "id": "nor-kimika-dbh3-001",
+      "jokoa": "NOR DA NOR?",
+      "arloa": "Fisika eta Kimika",
+      "maila": "DBH 3",
+      "gaia": "Elementuak eta konposatuak",
+      "izenburua": "Elementu eta konposatu kimikoak",
+      "egilea": "Jokoen Txokoa · adibidea",
+      "fitxategia": "JARDUEREN_BANKUA/03_NOR_DA_NOR/NOR_DA_NOR_KIMIKA_ADIBIDEA.xlsx",
+      "egoera": "ARGITARATUA"
+    },
+    {
+      "id": "irak-lokomozioa-dbh3-001",
+      "jokoa": "IRAKURKETA PARTEKATUA",
+      "arloa": "Biologia eta Geologia",
+      "maila": "DBH 3",
+      "gaia": "Lokomozio-aparatuaren osasuna",
+      "izenburua": "Lokomozio-aparatuaren osasuna · 8 paragrafo",
+      "egilea": "Jokoen Txokoa · adibidea",
+      "fitxategia": "JARDUEREN_BANKUA/08_IRAKURKETA_PARTEKATUA/IRAKURKETA_PARTEKATUA_LOKOMOZIO_APARATUAREN_OSASUNA.xlsx",
+      "egoera": "ARGITARATUA"
+    }
+  ]
+}

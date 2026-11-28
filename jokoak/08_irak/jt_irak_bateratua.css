@@ -1,0 +1,25 @@
+
+/* IRAKURKETA PARTEKATUA · JOKOEN TXOKOA PROBA30 · estilo interior */
+:root{--jt-cyan:#24e6ff;--jt-pink:#ff149c;--jt-yellow:#ffe67a;--jt-green:#8ed47f;--jt-violet:#c58bff;--jt-blue:#5ac2ff}
+html,body{background:#071225!important;color:#e9f8ff}
+.frame{background:#071225!important}
+.brand{position:relative!important;background:#071225!important;border:2px solid var(--jt-cyan)!important;box-shadow:0 0 10px #24e6ff55!important;min-height:80px!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.brand h1{margin:0!important;display:inline-block!important;color:var(--jt-cyan)!important;background:#0b2542!important;border:2px solid var(--jt-pink)!important;box-shadow:0 0 0 4px #0a1d38,0 0 10px #ff149c55!important;padding:9px 21px!important;text-shadow:0 0 9px #24e6ff99!important;font:900 clamp(20px,2.5vw,35px)/1.2 'Courier New',monospace!important;letter-spacing:1.6px!important;text-align:center!important}
+.brand .status,.brand .dot{display:none!important}
+.layout{gap:10px!important;background:#071225!important}
+.panel,.teacher,.main-panel,.results-panel{border:2px solid var(--jt-cyan)!important;background:#0b2038!important;box-shadow:inset 0 0 0 2px #132c47,0 0 8px #24e6ff33!important;border-radius:2px!important}
+.section-title{font:900 14px/1.15 'Courier New',monospace!important;letter-spacing:1px!important;color:var(--jt-yellow)!important;text-shadow:0 0 6px #ffe67a66!important}
+button,.fold-toggle,.primary,.back-to-setup{border-radius:3px!important;border:2px solid var(--jt-cyan)!important;background:#0b2b46!important;color:#e4faff!important;box-shadow:inset 0 0 0 1px #7cf3ff,0 0 9px #24e6ff66!important;text-shadow:0 0 5px #a9ffff!important;font:900 12px/1.2 'Courier New',monospace!important;cursor:pointer}
+button:hover:not(:disabled){filter:brightness(1.17)!important}
+button:disabled{opacity:.48!important;cursor:default!important}
+#login,#create,#enterGame,#sendSummary,#sendAnswer{background:#0c3b28!important;border-color:var(--jt-green)!important;box-shadow:inset 0 0 0 1px #aaffc1,0 0 10px #8ed47f66!important;color:#f0fff4!important}
+#closeSession,.error{border-color:#ff718e!important}
+#resume,#exportResults{border-color:var(--jt-violet)!important}
+#copyPin,#copy{border-color:var(--jt-yellow)!important}
+.screen,.board,.summary,.readystate,.paragraph-section,.controls,.credentials,.file-section{border-color:#5ac2ff!important}
+#board > *, .student-tile, .participant{border-color:#5ac2ff!important}
+#jt-irak-topbuttons{position:absolute;right:12px;top:50%;transform:translateY(-50%);display:flex;gap:7px;z-index:40}
+#jt-irak-topbuttons button{padding:8px 10px!important;font-size:11px!important;white-space:nowrap!important}
+#jt-irak-topbuttons #jtIrakFull{border-color:#24e6ff!important}
+#jtIrakPrep{border-color:#c58bff!important}
+@media(max-width:1000px){.brand h1{font-size:20px!important}.brand{padding:7px 260px 7px 8px!important}}

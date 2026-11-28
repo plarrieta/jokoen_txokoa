@@ -1,0 +1,22 @@
+/* IRAKURKETA PARTEKATUA · ikaslearen pantaila · PROBA37 · estilo bisuala */
+:root{--jt-cyan:#24e6ff;--jt-magenta:#ff149c;--jt-yellow:#ffe67a;--jt-green:#8ed47f;--jt-purple:#c58bff}
+body{background:radial-gradient(ellipse at top,#173251,#071225 78%)!important}
+.shell{max-width:680px!important}
+.shell header{border:2px solid var(--jt-cyan)!important;background:#0a2138!important;
+  border-radius:3px!important;padding:12px!important;box-shadow:0 0 8px #24e6ff44!important}
+.shell h1{color:var(--jt-cyan)!important;text-shadow:0 0 8px #24e6ff77!important;
+  font:900 clamp(19px,3vw,28px)/1.2 'Courier New',monospace!important}
+.shell header .status{display:none!important}
+.panel{background:#0b2038!important;border:2px solid var(--jt-cyan)!important;
+  box-shadow:0 0 9px #24e6ff44,inset 0 0 0 1px #164561!important;border-radius:3px!important}
+.panel h2{color:var(--jt-yellow)!important;font:900 13px/1.3 'Courier New',monospace!important}
+.panel input,.panel textarea{border:1px solid var(--jt-blue,#5ac2ff)!important;background:#071e32!important;
+ color:#fff!important;border-radius:3px!important}
+.panel button.primary{border:2px solid var(--jt-green)!important;
+ background:linear-gradient(#18563d,#0f3529)!important;color:#ebffee!important;
+ box-shadow:0 0 8px #8ed47f55!important;border-radius:3px!important;
+ font:900 12px/1.3 'Courier New',monospace!important}
+.reading-card,.summary-form,.summary-show{border:2px solid var(--jt-purple)!important;
+ background:#0b2939!important;border-radius:3px!important;box-shadow:0 0 8px #c58bff33!important}
+.reading-text,#classSummaryText{font:clamp(18px,2.4vw,26px)/1.5 Arial,sans-serif!important;color:#fff!important}
+#questionOptions label{border-color:#5ac2ff!important;border-radius:3px!important}

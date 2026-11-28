@@ -1,0 +1,17 @@
+#jtNorBank52{margin:0 0 14px;border:2px solid #5ac2ff;border-radius:13px;padding:12px;background:#061b3a;color:#e7f8ff}
+#jtNorBank52[hidden],#jtNorBank52 [hidden],#material label[hidden]{display:none!important}
+#jtNorBank52 h3{margin:0 0 10px;font-size:1rem;color:#ffe67a}
+#jtNorBank52 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+#jtNorBank52 button{cursor:pointer;background:#17417e;border:2px solid #5ac2ff;border-radius:7px;color:#fff;padding:8px 11px;font-family:inherit;font-weight:bold}
+#jtNorBank52 button[aria-pressed="true"]{background:#403eae;border-color:#ffe67a}
+#jtNorBank52 .tb-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#jtNorBank52 .tb-filters label{display:flex;flex-direction:column;gap:5px;color:#a7dfff;font-size:.78rem;font-weight:bold}
+#jtNorBank52 select{width:100%;min-width:0;padding:7px;background:#0a224c;color:white;border:1px solid #5ac2ff}
+#jtNorBank52 #tbCards{display:grid;gap:8px;max-height:320px;overflow:auto}
+#jtNorBank52 .tb-card{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:10px;border:1px solid #679bd2;border-radius:8px;background:#0a2446}
+#jtNorBank52 .tb-card div{flex:1;min-width:140px}
+#jtNorBank52 .tb-card strong,#jtNorBank52 .tb-card small{display:block}
+#jtNorBank52 .tb-card small{color:#a9d7ed}
+#jtNorBank52 p{font-size:.8rem}
+#jtNorBank52 #tbFeedback{color:#ffe67a;min-height:1em}
+@media(max-width:650px){#jtNorBank52 .tb-filters{grid-template-columns:1fr}}
